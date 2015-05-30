@@ -1,0 +1,30 @@
+<apex:page sidebar="false">
+		<!-- <apex:includeScript value="{!URLFOR($Resource.ckEditorPackage, 'ckeditor/samples/sample.js')}" />
+		<apex:stylesheet value="{!URLFOR($Resource.ckEditorPackage, 'ckeditor/samples/sample.css')}" /> 
+		<script>
+
+			CKEDITOR.replace( 'editor1');
+			/*, {
+				fullPage: true,
+				allowedContent: true,
+			}*/
+
+		</script>-->
+			<apex:form id="theformid">
+			<apex:includeScript value="{!URLFOR($Resource.ckEditorPackage, 'ckeditor/ckeditor.js')}" />
+			<textarea cols="80" id="editor1" name="editor1" rows="10"></textarea>
+			</apex:form>
+			
+			
+		<br /><apex:form >
+ 
+  		<script type="text/javascript">
+
+		window.onload = function(){
+			  CKEDITOR.replace('editor1');
+			    }
+	
+		function abc() { var element = CKEDITOR.instances['editor1'].getData(); alert(element); } </script> </apex:form> 
+		
+		
+</apex:page>

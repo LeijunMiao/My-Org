@@ -1,0 +1,55 @@
+<apex:component controller="TemplateVizArt.CompDocumentsBrowser">
+<script type="text/javascript">
+
+    function SelectFile(fileId, lastMod) {
+        var url = "/servlet/servlet.FileDownload?file=" + fileId + "&oid={!$Organization.Id}&lastMod=" + lastMod;
+
+        if(window.parent.opener != null) {
+            var funcNum = "{!JSENCODE(ckFuncNumber)}";
+            window.opener.CKEDITOR.tools.callFunction(funcNum, url);
+            
+            window.parent.close();
+        }
+        else {
+            alert("{!$Label.templatevizart__CantReachEditor}");
+        }
+    }
+    
+
+</script>
+
+
+<apex:form >
+
+    <apex:pageBlock title="{!$Label.templatevizart__DocumentBrowser}">
+        <apex:pageBlockSection title="{!$Label.templatevizart__Folders}" collapsible="false">
+            <apex:selectList value="{!folderid}" size="1">
+                <apex:selectoptions value="{!folderoptions}"/>
+                <apex:actionSupport event="onchange" action="{!selectFolder}" rerender="documents" status="status"/>                            
+            </apex:selectList>
+            
+            <apex:commandButton value="Refresh" action="{!selectFolder}"  rerender="documents" status="status"/>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="{!$Label.templatevizart__Documents}" id="documents" columns="1" collapsible="false">
+            <apex:actionStatus startText=" Loading... " stopText="" id="status">
+                <apex:facet name="start"><img src="/img/loading.gif"/><span class="waitingDescription">{!$Label.templatevizart__Loading}...</span></apex:facet>
+            </apex:actionStatus>        
+            
+            <apex:pageBlockTable value="{!documents}" var="d">
+                <apex:column headerValue="{!$ObjectType.Document.fields.name.label}">
+                    <a href="javascript:SelectFile('{!d.docId}', '{!d.lastMod}');">{!d.Name}</a>
+                </apex:column>              
+                <apex:column value="{!d.Description}" headerValue="{!$ObjectType.Document.fields.description.label}" />
+                <apex:column value="{!d.ContentType}" headerValue="{!$ObjectType.Document.fields.contenttype.label}" />
+                <apex:column value="{!d.Size}" headerValue="{!$ObjectType.Document.fields.bodylength.label}" />
+                <apex:column headerValue="{!$Label.templatevizart__Preview}">
+                    <a href="{!d.ImageUrl}" target="_blank"><apex:image value="{!d.ImageUrl}" style="max-width:150px"/></a>
+                </apex:column>
+                <!--<apex:column value="{!d.Url}" headerValue="{!$ObjectType.Document.fields.url.label}"/>-->
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+</apex:form>
+</apex:component>

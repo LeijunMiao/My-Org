@@ -1,0 +1,6 @@
+<apex:page sidebar="true" >
+
+    <c:zaapit_tables_v1 />
+    <!-- Thank you for looking :) please contact us for customizing this application -->
+    
+</apex:page>

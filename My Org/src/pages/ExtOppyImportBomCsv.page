@@ -1,0 +1,33 @@
+<apex:page id="thePage" Controller="ExtOppyImportBomCsv">
+    <style>
+    </style>
+    <script src="{!URLFOR($Resource.jquery191)}" type="text/javascript"></script>
+    <apex:sectionHeader title="{!$ObjectType.OpportunityLineItem.Label}" subtitle="Import"></apex:sectionHeader>
+    <!-- <i>The import function is under development !! </i> -->
+    <apex:form id="theForm">
+        <apex:actionFunction name="dosave" action="{!importCsvFile}"></apex:actionFunction>
+        <apex:pageMessages id="thePageMessage"/>
+        <apex:pageBlock id="thePageBlock" mode="detail" tabStyle="Opportunity">
+            <apex:pageBlockButtons location="top" id="pbb">
+                <apex:inputFile value="{!fileInfo.contentFile}" filename="{!fileInfo.fileName}" contentType="{!fileInfo.contentType}" id="mainFileInput"/>
+                <input type="button" class="btn" value="Import" id="importFileBtn" onclick="importFile();"/>
+                <input type="button" class="btn" value="return" onclick="location.href='/apex/ExtOppyAddProducts?id={!$CurrentPage.parameters.id}';"/>
+            </apex:pageBlockButtons> 
+            <apex:outputPanel >
+                {!importInfo}
+            </apex:outputPanel>
+            <!--added by leijun 2014 5 15 begin  -->
+        		 <!--added by leijun 2014 5 15 end  -->
+        </apex:pageBlock>
+    </apex:form>
+    <div id="loading-curtain-div" style="top:0px;left:0px;text-align:center;width:100%;height:100%;display:none;background-color:#FFF;opacity:0.85;position:fixed;z-index:5000;filter:alpha(opacity=85);background-repeat:no-repeat;background-position:center center;background-image:url('/img/loading.gif');" title="Please Wait..."></div>
+    <script>
+        function importFile(){
+            var val = $(document.getElementById('{!$Component.theForm.thePageBlock.pbb.mainFileInput}')).val();
+            console.log(val);
+            if(val){
+                dosave();
+            }else return false;
+        }
+    </script>
+</apex:page>

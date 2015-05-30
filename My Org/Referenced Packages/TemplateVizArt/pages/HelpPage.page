@@ -1,0 +1,2174 @@
+<apex:page >
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <p><apex:image url="{!$Resource.TemplateVizArt__TemplateLogo}" style="width: 300px; height: 183px; " /></p>
+        <p><strong><h1 style="font-size: 32px; "><a name="toc">Table of Contents</a></h1></strong></p>
+        <p>
+            <a href="#tocA">A. Getting Started</a><br/>
+            <span style="white-space:pre">&#9;</span><a href="#tocA1">1. Introduction</a><br/>
+            <span style="white-space:pre">&#9;</span><a href="#tocA2">2. Setup &amp; Configuration</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA21">2.1 Install &amp; Upgrade Configuration Settings</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA22">2.2 Cross-site Scripting Defense</a><br/>
+            <!-- 
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA23">2.3 Override Document Support</a><br/>
+             -->
+            <span style="white-space:pre">&#9;</span><a href="#tocA3">3. Create Templates</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA31">3.1 Create a Data Source</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA32">3.2 Add Data Sets</a><br/>
+            <span style="white-space:pre">&#9;&#9;&#9;</span><a href="#tocA321">3.2.1 Standard Data Sets</a><br/>
+            <span style="white-space:pre">&#9;&#9;&#9;</span><a href="#tocA322">3.2.2 Custom SOQL</a><br/>
+            <span style="white-space:pre">&#9;</span><a href="#tocA4">4. Create Template</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA41">4.1 Add Static Content</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA42">4.2 Add Merge Fields</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA43">4.3 Attachment &amp; Task Setup</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA44">4.4 Our first Template</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA45">4.5 How to Test Documents</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA46">4.6 My Objects</a><br/>
+            <span style="white-space:pre">&#9;</span><a href="#tocA5">5. Integration Into Your Application</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA51">5.1 Overview</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocA52">5.2 Document Finishing by Override</a><br/>
+            <a href="#tocB">B. Advanced Topics</a><br/>
+            <span style="white-space:pre">&#9;</span><a href="#tocB1">1. Functions</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB11">1.1 Repeat Element</a><br/>
+            <span style="white-space:pre">&#9;&#9;&#9;</span><a href="#tocB111">1.1.1 Repeat Standard Text</a><br/>
+            <span style="white-space:pre">&#9;&#9;&#9;</span><a href="#tocB112">1.1.2 Repeat Table Rows</a><br/>
+            <span style="white-space:pre">&#9;&#9;&#9;</span><a href="#tocB113">1.1.3 Advanced Repeat Options</a><br/>
+            <span style="white-space:pre">&#9;&#9;&#9;</span><a href="#tocB114">1.1.4 Combination of the Concat Function and Repeat Element</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB12">1.2 Date Functions</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB13">1.3 Time Functions</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB14">1.4 Text Functions</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB15">1.5 Numeric Functions</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB16">1.6 UserInfo Function</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB17">1.7 Page Functions</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB18">1.8 Conditional Functions</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB19">1.9 Nested Functions</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB110">1.10 Function Library Wizard</a><br/>
+             <span style="white-space:pre">&#9;</span><a href="#tocB2">2. Fonts</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB21">2.1 Custom Fonts</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB22">2.2 Multibyte Character Support</a><br/>
+            <span style="white-space:pre">&#9;</span><a href="#tocB3">3. Print Options</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB31">3.1 Template Settings</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB32">3.2 Print Labels</a><br/>
+            <span style="white-space:pre">&#9;&#9;&#9;</span><a href="#tocB321">3.2.1 Label Printing on Root Objects</a><br/>
+            <span style="white-space:pre">&#9;&#9;&#9;</span><a href="#tocB322">3.2.2 Label Printing on Related Lists</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocB33">3.3 Header and Footer Merge Fields</a><br/>
+             <a href="#tocC">C. Additional Functions In Template Vizart</a><br/>
+            <span style="white-space:pre">&#9;</span><a href="#tocC1">1. Template Deployment</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC11">1.1 Template Export</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC12">1.2 Template Import</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC13">1.3 Override</a><br/>
+            <span style="white-space:pre">&#9;</span><a href="#tocC2">2. Template Selections</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC21">2.1 Categories and Language</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC22">2.2 Creation of Templates and Corresponding Attachments</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC23">2.3 Tasks on Attachments</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC24">2.4 Filtering parameters in the URL</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC25">2.5 Locale</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC26">2.6 Filter parameter for templates</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC27">2.7 Data Aggregation</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC28">2.8 Override Template</a><br/>
+            <!-- Begin: added by Peng Zhu 2013-08-27 for Document Versioning and History -->
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC29">2.9 Document Versioning &amp; History</a><br/>
+            <!-- End: added by Peng Zhu 2013-08-27 for Document Versioning and History -->
+            <span style="white-space:pre">&#9;</span><a href="#tocC3">3. Email Function</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC31">3.1 Sending E-mail by using a Button</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC32">3.2 Email Data Sets</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC33">3.3 Filter parameter in Email function</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC34">3.4 Barcode</a><br/>
+            <span style="white-space:pre">&#9;&#9;</span><a href="#tocC35">3.5 License Key</a><br/>
+            <a href="#tocD">D. Upgrade</a><br/>
+            <span style="white-space:pre">&#9;</span><a href="#tocD1">1. Upgrade from 2.x to 3.x</a><br/>
+        </p>
+        <br/>
+        <p><strong><h1 style="font-size: 32px; "><a name="tocA"><a href="#toc">A. Getting Started</a></a></h1></strong></p>
+        <p><strong><h2 style="font-size: 24px; "><a name="tocA1"><a href="#toc">1. Introduction</a></a></h2></strong></p>
+        <p>
+            ITB TemplateVizArt is a powerful WYSIWYG editor to print documents directly on the salesforce.com platform. It supports system administrators in preparing PDF or HTML templates with an editor rather than programming with Apex and Visualforce.</p>
+        <p>
+            It&#39;s basic is built upon a concept of a visual layout, the&nbsp;<span style="color: rgb(146, 27, 19); "><strong>template</strong></span>, and a&nbsp;<strong><span style="color: rgb(146, 27, 19); ">template data source</span></strong>&nbsp;which defines a set of objects and relationships used to generate the document.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_DataModel}" style="width: 400px; height: 262px; " /><span style="display: none; ">&nbsp;</span><span style="display: none; ">&nbsp;</span></p>
+        <p>
+            <span style="display: none; ">&nbsp;</span></p>
+        <span style="display: none; ">&nbsp;</span>
+        
+        <p><strong><h2 style="font-size: 24px;"><a name="tocA2"><a href="#toc">2. Setup &amp; Configuration</a></a></h2></strong></p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA21"><a href="#toc">2.1 Install &amp; Upgrade Configuration Settings</a></a></h3></strong></p>
+        <p>ITB TemplateVizArt comes with a set of configuration settings that allow you to customize your application to your company's needs. After you installed or upgraded the managed package, you'll need to initialize those settings.
+            All you need to do, is to open the <a href="/apex/TemplateVizArt__CtrlManageSettings"><strong>Setup</strong></a> page and hit Install or Upgrade.</p>
+        <p>Unfortunately, managed packages do not allow to run scripts on installation due to security reasons. This is why we ask you to execute this procedure. It will install the function library and base fonts.</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA22"><a href="#toc">2.2 Cross-site Scripting Defense</a></a></h3></strong></p>
+        <p>Cross-site scripting (<a href="http://en.wikipedia.org/wiki/Cross-site_scripting">XSS</a>) is a type of computer security vulnerability typically found in web applications that enables malicious attackers to inject client-side script into web pages viewed by other users. An exploited cross-site scripting vulnerability can be used by attackers to bypass access controls such as the same origin policy. salesforce.com takes security very serious, this is why the ITB TemplateVizArt has been verified. To ensure that your templates and salesforce.com data is secure, we strongly recommend to allow only system administrators to create and edit templates. As templates allow users to define pixel-perfect documents using HTML, this could be misused. For details please refer to <a href="http://developer.force.com/security">http://developer.force.com/security</a>.</p>
+        
+        <p>In detail we recommend that you limit the users that have create and edit permission on the Template (templatevizart__Template__c) and Template Part (templatevizart__Template_Part__c) objects to system administrators only. In addition the application ensures that for the override function mentioned below is available for PDF documents only. Please contact ITBonDemand support if you have further questions or are not sure on how to define your profile settings in detail.</p>
+        
+        <!-- 2011-10-01 Haobo Song: We don't need this workflow any more... -->
+        <!--  
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA23"><a href="#toc">2.3 Override Document Support</a></a></h3></strong></p>
+        <p>After you installed the ITB TemplateVizArt as a managed package from AppExchange. There is only one single step you need to configure, in order to enable the override feature.
+        The managed package delivers a field update called "Mark for Clean-up". This is used to trigger an automated clean-up of overridden text during document finishing. You'll need to embed this into a time-dependent workflow.</p>
+        <p><apex:image url="{!$Resource.Help_SetupCleanupWorkflow}" style="width: 950px; height: 345px; " /></p>
+        <p>&nbsp;</p>
+        <p>Following table provides you with all the details to setup the time-dependent workflow. Make sure you activate the workflow rule. Please ask you salesforce.com administrator for assistance.</p>
+        <p>
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Parameter</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Value</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Rule Name</td>
+                        <td>
+                            Clean up</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td>
+                            Object</td>
+                        <td>
+                            Template Text</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Evaluation Criteria</td>
+                        <td>
+                            Only when a record is created</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Description</td>
+                        <td>
+                            Used to clean up of override records after 1 hrs</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Rule Criteria</td>
+                        <td>
+                            true</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Time-dependent Trigger</td>
+                        <td>
+                            1 Hours After Rule Trigger Date</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Action</td>
+                        <td>
+                            Select existing action &quot;Mark for Clean-up&quot;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        -->
+        
+        <p><strong><h2 style="font-size: 24px; "><a name="tocA3"><a href="#toc">3. Create Templates</a></a></h2></strong></p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA31"><a href="#toc">3.1 Create a Data Source</a></a></h3></strong></p>
+
+        <p>
+            If you start with your template creation you&#39;ll first need to set up a new template data source.&nbsp;</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_CreateDataSource}"/></p>
+        <p>
+            A data source is in the first place a reusable name for a set of objects to be queried (so-called template data sets). Important for your start is to define to correct root object. Underlying picklist contains only selected standard objects, feel free to extend picklist values by other custom or standard object names. Note: You need to use the API object names (e.g. Template__c for custom objects).&nbsp;Shown example starts with campaign members, e.g. when you generate the document you need to pass one or multiple campaign member ids into document generator.</p>
+        <p>
+            You may add SOQL based filter conditions to restrict the records being considered. Please remember to you use API field names of the selected root object only (e.g. Status__c for custom fields).</p>
+        <p>
+            In addition the <strong>Order By</strong> field allows you to add order by clauses, e.g. Status desc which will sort the result set descending by status. You may use the standard SOQL notation with <strong>asc</strong> for ascending and <strong>desc</strong> for descending.</p>
+        <p>
+            &nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA32"><a href="#toc">3.2 Add Data Sets</a></a></h3></strong></p>
+
+        <p>
+            In a second step you&#39;ll need to add data sets to your created data source.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_DataSourceDetail}"/></p>
+        <p>
+            A data set defines related objects from your defined root object or any other defined related object. You&#39;ll not need to specify any SOQL query or develop Apex code. It&#39;s just used to define the relevant set of objects you gather your information from to compile the final document.&nbsp;There are&nbsp;standard&nbsp;and&nbsp;custom&nbsp;data set record types by default.&nbsp;<strong>Standard</strong>&nbsp;data sets do not require additional programming in Apex or any SOQL know-how. They can be configured easily as shown in chapter 3.2.1 in section A. However,&nbsp;<strong>custom</strong>&nbsp;data sets can be used to extend standard functionality by Apex code (This feature is in beta currently, please contact support if you&#39;re interested) or SOQL (see chapter 3.2.2 in section A).</p>
+        <p><strong><h4 style="font-size: 16px; "><a name="tocA321"><a href="#toc">3.2.1 Standard Data Sets</a></a></h4></strong></p>
+
+        <table border="0" cellpadding="1" cellspacing="1" style="width: 80%; ">
+            <tbody>
+                <tr>
+                    <td>
+                        <apex:image url="{!$Resource.TemplateVizArt__Help_SampleDataModel}" style="width: 300px; height: 332px; " /></td>
+                    <td>
+                        <p>
+                            In our example we built a data source for this data model which contains the standard objects campaign, campaign member and contact as well as a custom object speaker assignment. As we&#39;ve chosen campaign member as root object, we&#39;ll pass later on one or many campaign members to generate our documents. Each campaign member is assigned to one campaign and one contact. A campaign has a related list for speaker engagements, where one campaign may have several speaker engagements, which is a junction object between campaign and contact.</p>
+                        <p>
+                            When we now define our data sets, we&#39;ll have to walk from the campaign member object towards the other objects. Our root object is the first data set that the document generator retrieves. To retrieve campaign information, we need to lookup from campaign member to campaign object. Thus we create a template data set where main object is CampaignMember and related object is Campaign, as we &quot;walk&quot; from campaign member to campaign. We need to define the join condition, e.g. which field in campaign member identifies a campaign. In our case the CampaignId field (use this for main object field) in CampaignMember refers to the Id field (use this for related object field)&nbsp;in the Campaign object. This is our first line above. Analogously, we add a record for the relationship from campaign member to contact.</p>
+                        <p>
+                            Each data set has a unique name per data source which is used as identifier for merge fields, you may choose a valid descriptor. You can find your data sets the links between the different objects. In our case we called the relationship to the campaign object &quot;<strong>Campaign</strong>&quot;, the relationship to the contact object &quot;<strong>Contacts</strong>&quot;. But you may choose your own identifiers.</p>
+                        <p>
+                            For the relationship from campaign to speaker engagements, we&#39;ll need to setup an additional data set, let&#39;s call it &quot;<strong>SpeakerEngagements</strong>&quot;. As we need to have the campaign information, we set the previous template data set lookup to the &quot;Campaign&quot; data set we defined above. Our related object is Speaker_Engagement__c, as speaker engagement is a custom object, we need to append the custom object suffix &quot;__c&quot;. To find all speaker engagements for one campaign, we&#39;ll need to condition on the field &quot;Course__c&quot;, that&#39;s the name that was given when we created the custom object.</p>
+                        <p>
+                            From speaker engagements we need to lookup to contact again. We need to differentiate from campaign member contacts, because we could have our contacts Thomas Crown and John Doe as campaign members, but Marty Mark could be the assigned speaker for this campaign (event). Therefore we&#39;ll need a separate data set, which we call &quot;<strong>Speakers</strong>&quot;. You see, the data set name (like &quot;Speakers&quot; in our case) can be different from the object retrieved (like contact in our case). Again we&#39;ll need to set the previous template data set lookup, this time to our SpeakerEngagements data set.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            Each data set has its unique name which is later used to identify merge fields in your template. &quot;<strong>Main Object</strong>&quot; and &quot;<strong>Main Object Field</strong>&quot; as well as &quot;<strong>Related Object</strong>&quot; and &quot;<strong>Related Object Field</strong>&quot; define the join condition between this additional data set and one other data set you&#39;ve already created. You may add related data sets from your root object (like CampaignMember in our case) as well as existing data sets. When you add data sets starting from your root object, you&#39;ll select the root object type in &quot;Main Object&quot; and the related object queried from your data set in &quot;Related Object&quot;. Define a field to join on both ends in &quot;Main Object Field&quot; and &quot;Related Object Field&quot;. In &quot;Previous Template Data Set&quot; choose any previous data set if your additional data set is related to a previous one.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_CreateDataSetStandard}" /></p>
+        <p>
+            You may add filter conditions or order by clauses analogously to the root object definition on data source.</p>
+        <p><strong><h4 style="font-size: 16px; "><a name="tocA322"><a href="#toc">3.2.2 Custom SOQL</a></a></h4></strong></p>
+
+        <p>
+            If you create a data set of record type &quot;<strong>Custom SOQL</strong>&quot; you can extend the standard functionality by leveraging SOQL statements like aggregations etc. Let&#39;s assume, we have created the following data source which we want to use to generate an account fact sheet. This fact sheet may contain a list of contact persons and open opportunities and we may want to add a button on the account detail page to generate this fact sheet. Thus we set our root object to Account.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_AccountFactSheetExample}"/></p>
+        <p>
+            In addition, we need a data set for contacts and one for opportunities, both defined as standard data sets. For opportunities we set a filter condition to show only open opportunities.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_AccountFactSheetScreenshot}"/></p>
+        <p>&nbsp;</p>
+        <p>
+            Our fact sheet may look like shown above. If we look at our opportunities table, we want to print a total open opportunity amount. To calculate this we&#39;ll need a Custom SOQL data set.</p>
+        <p>
+            &nbsp;</p>
+        <table border="0" cellpadding="1" cellspacing="1" style="width: 80%; ">
+            <tbody>
+                <tr>
+                    <td>
+                        <apex:image url="{!$Resource.TemplateVizArt__Help_CreateDataSetCustomSOQL}"/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            This figure shows a <strong>Custom SOQL</strong> data set. It contains basically the same fields as the standard record type, but instead of filter condition and order by a field for the SOQL statement.</p>
+                        <p>
+                            You may use any SOQL syntax including aggregation functions, group by, where or order by clauses.</p>
+                        <p>
+                            Using the &quot;Related Object&quot; and &quot;Related Object Field&quot; the TemplateVizArt will automatically inject SOQL to generate the correct join conditions.</p>
+                        <p>
+                            For all <strong>aggregation fields</strong> like SUM(Amount) it requires an alias like &quot;<strong>Total</strong>&quot; in our example. This will be used to reference in the template as merge field.</p>
+                        <p>
+                            &nbsp;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            To reference the &quot;Total&quot; field in your template you&#39;ll need to reference it as you already know, &#123;!TotalOppyAmount.Total&#125; for our example. But keep in mind in our example opportunity is a related list with a one-to-many relationship to our root object. Thus we&#39;ll need to encapsulate the total value in a repeat element (for more details see chapter 1.1 in section B. Advanced Topics), which leads to the final merge field syntax like:</p>
+        <table border="1" cellpadding="1" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td>
+                        &euro; &#123;!#RepeatStart:TotalOppyAmount&#125;&#123;!$FORMATNUMBER(&#123;!TotalOppyAmount.Total&#125;)&#125;&#123;!#RepeatEnd:TotalOppyAmount&#125;</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            &nbsp;</p>
+        <p><strong><h2 style="font-size: 24px; "><a name="tocA4"><a href="#toc">4. Create Template</a></a></h2></strong></p>
+
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA41"><a href="#toc">4.1 Add Static Content</a></a></h3></strong></p>
+
+        <p>
+            Now, we&#39;re ready to create our first template. The template edit page opens a WYSIWYG editor.</p>
+        <table border="0" cellpadding="1" cellspacing="1" style="width: 80%; ">
+            <tbody>
+                <tr>
+                    <td>
+                        <apex:image url="{!$Resource.TemplateVizArt__Help_TemplateEditor}"/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>&nbsp;</p>
+                        <br/>
+                        <br/>
+                        <p>
+                            First you&#39;ll need to enter name for the template and choose the data source which we&#39;ve just created. In the section &quot;<strong>Print Options</strong>&quot; you can choose page layout properties, e.g. page size, orientation or document format (currently HTML and PDF is supported). If you choose the checkbox&nbsp;Page Break by Root Record&nbsp;it will separate multiple passed root records by a page break.</p>
+                        <p><strong>Description</strong> allows you to briefly summarize or document your template content and usage.</p>
+                        <p>
+                            In the sections &quot;<strong>Template Header</strong>&quot; and &quot;<strong>Template Footer</strong>&quot; can you add page footer and header information. Both footer and header are processed the same way as the &quot;Template Body&quot;, but will be repeated on each page as known from desktop word processing applications.</p>
+                        <p>
+                            In the &quot;<strong>Template Body</strong>&quot; section you may add your main document content leveraging a WYSIWIG editor. This editor gives you all the power you know from Microsoft Office products. You may even copy and paste formatted text directly from Microsoft Word, see the icon with Microsoft Word logo.</p>
+                        <p>If you hit the enter key when typing the editor will automatically create a new paragraph by default, using the &lt;p&gt; tag in HTML. If you want to generate only a <strong>new line</strong> in your document, hold the <strong>SHIFT</strong> when you hit enter.</p>
+                        <p>
+                            If the available features of the editor are not enough, because you might want pixel perfect positioning e.g., you may also copy and paste your template content as HTML by using the &quot;Source&quot; button.</p>
+                        <p><strong>Label Printing</strong> are special properties explained in more detail in section <strong><a href="#tocB32">3.2 Print Labels</a></strong></p>
+                        <p>&nbsp;</p>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            &nbsp;</p>
+        <table border="0" cellpadding="1" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <apex:image url="{!$Resource.TemplateVizArt__Help_ImageEditor}" style="width: 300px; height: 280px; " /></td>
+                    <td>
+                        One more feature to mention is the image icon in the top icon palette. This allows you to include icons, logos or other images from your salesforce.com documents folders into the template. Just click on the&nbsp;<apex:image url="{!$Resource.TemplateVizArt__Help_ImageIcon}" style="width: 18px; height: 17px; " />&nbsp;icon and an image editor dialog opens. Select &quot;Browse Server&quot; to open a document browser where you can browse through the available document folders and pick one image by clicking the image name in the first column.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            &nbsp;</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_DocumentBrowser}"/></p>
+
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA42"><a href="#toc">4.2 Add Merge Fields</a></a></h3></strong></p>
+        <p>
+            After you have added your static content, you want to add dynamic information from our underlying data sets. To do so, you can use the same merge field syntax as with mail merge templates:</p>
+        <p>
+            <strong>&#123;!DataSetName.ApiFieldName&#125;</strong></p>
+        <p>
+            Basically, you can use any field from your defined data sets. Just reference them via the curly brackets and an exclamation mark &quot;!&quot;. Please note that you cannot reference relationships like &#123;!Contacts.Account.Name&#125;, but you may use additional data sets to lookup information of related objects. To simplify your entry, you may click the &nbsp; <apex:image url="{!$Resource.TemplateVizArt__Help_EditorMergeFieldLogo}"/> &nbsp; button to open a dialog to choose data set and field name.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_MergeFieldDialog}" /></p>
+        <p>You only need to confirm with Ok when you made your selection. This will automatically add the merge field syntax at your cursor position within the editor.</p>
+        <p>
+            &nbsp;</p>
+        
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA43"><a href="#toc">4.3 Attachment &amp; Task Setup</a></a></h3></strong></p>
+
+        <p>In the Section "Attachment &amp; Task Setup", you can define the field will be used when Generate a attachment or generate a Task </p>
+        <p><strong>Attachment Id Field : </strong></p>
+        <p>This field will be used when generate a attachment, the value in this field will assign to the field "ParentId" in Object "Attachment".</p>
+        <p><strong>Attachment Name Field : </strong></p>
+        <p>This field will be used when generate a attachment, the value in this field will assign to the field "Name" in Object "Attachment", "Name" will show as field "Title" on page in "Notes &amp; Attachments" related list.</p>
+        <p>For Example: If select "First Name" into the field "Attachment Name Field", when generate a attachment, the "Title" will be the First Name</p>
+        <p><strong>Task Name Field : </strong></p>
+        <p>This field will be used when generate a task, the value in this field will assign to the field "WhoId" in Object "Task", "WhoId" will show as field "Name" on page.</p>
+        <p>For Example: If select "Contact ID" into the field "Task Name Field", when generate a task, the "Name" will be the Contact Name</p>
+        <p><strong>Task Related To Field : </strong></p>
+        <p>This field will be used when generate a task, the value in this field will assign to the field "WhatId" in Object "Task", "WhatId" will show as field "Related To" on page in "Activity History" related list.</p>
+        <p>For Example: If select "Account ID" into the field "Task Related To Field", when generate a task, the "Related To" will be the Account Name</p>
+        <p><strong>Name Field :　</strong></p>
+        <p>This field will be used when generate a template, the value in this field will show as field "Related To" on page in "Attached Templates" related list.</p>
+        <p>For Example: If select "Email" into the field "Name Field", when generate a template, the "Related To" will be the Email</p>
+        <p>
+            &nbsp;</p>
+                
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA44"><a href="#toc">4.4 Our first Template</a></a></h3></strong></p>
+
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_FirstTemplateSample}"/></p>
+        <p>
+            &nbsp;</p>
+
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA45"><a href="#toc">4.5 How to Test Documents</a></a></h3></strong></p>
+
+        <p>
+            After we have setup our first template, we are ready to test our first template. We can launch a test from the template detail page using the &quot;<strong>Test Template</strong>&quot; button.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_TemplateViewPage}"/></p>
+        <p>
+            When you click &quot;Test Template&quot; a separate window will open where you can enter your root object ids separated by comma, in our example we&#39;ll use a campaign member id.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_TemplateTestPage}"/></p>
+        <p>
+            After you have entered one or several root object ids hit the &quot;Run&quot; button and your document will be generated. Please ensure you use only comma without blanks as separators between root object ids.</p>
+        <br/>
+        <p>On the template you'll also find a Default Root Ids field which can be used when re-testing. Just save your test root object ids in the Default Root Ids and re-run your tests without remember the id any longer.</p>   
+        <p>
+            &nbsp;</p>
+            
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA46"><a href="#toc">4.6 My Objects</a></a></h3></strong></p>
+        <p>
+            If you want generate a report like "My Accounts" or "My Opportunities", you should use &quot;UserId&quot; as parameter for root object ids (described above). Then use &quot;User&quot; as root object in data source. In our example we then create a data set, set the Main Object to &quot;User&quot;, Main Object Field to &quot;Id&quot;, Related Object to &quot;Account&quot; or &quot;Opportunity&quot; and Related Object Field to &quot;OwnerId&quot;.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_TemplateMyObjects}"/></p>
+        <p>
+            &nbsp;</p>
+        <p><strong><h2 style="font-size: 24px; "><a name="tocA5"><a href="#toc">5. Integration Into Your Application</a></a></h2></strong></p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA51"><a href="#toc">5.1 Overview</a></a></h3></strong></p>
+        <p>
+            After you have created and tested your template, you can easily embed one template into your application or process. E.g. you may add a custom button or link on a page layout. To launch the document generation process a simple link with following parameters is sufficient:</p>
+        <p>
+            <strong>/apex/templatevizart__CtrlGenerateDocument?templateId=&lt;templateid>&amp;rootids=&lt;rootid1&gt;%2C&lt;rootid2&gt;...&amp;override=[true,false]&amp;retURL=&lt;retURL&gt;</strong></p>
+        <table border="1" cellpadding="1" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td style="background-color: rgb(146, 27, 19); ">
+                        <strong><span style="color: rgb(255, 240, 245); ">URL Component</span></strong></td>
+                    <td style="background-color: rgb(146, 27, 19); ">
+                        <strong><span style="color: rgb(255, 240, 245); ">Description</span></strong></td>
+                </tr>
+                <tr>
+                    <td>
+                        /apex/templatevizart__CtrlGenerateDocument</td>
+                    <td>
+                        Context for the document generator Visualforce page. Use this as relative path in custom buttons or links</td>
+                </tr>
+                <tr>
+                    <td>
+                        templateid</td>
+                    <td>
+                        Pass the salesforce.com id of your underlying template</td>
+                </tr>
+                <tr>
+                    <td>
+                        rootids</td>
+                    <td>
+                        Comma-separated list of root object ids. Use the URL encoded pendant of a comma&nbsp;<strong>%2C</strong>&nbsp;to separate the values. Don&#39;t use blanks or other characters.</td>
+                </tr>
+                <tr>
+                    <td>
+                        override</td>
+                    <td>Controls if the user will be prompted with the compiled document in the WYSIWYG editor to finish the document before printing. Set this to true if you want to review and change the document before you generate it. Parameter is optional. Default value is false.</td>
+                </tr>
+                <tr>
+                    <td>
+                        retURL</td>
+                    <td>Defines a value for the return URL similar to our salesforce.com links. If you embed the link to generate a button into a custom button on the account page, you might set retURL to <strong>%2F&#123;!Account.Id&#125;</strong> to return to the account page. Parameter is optional and only interpreted when override is set to true.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            &nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocA52"><a href="#toc">5.2 Document Finishing by Override</a></a></h3></strong></p>
+        <p>The ITB TemplateVizArt provides a feature to preview the document and finish/edit the document after all merge fields have been replaced. Similarly to the mail merge functionality in text processing tools, a user can generate the document and revise it before printing it. This feature is only allowed for PDF template.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_AllowOverrideOption}"/></p>
+        <p>To give you more control over this feature, the template provides a checkbox Allow Override. Only if this checkbox is checked for one template, the override parameter mentioned above will be interpreted. With this setting, you may ensure that some users only can use a template. By leveraging sharing rules and org wide defaults, you may control which users can enable the Allow Override feature.</p>
+        <br/>
+        <p>When you add the override=true parameter in the URL and the Allow Override property is set, a temporary page will be displayed:</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_OverridePage}"  /></p>
+        <p>With the editor the user may add additional comments or remarks before generating the document. The Back button is only displayed if you pass a return URL.</p>
+        <p>
+            &nbsp;</p>
+        <p><strong><h1 style="font-size: 32px; "><a name="tocB"><a href="#toc">B. Advanced Topics</a></a></h1></strong></p>
+        <p><strong><h2 style="font-size: 24px; "><a name="tocB1"><a href="#toc">1. Functions</a></a></h2></strong></p>
+        <p>
+            In addition to merge fields, ITB TemplateVizArt may leverage several functions to optimize your dynamic documents. Please remark all available function names are not case-sensitive, except the repeat element. Use the repeat element always in the exact given syntax including upper and lower case.</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB11"><a href="#toc">1.1 Repeat Element</a></a></h3></strong></p>
+        <p>
+            Use the repeat element whenever you want to resolve one-to-many relationships, e.g. in our example above one campaign can have one or many speaker engagements. In case we want to print all speaker engagements&nbsp;for one campaign we&#39;ll need to loop over all speaker engagements. You&#39;ll need to use a repeat element always when a related list is evaluated starting from the root object (or any other object related to the root object).</p>
+            
+        <p><strong><h4 style="font-size: 20px; "><a name="tocB111"><a href="#toc">1.1.1 Repeat Standard Text</a></a></h4></strong></p>
+
+        <p>
+            In some cases you may want to loop over a related list of your input or root object. In our example above, we might want to loop over speaker engagements by campaign. Use the &#123;!#RepeatStart:DataSetName&#125; notation:</p>
+        <p>
+            <strong>&#123;!#RepeatStart:DataSetName&#125;</strong>All mark ups or merge fields are evaluated and copied<strong>&#123;!#RepeatEnd:DataSetName&#125;</strong></p>
+        <p>
+            In our example, we could maybe use the following markup.</p>
+        <table border="1" cellpadding="1" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <p>
+                            Speaker Names:</p>
+                        <p>
+                            &#123;!#RepeatStart:SpeakerEngagements&#125;&#123;!Speakers.LastName&#125;,&nbsp;&#123;!Speakers.FirstName&#125;</p>
+                        <p>
+                            &#123;!#RepeatEnd:SpeakerEngagements&#125;</p>
+                        <p>
+                            &nbsp;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            The new line after the last field (in our case first name of the speaker, will make sure that each speaker information is in a separate line. The new line is interpreted as a new paragraph by the editor:</p>
+        <table border="1" cellpadding="1" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <div>
+                            <p>
+                                &#123;!#RepeatStart:SpeakerEngagements&#125;&#123;!Speakers.LastName&#125;, &#123;!Speakers.FirstName&#125;</p>
+                        </div>
+                        <div>
+                            <p>
+                                &#123;!#RepeatEnd:SpeakerEngagements&#125;</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            &nbsp;</p>
+        
+        <p><strong><h4 style="font-size: 20px; "><a name="tocB112"><a href="#toc">1.1.2 Repeat Table Rows</a></a></h4></strong></p>
+
+        <div>
+            &nbsp;</div>
+        <div>
+            Apart from leveraging the repeat function in a text paragraph, you could also use it to repeat table rows. First add a normal table with the table editor and change your styling and layout for the table. Let&#39;s say we want to have all speakers in a list with first name, last name and email address. Set up your table with two rows. One for the header and one for the data rows to be repeated. Add the merge fields in each column of the data row.</div>
+        <div>
+            &nbsp;</div>
+        <div>
+            <table border="1" cellpadding="1" cellspacing="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">First Name</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Last Name</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Email</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!Speakers.FirstName&#125;</td>
+                        <td>
+                            &#123;!Speakers.LastName&#125;</td>
+                        <td>
+                            &#123;!Speakers.Email&#125;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            Then all you need to do to generate your speaker table list, is to add the repeat start and repeat end markups in the first column before the merge field and in the last column after the merge field.</p>
+        <div>
+            <div>
+                <table border="1" cellpadding="1" cellspacing="1">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">First Name</span></strong></td>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">Last Name</span></strong></td>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">Email</span></strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &#123;!#RepeatStart:SpeakerEngagements&#125;&#123;!Speakers.FirstName&#125;</td>
+                            <td>
+                                &#123;!Speakers.LastName&#125;</td>
+                            <td>
+                                &#123;!Speakers.Email&#125;&#123;!#RepeatEnd:SpeakerEngagements&#125;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                This will generate a result like the following table.</p>
+            <table border="1" cellpadding="1" cellspacing="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">First Name</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Last Name</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Email</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Cinzia</td>
+                        <td>
+                            Rosso</td>
+                        <td>
+                            cinzia.rosso@global.com</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Henry II.</td>
+                        <td>
+                            Herbert</td>
+                        <td>
+                            henry@herbert-company.com</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>&nbsp;</p>
+            <p>
+                Additionally for nested tables, e.g.:</p>
+            <table border="0" cellpadding="1" cellspacing="1" name="outerTable">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <span style="color: rgb(255, 255, 255);"><strong>Opportunity Names</strong></span></td>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <span style="color: rgb(255, 255, 255);"><strong>TEST</strong></span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table border="1" name="InnerTable">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            &#123;!#RepeatStart:Opportunities&#125;&#123;!Opportunities.Name&#125;&#123;!#RepeatEnd:Opportunities&#125;)&#125;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            TEST Values</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                The inner table row with solid border will be repeated only and results in following:</p>
+            <table border="0" cellpadding="1" cellspacing="1" name="outerTable">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <span style="color: rgb(255, 255, 255);"><strong>Opportunity Names</strong></span></td>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <span style="color: rgb(255, 255, 255);"><strong>TEST</strong></span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table border="1" name="InnerTable">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            GenePoint Standby Generator</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            GenePoint Lab Generators</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            GenePoint SLA</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            TEST Values</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                &nbsp;</p>
+            <p><strong><h4 style="font-size: 20px; "><a name="tocB113"><a href="#toc">1.1.3 Advanced Repeat Options</a></a></h4></strong></p>
+            <p>
+                Previous examples show how you may generate a list of all retrieved related records and print them in a list using the repeat syntax. In some cases you may want to select a single or multiple records only, e.g. you want to show the first and second speaker in the list of speaker engagements or show the top 5 open opportunities.</p>
+            <p>
+                To achieve this you can select elements with the repeat element, e.g.</p>
+            <table border="1" cellpadding="1" cellspacing="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Syntax</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Description</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Example</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span id="j_id0:j_id1">&#123;!#RepeatStart:DataSet[<strong><em>n</em></strong>]&#125;&#123;!#RepeatEnd:DataSet&#125; where <strong><em>n</em></strong> defines record number starting with 1 you want to print</span></td>
+                        <td>
+                            <p>
+                                Selects one element or record from the list only.</p>
+                        </td>
+                        <td>
+                            <span id="j_id0:j_id1">&#123;!#RepeatStart:Opportunities[1]&#125;<br />
+                            &#123;!Opportunities.Name&#125;<br />
+                            &#123;!Opportunities.Amount&#125;</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!#RepeatStart:DataSet[<em><strong>n</strong></em>-<em><strong>m</strong></em>]&#123;!#RepeatEnd:DataSet&#125; where <em><strong>n</strong></em> defines the first record number and <em><strong>m</strong></em> the last record number you want to print, starting with 1.</td>
+                        <td>
+                            Prints all records from the first element to the last element</td>
+                        <td>
+                            &#123;!#RepeatStart:Opportunities[1-5]&#125;<br />
+                            &#123;!Opportunities.Name&#125;<br />
+                            &#123;!Opportunities.Amount&#125; which can be used to show the top 5 or bottom 5 opportunities in combination with an order by clause on amount in the data set.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!#RepeatStart:DataSet[<em><strong>n1, n2, ...</strong></em>]&#123;!#RepeatEnd:DataSet&#125; where <strong><em>n1, n2, ...</em></strong> defines a list of record numbers you want to print, starting with 1.</td>
+                        <td>
+                            Prints a list of all selected record numbers. You may choose&nbsp;discontiguous elements like 1, 3, 5, 6</td>
+                        <td>
+                            &#123;!#RepeatStart:Opportunities[1,3,5,7]&#125;<br />
+                            &#123;!Opportunities.Name&#125;<br />
+                            &#123;!Opportunities.Amount&#125;</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                &nbsp;</p>
+            <p><strong><h4 style="font-size: 20px; "><a name="tocB114"><a href="#toc">1.1.4 Combination of the Concat Function and Repeat Element</a></a></h4></strong></p>
+            <p>
+                Let&#39;s assume you want for your data set of accounts the fields Account Name and Phone in a line, separated by a &quot;,&quot; between each two Accounts.</p>
+            <div style="">
+                <table border="1" style="">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: rgb(146, 19, 27);">
+                                <strong><span style="color: rgb(255, 255, 255);">Account</span></strong></td>
+                            <td style="background-color: rgb(146, 19, 27);">
+                                <strong><span style="color: rgb(255, 255, 255);">Name</span></strong></td>
+                            <td style="background-color: rgb(146, 19, 27);">
+                                <strong><span style="color: rgb(255, 255, 255);">Phone</span></strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;1</td>
+                            <td>
+                                United Oil &amp; Gas, UK</td>
+                            <td>
+                                +44 191 4956203</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;2</td>
+                            <td>
+                                University of Arizona</td>
+                            <td>
+                                (520) 773-9050</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;3</td>
+                            <td>
+                                Edge Communications</td>
+                            <td>
+                                (512) 757-6000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                The Concat function in combination with the Repeat element can solve your problem. Please use the following notation:</p>
+            <p style="margin-left: 40px;">
+                &#123;!$CONCAT(&quot;,&nbsp; &quot;, &#123;!#RepeatStart:MyAccount&#125;&#123;!MyAccount.Name&#125; (&#123;!MyAccount.Phone&#125;),&#123;!#RepeatEnd:MyAccount&#125;)&#125;</p>
+            <p>
+                As Result:</p>
+            <p style="margin-left: 40px;">
+                United Oil &amp; Gas, UK (+44 191 4956203),&nbsp; University of Arizona ((520) 773-9050),&nbsp; Edge Communications ((512) 757-6000)</p>
+            <p>
+                Please be sure that, there is a &quot;,&quot; without double quotes before the RepeatEnd Tag.</p>
+            <p>
+                &nbsp;</p>
+            <div>
+                <p><strong><h3 style="font-size: 20px; "><a name="tocB12"><a href="#toc">1.2 Date Functions</a></a></h3></strong></p>
+
+                <div>
+                    <div>
+                        <table border="1">
+                            <tbody>
+                                <tr>
+                                    <td style="background-color: rgb(146, 19, 27); ">
+                                        <strong><span style="color: rgb(255, 255, 255); ">Function</span></strong></td>
+                                    <td style="background-color: rgb(146, 19, 27); ">
+                                        <strong><span style="color: rgb(255, 255, 255); ">Use</span></strong></td>
+                                    <td style="background-color: rgb(146, 19, 27); ">
+                                        <strong><span style="color: rgb(255, 255, 255); ">Description</span></strong></td>
+                                    <td style="background-color: rgb(146, 19, 27); ">
+                                        <strong><span style="color: rgb(255, 255, 255); ">Examples</span></strong></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        TODAY</td>
+                                    <td>
+                                        &#123;!$TODAY()&#125;</td>
+                                    <td>
+                                        Returns today&#39;s date formatted in the user&#39;s locale</td>
+                                    <td>
+                                        &nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        YESTERDAY</td>
+                                    <td>
+                                        &#123;!$YESTERDAY()&#125;</td>
+                                    <td>
+                                        Returns the date of yesterday formatted in the user&#39;s locale</td>
+                                    <td>
+                                        &nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        TOMORROW</td>
+                                    <td>
+                                        &#123;!$TOMORROW()&#125;</td>
+                                    <td>
+                                        Returns the date of tomorrow formatted in the user&#39;s locale</td>
+                                    <td>
+                                        &nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        DAY</td>
+                                    <td>
+                                        &#123;!$DAY(date or datetime)&#125; and replace&nbsp;date&nbsp;with a date field or value such as TODAY()</td>
+                                    <td>
+                                        Returns a day of the month in the form of a number between 1 and 31</td>
+                                    <td>
+                                        <p>
+                                            &#123;!$DAY(Account.CreatedDate)&#125;</p>
+                                        <p>
+                                            &#123;!$DAY(TODAY())&#125;</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        MONTH</td>
+                                    <td>
+                                        &#123;!$MONTH(date or datetime)&#125; and replace&nbsp;date&nbsp;with the field or expression for the date containing the month you want returned.</td>
+                                    <td>
+                                        Returns the month, a number between 1 (January) and 12 (December) in number format of a given date.</td>
+                                    <td>
+                                        <p>
+                                            &#123;!$MONTH(Account.CreatedDate)&#125;</p>
+                                        <p>
+                                            &#123;!$MONTH(TODAY())&#125;</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        YEAR</td>
+                                    <td>
+                                        &#123;!$YEAR(date or datetime)&#125; and replace&nbsp;date&nbsp;with the field or expression that contains the year you want returned.</td>
+                                    <td>
+                                        Returns the four-digit year in number format of a given date.</td>
+                                    <td>
+                                        &#123;!$YEAR(Account.CreatedDate)&#125;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        DATE</td>
+                                    <td>
+                                        &#123;!$DATE(<em>year</em>, <em>month</em>, <em>day</em>)&#125;&nbsp;and replace <em>year</em> with a four-digit year, <em>month</em> with a two-digit month, and <em>day</em> with a two-digit day.</td>
+                                    <td>
+                                        Returns a given date in user&#39;s locale</td>
+                                    <td>
+                                        &#123;!$DATE(2010, 01, 21)&#125;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <p><strong><h3 style="font-size: 20px; "><a name="tocB13"><a href="#toc">1.3 Time Functions</a></a></h3></strong></p>
+            <table border="1" style="-webkit-border-horizontal-spacing: 1px; -webkit-border-vertical-spacing: 1px; ">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">Function</span></strong></td>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">Use</span></strong></td>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">Description</span></strong></td>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">Examples</span></strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                NOW</td>
+                            <td>
+                                &#123;!$NOW()&#125;</td>
+                            <td>
+                                Returns a date/time representing the current moment.Returns a date/time representing the current moment.</td>
+                            <td>
+                                &#123;!$NOW()&#125;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            <p><strong><h3 style="font-size: 20px; "><a name="tocB14"><a href="#toc">1.4 Text Functions</a></a></h3></strong></p>
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Function</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Use</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Description</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Examples</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            BR</td>
+                        <td>
+                            &#123;!$BR()&#125;&nbsp;</td>
+                        <td>
+                            Inserts a line break in a string of text.</td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            CONCAT</td>
+                        <td>
+                            &#123;!$CONCAT(<em>delimiter</em>, <em>field1</em>[, <em>field2</em>, ..., <em>fieldn</em>])&#125; and replace <em>delimiter</em> with the expression that you would like to separate fields <em>field1</em> to <em>fieldn</em>.</td>
+                        <td>
+                            Concatenates <em>field1</em> to <em>fieldn</em> separated by <em>delimiter</em>.</td>
+                        <td>
+                            &#123;!$CONCAT(&quot;, &quot;, &#123;!Account.Name&#125;, &#123;Account.BillingCountry&#125;)&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            LEFT</td>
+                        <td>
+                            &#123;!$LEFT(<em>text</em>, <em>num_chars</em>)&#125;&nbsp;and replace <em>text</em> with the field or expression you want returned; replace <em>num_chars</em> with the number of characters from the left you want returned.</td>
+                        <td>
+                            Returns the specified number of characters from the beginning of a text string.</td>
+                        <td>
+                            &#123;!$LEFT(&#123;!Account.Name&#125;, 5)&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            LEN</td>
+                        <td>
+                            &#123;!$LEN(<em>text</em>)&#125;&nbsp;and replace <em>text</em> with the field or expression whose length you want returned.</td>
+                        <td>
+                            Returns the number of characters in a specified text string.</td>
+                        <td>
+                            &#123;!$LEN(&#123;!Account.Name&#125;)&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            LOWER</td>
+                        <td>
+                            &#123;!$LOWER(<em>text</em>)&#125; and replace <em>text</em> with the field or text you wish to convert to lowercase.</td>
+                        <td>
+                            Converts all letters in the specified text string to lowercase. Any characters that are not letters are unaffected by this function.</td>
+                        <td>
+                            &#123;!$LOWER(&#123;!Account.Name&#125;)&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            LPAD</td>
+                        <td>
+                            <p>
+                                &#123;!$LPAD(<em>text</em>, <em>padded_length</em>, <em>pad_string</em>)&#125; and replace the variables</p>
+                            <ul>
+                                <li>
+                                    <em>text</em><i> </i>is the field or expression you want to insert spaces or characters to the left of.</li>
+                                <li>
+                                    <em>padded_length</em>&nbsp;is the number of total characters in the text that will be returned</li>
+                                <li>
+                                    <em>pad_string</em>&nbsp;is the character or characters that should be inserted.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            Inserts spaces or characters you specify to the left-side of a text string.</td>
+                        <td>
+                            &#123;!$LPAD(&#123;!Account.Name&#125;, 30, &quot;-&quot;)&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            MID</td>
+                        <td>
+                            &#123;!$MID(<em>text</em>, <em>start_num</em>, <em>num_chars</em>)&#125;&nbsp;&nbsp;and replace <em>text</em> with the field or expression to use when returning characters; replace <em>start_num</em> with the number of characters from the left to use as a starting position; replace <em>num_chars</em> with the total number of characters to return.</td>
+                        <td>
+                            Returns the specified number of characters from the middle of a text string given the starting position.</td>
+                        <td>
+                            &#123;!$MID(&#123;!User.Division&#125;, 3, 4)&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            RIGHT</td>
+                        <td>
+                            &#123;!$RIGHT(text, num_chars)&#125; and replace text with the field or expression you want returned; replace num_chars with the number of characters from the right you want returned.</td>
+                        <td>
+                            Returns the specified number of characters from the end of a text string.</td>
+                        <td>
+                            &#123;!$RIGHT(&#123;!Account.Name&#125;, 2)&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            RPAD</td>
+                        <td>
+                            <p style="-webkit-border-horizontal-spacing: 1px; -webkit-border-vertical-spacing: 1px; ">
+                                &#123;!$RPAD(<em>text</em>,&nbsp;<em>padded_length</em>,&nbsp;<em>pad_string</em>)&#125; and replace the variables</p>
+                            <ul style="-webkit-border-horizontal-spacing: 1px; -webkit-border-vertical-spacing: 1px; ">
+                                <li>
+                                    <em>text</em><i>&nbsp;</i>is the field or expression you want to insert spaces or characters to the right of.</li>
+                                <li>
+                                    <em>padded_length</em>&nbsp;is the number of total characters in the text that will be returned</li>
+                                <li>
+                                    <em>pad_string</em>&nbsp;is the character or characters that should be inserted.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            Inserts spaces or characters you specify to the right-side of a text string.</td>
+                        <td>
+                            &#123;!$RPAD(&#123;!Account.Name&#125;, 30, &quot;-&quot;)&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            SUBSTITUTE</td>
+                        <td>
+                            &#123;!$SUBSTITUTE(<em>text</em>, <em>old_text</em>, <em>new_text</em>)&#125;&nbsp;and replace <em>text</em> with the field or value for which you want to substitute values, <em>old_text</em> with the text you want replaced, and <em>new_text</em> with the text you want to replace the <em>old_text</em>.</td>
+                        <td>
+                            Substitutes new text for old text in a text string.</td>
+                        <td>
+                            &#123;!$SUBSTITUTE(&#123;!Account.Name&#125;, &quot;Coupon&quot;, &quot;Discount&quot;)&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            TRIM</td>
+                        <td>
+                            &#123;!$TRIM(<em>text</em>)&#125;&nbsp;and replace text with the field or expression you want to trim.</td>
+                        <td>
+                            Removes the spaces and tabs from the beginning and end of a text string.</td>
+                        <td>
+                            &#123;!$TRIM(&#123;!Account.Name&#125;)&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            UPPER</td>
+                        <td>
+                            &#123;!$UPPER(<em>text</em>)&#125;&nbsp;and replace <em>text</em> with the field or text you wish to covert to uppercase.</td>
+                        <td>
+                            Converts all letters in the specified text string to uppercase. Any characters that are not letters are unaffected by this function.&nbsp;</td>
+                        <td>
+                            &#123;!$UPPER(&#123;!Account.Name&#125;)&#125;</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong><h3 style="font-size: 20px; "><a name="tocB15"><a href="#toc">1.5 Numeric Functions</a></a></h3></strong></p>
+            <table border="1" style="-webkit-border-horizontal-spacing: 1px; -webkit-border-vertical-spacing: 1px; ">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">Function</span></strong></td>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">Use</span></strong></td>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">Description</span></strong></td>
+                            <td style="background-color: rgb(146, 19, 27); ">
+                                <strong><span style="color: rgb(255, 255, 255); ">Examples</span></strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                FORMATNUMBER</td>
+                            <td>
+                                &#123;!$FORMATNUMBER(<em>number</em>)&#125; and replace <em>number</em> with the number you want to format in the user&#39;s locale.</td>
+                            <td>
+                                Returns a numeric value in the user&#39;s locale.</td>
+                            <td>
+                                &#123;!$FORMATNUMBER(&#123;!Opportunity.Amount&#125;)&#125;</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                FORMATNUMBERSCALE</td>
+                            <td>
+                                &#123;!$FORMATNUMBERSCALE(<em>number</em>, <em>scale</em>)&#125; and replace <em>number</em> with the number you want to format in the user&#39;s locale, replace <em>scale</em> with a non-negative integer.</td>
+                            <td>
+                                Returns a numeric value in the user&#39;s locale with specified scale.</td>
+                            <td>
+                                &#123;!$FORMATNUMBERSCALE(&#123;!Opportunity.Amount&#125;, 2)&#125;</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                ROUND</td>
+                            <td>
+                                &#123;!$ROUND(<em>number</em>, <em>scale</em>)&#125; and replace <em>number</em> with the number you want to format, replace <em>scale</em> with a non-negative integer.</td>
+                            <td>
+                                Returns a numeric value rounded with the specified scale.</td>
+                            <td>
+                                &#123;!$ROUND(&#123;!Opportunity.Amount&#125;, 2)&#125;</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB16"><a href="#toc">1.6 UserInfo Function</a></a></h3></strong></p>
+        <p>
+            The UserInfo function returns the context user&#39;s or organization&#39;s information.</p>
+        <div style="">
+            <table border="1" style="">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Use</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Description</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;DefaultCurrency&quot;)&#125;</td>
+                        <td>
+                            Returns the context user&#39;s default currency code if their organization uses multiple currencies</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;FirstName&quot;)&#125;</td>
+                        <td>
+                            Returns the context user&#39;s first name</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;Language&quot;)&#125;</td>
+                        <td>
+                            Returns the context user&#39;s language</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;LastName&quot;)&#125;</td>
+                        <td>
+                            Returns the context user&#39;s last name</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;Locale&quot;)&#125;</td>
+                        <td>
+                            Returns the context user&#39;s locale</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;Name&quot;)&#125;</td>
+                        <td>
+                            Returns the context user&#39;s full name. The format of the name depends on the language preferences specified for the organization.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;OrganizationId&quot;)&#125;</td>
+                        <td>
+                            Returns the context organization&#39;s ID</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;OrganizationName&quot;)&#125;</td>
+                        <td>
+                            Returns the context organization&#39;s company name</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;ProfileId&quot;)&#125;</td>
+                        <td>
+                            Returns the context user&#39;s profile ID</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;SessionId&quot;)&#125;</td>
+                        <td>
+                            Returns the session ID for the current session</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;UiTheme&quot;)&#125;</td>
+                        <td>
+                            Returns the default organization theme. Use<samp style="font-family: 'Courier New',Courier,monospace; font-weight: normal; font-size: 13px; color: rgb(0, 0, 0);"> getUiThemeDisplayed</samp>&nbsp;to determine the theme actually displayed to the current user.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;UiThemeDisplayed&quot;)&#125;</td>
+                        <td>
+                            Returns the theme being displayed for the current user.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;UserId&quot;)&#125;</td>
+                        <td>
+                            Returns the context user&#39;s ID</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;UserName&quot;)&#125;</td>
+                        <td>
+                            eturns the context user&#39;s login name</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;UserRoleId&quot;)&#125;</td>
+                        <td>
+                            Returns the context user&#39;s role ID</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;UserType&quot;)&#125;</td>
+                        <td>
+                            Returns the context user&#39;s type</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;isMultiCurrencyOrganization&quot;)&#125;</td>
+                        <td>
+                            Specifies whether the organization uses multiple currencies</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &#123;!$USERINFO(&quot;API Name Of the field On User Object&quot;)&#125;</td>
+                        <td>
+                            Return the value of a field that exist on User object. The parameter is API name such as &quot;Phone&quot; or &quot;Phone_1__c&quot;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB17"><a href="#toc">1.7 Page Functions</a></a></h3></strong></p>
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Function</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Use</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Description</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            PAGE</td>
+                        <td>
+                            &#123;!$PAGE()&#125;</td>
+                        <td>
+                            Returns the actual page number</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td>
+                            PAGES</td>
+                        <td>
+                            &#123;!$PAGES()&#125;</td>
+                        <td>
+                            Returns the total number of pages</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            PAGEBREAK</td>
+                        <td>
+                            &#123;!$PAGEBREAK()&#125;</td>
+                        <td>
+                            Returns a page break</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ROOTOBJECT</td>
+                        <td>
+                            &#123;!$ROOTOBJECT()&#125;</td>
+                        <td>
+                            Returns the actual root object number.</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td>
+                            ROOTOBJECTS</td>
+                        <td>
+                            &#123;!$ROOTOBJECTS()&#125;</td>
+                        <td>
+                            Returns the total number of root objects.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                &nbsp;</p>
+                
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB18"><a href="#toc">1.8 Conditional Functions</a></a></h3></strong></p>
+        
+        <table border="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Function</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Use</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Description</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27);">
+                            <strong><span style="color: rgb(255, 255, 255);">Examples</span></strong></td>
+                            
+                    </tr>
+                    <tr>
+                        <td>
+                            IF</td>
+                        <td>
+                            &#123;!$IF(logical_test, value_if_true, value_if_false)&#125;</td>
+                        <td>
+                            Determines if expressions are true or false. Returns a given value if true and another value if false. This function cannot be nested currently, i.e. you cannot use the IF function within another IF. To workaround this, you should use formula fields on the object.</td>
+                        <td>
+                            &#123;!$IF(&#123;!Account.Type&#125; = "Customer",&#123;!Account.Customer_Name__c&#125; , &#123;!Account.Prospect_Name__c&#125;)&#125;</td>
+                    </tr>
+                </tbody>
+            </table>
+        <p>
+            Allowed comparison operators are &quot;&lt;&quot;, &quot;&gt;&quot;, &quot;=&quot;, &quot;&lt;=&quot;, &quot;&gt;=&quot; and &quot;!=&quot;. All data in the comparison will be considered as string.</p>
+        <p>
+            &nbsp;</p>
+            
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB19"><a href="#toc">1.9 Nested Functions</a></a></h3></strong></p>
+        <p>
+            All functions except IF function can be nested like:</p>
+        <p style="margin-left: 40px;">
+            &#123;!$RIGHT(&#123;!$LEFT(&#123;!Account.Name&#125;, 10)&#125;, 5)&#125;</p>
+        <p>&nbsp;</p>
+            
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB110"><a href="#toc">1.10 Function Library Wizard</a></a></h3></strong></p>
+        <p>To support you during template design, we've built in a function library quick reference right at your finger tips.</p>
+        <apex:image url="{!$Resource.TemplateVizArt__Help_FirstTemplateSample}"/>
+        <p>Click on the function library icon <apex:image url="{!$Resource.TemplateVizArt__Help_FunctionLibraryIcon}" style="width: 15px; height: 21px; " /> to browse all existing functions and their description.</p>
+        <apex:image url="{!$Resource.TemplateVizArt__Help_FunctionLibrary}"/>
+        <p>Use the drop-down list to select your function. All function are grouped by category like text, time, date, numeric, user, or logical functions.</p>
+        <apex:image url="{!$Resource.TemplateVizArt__Help_FunctionLibraryList}"/>
+        <p>To insert one function confirm with Ok after you've selected the function. This will include correct syntax into your template. Now, you only need to replace placeholders according to your needs, in our example <i>logical_test</i>,
+        <i>value_if_true</i> and <i>value_if_false</i>.</p>
+        <apex:image url="{!$Resource.TemplateVizArt__Help_FunctionExample}"/>
+        <p>&nbsp;</p>   
+            
+        <p><strong><h2 style="font-size: 24px; "><a name="tocB2"><a href="#toc">2. Fonts</a></a></h2></strong></p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB21"><a href="#toc">2.1 Custom Fonts</a></a></h3></strong></p>
+        <p>Besides standard fonts, a Salesforce administrator can add custom fonts in custom settings: TemplateVizArt Fonts.</p>
+        <p><strong>First:</strong> You can manage the custom font in Custom Setting "Font", you can add a custom font and activate or deactivate a font.</p>
+        <p>You can find the Custom Setting as the below steps: Click Your Name | Setup | Develop | Custom Settings, then you can find custom setting "Font", then click "Manage" to manage font.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Custom_Font_1}" /></p>
+        <p>
+            &nbsp;</p>
+        <p><strong>Second:</strong> You can manage the custom font by clicking tab "Setup"</p>
+        <p>You can edit the font exist in Custom Setting "Font", but you can not add a new custom font in the "Setup" page.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Custom_Font_2}" /></p>
+        <p>
+            &nbsp;</p>    
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB22"><a href="#toc">2.2 Multibyte Character Support</a></a></h3></strong></p>
+        <p>For multibyte characters like Chinese or Japanese please format the text with Font &quot;Arial Unicode&quot; to render into PDF correctly.</p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_MultibyteCharacter}" style="width: 1100px; height: 500px;" /></p>
+        <p>
+            &nbsp;</p>
+        <p><strong><h2 style="font-size: 24px; "><a name="tocB3"><a href="#toc">3. Print Options</a></a></h2></strong></p>
+        <p>
+            These options are primarily defined for PDF format.</p>
+            
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB31"><a href="#toc">3.1 Template Settings</a></a></h3></strong></p>
+        <p>
+            <apex:image url="{!$Resource.TemplateVizArt__Help_TemplatePrintOptions}" /></p>
+        <p>
+            &nbsp;</p>
+        <table border="1" cellpadding="1" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td style="background-color: rgb(146, 27, 19);">
+                        <strong><span style="color: rgb(255, 240, 245);">Options</span></strong></td>
+                    <td style="background-color: rgb(146, 27, 19);">
+                        <strong><span style="color: rgb(255, 240, 245);">Description</span></strong></td>
+                </tr>
+                <tr>
+                    <td>
+                        Format</td>
+                    <td>
+                        Available values are &quot;HTML&quot; and &quot;PDF&quot;.&nbsp; In Case of &quot;HTML&quot; or blank the the text will be display in a browser as normal web page and all other print options will be omitted. With &quot;PDF&quot; it will render the page into PDF format.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Page Size</td>
+                    <td>
+                        Define the size of the Page. E.g. DIN A4 (210mm 297mm). The ITB TemplateVizArt provides a list of common formats. If you need special formats, you may add your own values to the picklist Page Size in the Template object in the same format &quot;Name (width length)&quot; where width and length are given in millimeters, e.g. &quot;MyFormat (18mm 22mm)&quot;</td>
+                </tr>
+                <tr>
+                    <td>
+                        Print Orientation</td>
+                    <td>
+                        Orientations for Page. Possible values are &quot;Portrait&quot; and &quot;Landscape&quot;.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Page Break by Root Record</td>
+                    <td>
+                        With this Option selected, a page break will be enforced after every record of Root Object and records of it&#39;s related Objects (Data Sets, which is defined in Data Source) are processed.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Margin Top (cm)</td>
+                    <td>
+                        Margin Top. Please be sure that the value is not too big to fit in the page.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Margin Bottom (cm)</td>
+                    <td>
+                        Margin Bottom. Please be sure that the value is not too big to fit in the page.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Margin Left (cm)</td>
+                    <td>
+                        Margin Left. Please be sure that the value is not too big to fit in the page.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Margin Right (cm)</td>
+                    <td>
+                        Margin Right. Please be sure that the value is not too big to fit in the page.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Label</td>
+                    <td>
+                        This option is designed for label printing.
+                        If selected, the Page Break by Root Record option and Header/Footer will be ommited.
+                        For label printing, please use a table around one root object to easily define
+                        spacing between each label (cellspacing). Furthermore you should set the table width to 100%, the table 
+                        height should be adjusted to fit in page.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Number of Labels per Line</td>
+                    <td>
+                        Defines number of labels (root object records) per line. Only applied when Label is selected. Default value is 2.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Label Width (cm)</td>
+                    <td>
+                        Label Width. Please be sure that the value is not too big to fit in the page.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Label Height (cm)</td>
+                    <td>
+                        Label Height. Please be sure that the value is not too big to fit in the page.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Label Margin (cm)</td>
+                    <td>
+                        Label Margin. Please be sure that the value is not too big to fit in the page.</td>
+                </tr>
+                <tr>
+                    <td>
+                        Label Border (px)</td>
+                    <td>
+                        Label Border. The border size of the rectangle around the label. Default is 0.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>&nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB32"><a href="#toc">3.2 Print Labels</a></a></h3></strong></p>
+        <p><strong><h4 style="font-size: 20px; "><a name="tocB321"><a href="#toc">3.2.1 Label Printing on Root Objects</a></a></h4></strong></p>
+        
+        <p>The TemplateVizArt supports label printing for root objects when you select the label checkbox as mentioned above.</p>
+        <p>Following example shows the resulting template.</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_LabelPreview1}" /></p>
+        <br/>
+        <p><strong><h4 style="font-size: 20px; "><a name="tocB322"><a href="#toc">3.2.2 Label Printing on Related Lists</a></a></h4></strong></p>
+        <p>Another possibility is to create labels from data sets in case you want to start from a parent object and print labels for a related list, e.g. campaign members for a campaign. For our example let&#147;s say, from one account, generate Labels for all contacts, which belong to this account. 
+        In a first step, we setup one table with one row and column which represents one label (similar as above). Then we design our label by placing all required fields within table cell. Then we put a repeat tag as usual in front of and after the table. Note: In this case, we do not have the repeat tags within the table, but before and after.
+        Additionally we need to use an HTML &quot;div&quot; tag around the table to display multiple labels in one line.</p>
+        <p><strong>&lt;div style="width: 50%; float: left;"&gt;</strong></p>
+        <p>You&#147;ll need to switch to the source mode to add this div element as shown below into the HTML code. We&#147;re looking into more convenient support in the future.
+        Width 50% means, two labels in a line. The best practice is to use another &quot;div&quot; tag around repeat tag as shown below.</p>
+        <p>Following example shows a sample HTML Code</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_LabelCode2}" /></p>
+        <p>And this example generates the following result</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_LabelPreview2}" /></p>
+        
+        <p>&nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocB33"><a href="#toc">3.3 Header and Footer Merge Fields</a></a></h3></strong></p>
+            
+            
+        <p>Similar as in the body, you can use merge fields (and functions) in the header or footer section, like in the following example:</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_HeaderMergeField}"/></p>
+        <p>It might be useful, e.g. when you want the account name displayed in the header on each page of an account fact sheet</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_HeaderMergeFieldResult}"/></p>
+        <p><strong><h1 style="font-size: 32px; "><a name="tocC"><a href="#toc">C. Additional Functions In Template Vizart</a></a></h1></strong></p>
+        <p><strong><h2 style="font-size: 24px; "><a name="tocC1"><a href="#toc">1. Template Deployment</a></a></h2></strong></p>
+        <p>This function is not available by default in Template VizArt and needs to be enabled by ITB.It enables the deployment of templates between <a href="www.salesforce.com">salesforce.com</a> organizations, e.g. you can migrate templates from your sandbox into production. </p>
+        <p>This feature will provide you<br/>
+            - export/import capabilities for your templates<br/>
+            - including data sources and data sets<br/>
+            - including images from Documents used in templates<br/>
+            - replace references to images from your Documents in templates on import
+        </p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC11"><a href="#toc">1.1 Template Export</a></a></h3></strong></p>
+        <p>With this function it is possible to export Templates including Data Sets and Images as .xml file. </p>
+        <p>Click on the Tab "Templates" and select a View you want to use for listing your templates. Select the check-box in front of the Template you want to export. Then click on the Button 'Export'.</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_TemplatesExport}"/></p>
+        <p>All templates with related data sources/data sets including images are exported into an XML file and you can download it onto your harddisk.</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_ExportXML}"/></p>
+        <p>The data in the XML file is formatted like on the image below.</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_ImportXML}"/></p>
+        <p>&nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC12"><a href="#toc">1.2 Template Import</a></a></h3></strong></p>
+        
+        <p>Click on the Tab &quot;Template Import&quot; and browse for export XML file you want to import. After selecting it, click on the button &#39;Parse&#39;. Imported templates can also include images, which are uploaded automatically in the object Documents.</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_Import}"/></p>
+        <p>&nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC13"><a href="#toc">1.3 Override</a></a></h3></strong></p>
+        <p>After uploading a template, existing templates, data sources/data sets and images will be displayed. You need to confirm if they need to be overridden or not.</p>
+        <p>Unchecking Override checkbox will result in duplicate Templates and Data Sources. In opposite, if this checkbox is set auf &#39;true&#39; (not empty), the old templates and data sets will be overridden.
+            Duplicate images cannot be created and this checkbox should always be set auf &#39;true&#39; for Images.</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_TemplateOverride}" style="width: 1024px; height: 400px;"/></p>
+        <p>&nbsp;</p>
+        <p>Please be also aware that only licensed users are allowed to use export/import features.</p>
+        <p>&nbsp;</p>
+        <p><strong><h2 style="font-size: 24px; "><a name="tocC2"><a href="#toc">2. Template Selection Page</a></a></h2></strong></p>
+        <p>This function enables template selection according pre-defined parameters. A user is then able to choose a template from a list of templates that met criteria.</p>
+        <div>
+            &nbsp;</div>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC21"><a href="#toc">2.1 Categories and Language</a></a></h3></strong></p>
+        <p>Templates can be grouped for easier search, especially according to the certain categories (e.g. contracts, offers, marketing campaigns, etc.) or languages (English, German, French, etc.).</p>
+        <p>Categories can be selected from the corresponding multi-picklist &#39;Category&#39; on the Template record. An additional possibility to group templates is related to the used languages and there is a separate picklist &#39;Language&#39;. A template can be assigned to one language.</p>
+        <p>Both parameters are set up in the Template record under section &#39;Classification&#39;.</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_CataAndLang}" style="width:1200px;height:300px;"/></p>
+        <p>&nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC22"><a href="#toc">2.2 Creation of Templates and Corresponding Attachments</a></a></h3></strong></p>
+        <p>It is possible to select the template you want to create simply by selecting a check box on the selection page. Only one Template can be created per button click.</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_SelectionMode1}" style="width:1200px;height:300px;"/></p>
+        <p>&nbsp;</p>
+        <p>The link to this selection page then can be incorporated in a custom button adding additional criteria as an example below (&#39;Print&#39; button for invoices without header, &#39;Print with header&#39; button for Invoices with Header, etc.).</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_TemplateTest}"/></p>
+        <p>&nbsp;</p>
+<!--        <p>There are three available modes used on selection page:</p>-->
+<!--        -->
+<!--        <p>&nbsp;</p>-->
+<!--        <p>Mode 1 – Button 'Generate' is active: By clicking on that button templates are generated for every Root Id separately.</p>-->
+<!--        <p>&nbsp;</p>-->
+<!--        <p><apex:image url="{!$Resource.Help_Mode1}"/></p>-->
+<!--        <p>&nbsp;</p>-->
+<!--        <p>Mode 2 – Button 'Generate &amp; Attach' is active: By clicking on that button templates are created and related to the objects whose Root Id is set up as parameter. In addition to that, this template is attached to the related Root object and E-mail function is activated.</p>-->
+<!--        <p>&nbsp;</p>-->
+<!--        <p><apex:image url="{!$Resource.Help_SelectionMode2}"/></p>-->
+<!--        <p>&nbsp;</p>-->
+<!--        <p>Mode 3 – Both Buttons, 'Generate' and 'Generate &amp; Attach' are active</p>-->
+<!--        <p>Filter Function On The Selection Page.</p>-->
+<!--        <p>If you click on Filter on the Selection Page you have an additional opportunity to filter the templates according to languages and categories by selecting the relevant values in the corresponding picklists.</p>-->
+<!--        <p>&nbsp;</p>-->
+<!--        <p><apex:image url="{!$Resource.Help_Mode3}"/></p>-->
+<!--        <p>&nbsp;</p>-->
+<!--        <p>Mode 4 - </p>-->
+<!--        <p><apex:image url="{!$Resource.Help_Mode4}"/></p>-->
+<!--        <p>&nbsp;</p>-->
+<!--        <p>Mode 5 -</p>-->
+<!--        <p><apex:image url="{!$Resource.Help_Mode5}"/></p>-->
+<!--        <p>&nbsp;</p>-->
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC23"><a href="#toc">2.3 Tasks and Attachments</a></a></h3></strong></p>
+        <p>When Attachment is created it is possible to automatically create task on the corresponding object (e.g. Contact) with Status &#39;Completed&#39; and Due Date as date of creating Attachment.
+        In order to do this it is necessary to fill in the Section &#39;Attachment &amp; Task Setup&#39; in the related template.</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_Attach}" /></p>
+        <p>&nbsp;</p>
+        <p>In the following table there is a short description of the fields displayed above:</p>
+        <div>
+            &nbsp;</div>
+        <div>
+            <table border="1" cellpadding="1" cellspacing="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Field</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Description</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Attachment Id Field</td>
+                        <td>
+                            ParentId related to the object you want to link the attachment (e.g. OpportunityId)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Name Field</td>
+                        <td>
+                            <p>Field you want to refer (this is displayed as &quot;Related to&quot; on the Template Selection Page). It doesn&#39;t necessarily need to be the same as Attachment Id. It can be for example related to Contact or Lead Name, etc.</p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Task Name Field</td>
+                        <td>
+                            Field used when linking a task to a Lead or Contact (e.g. ContactId)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Task Related To Field</td>
+                        <td>
+                            Field used to when linking a task to an object (e.g. OpportunityId, CampaignId, etc. )</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>Attachment Parent Id should reflect Id of the object where you want to attach document. </p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_Attach}" /></p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_AttachParent}" /></p>
+        <p>&nbsp;</p>
+        <p>By clicking on &#39;Generate &amp; Attach&#39; button on the Selection page a task is then going to be created on the object record. (Please note that tasks can be created only on Contacts and Leads.)</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_GenAndAttach}"/></p>
+        <p>&nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC24"><a href="#toc">2.4 Filtering parameters in the URL</a></a></h3></strong></p>
+        <p>URL for setting up described parameters is:<br />
+            <table border="1" cellpadding="1" cellspacing="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Name</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Required</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Description</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>obj</td>
+                        <td>required</td>
+                        <td>The root object name on the template data source like account.</td>
+                    </tr>
+                    <tr>
+                        <td>ids</td>
+                        <td>required</td>
+                        <td>The ids of root object, based on which records the template will be generated. Separated by comma.</td>
+                    </tr>
+                    <tr>
+                        <td>override</td>
+                        <td>optinal</td>
+                        <td>The boolean value true/false to enable override mode or not.</td>
+                    </tr>
+                    <tr>
+                        <td>showfooter</td>
+                        <td>optinal</td>
+                        <td>The boolean value true/false to enable show footer or not, this parameter is used when the parameter override is true.</td>
+                    </tr>
+                    <tr>
+                        <td>showheader</td>
+                        <td>optinal</td>
+                        <td>The boolean value true/false to enable show header or not, this parameter is used when the parameter override is true.</td>
+                    </tr>
+                    <tr>
+                        <td>actionMode</td>
+                        <td>optinal</td>
+                        <td>The mode of action. Default is 1. <br />
+                            Recently, we have five buttons that we can control whether show or hide: Generate, Generate &amp; Attach, Override, Preview, Send an Email.<br />
+                            We have specific the button index as below:<br />
+                            1  -> Generate Button<br />
+                            2  -> Generate &amp; Attach Button<br />
+                            4  -> Override Button<br />
+                            8  -> Preview Button<br />
+                            16 -> Send an Email Button<br />
+                            We use binary coding to control whether show or hide the button, the actionMode is an integer in code, and we analysis it as the sum of the button index.<br />
+                            For example: <br />
+                            If the actionMode is 3 means to show Generate Button and Generate &amp; Attach Button.(3=1+2)<br />
+                            If the actionMode is 8 means to show Preview Button.(8)<br />
+                            If the actionMode is 15 means to show Generate Button, Generate &amp; Attach Button, Override Button, Preview Button.(15=8+4+2+1)<br />
+                            <!--
+                            1: show Generate Button, Override Button and Preview Button<br />
+                            2: show Generate &amp; Attach Button<br />
+                            3: show Generate Button, Generate &amp; Attach Button, Override Button and Preview Button<br />
+                            4: show Override Button and Preview Button<br />
+                            5: show Send Email Button and Preview Button 
+                            -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>l</td>
+                        <td>optinal</td>
+                        <td>The language in filter section, template language.</td>
+                    </tr>
+                    <tr>
+                        <td>f</td>
+                        <td>optinal</td>
+                        <td>The format in filter section, template format.</td>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>optinal</td>
+                        <td>The category in filter section, template category.</td>
+                    </tr>
+                    <tr>
+                        <td>sc</td>
+                        <td>optinal</td>
+                        <td>The subcategory in filter section, template category.</td>
+                    </tr>
+                    <tr>
+                        <td>retURL</td>
+                        <td>optinal</td>
+                        <td>The return URL. </td>
+                    </tr>
+                    <tr>
+                        <td>tn</td>
+                        <td>optinal</td>
+                        <td>Boolean value "true/false" to indicate, whether show the Template name use outputLink. Default is true. </td>
+                    </tr>
+                    <tr>
+                        <td>lc</td>
+                        <td>optinal</td>
+                        <td>This l (language/locale) is used to specifiy the tempatevizart template language/locale. It will also be passed to send email page.</td>
+                    </tr>
+                    <tr>
+                        <td>pv0-9</td>
+                        <td>optinal</td>
+                        <td>These parameters are used to pass filter parameters to the tempatevizart template. They will also be passed to send email page.</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Following are pass through parameters for send email page.</td>
+                    </tr>
+                    <tr>
+                        <td>addTo</td>
+                        <td>optinal</td>
+                        <td>The addtional send to addresses speparated by ";", which will be shown in Additional To section, and the user can modify it.</td>
+                    </tr>
+                    <tr>
+                        <td>defaultBCC</td>
+                        <td>optinal</td>
+                        <td>Boolean value "true/false" to indicate, whether to set the current user into the BCC receiver. Default is false.</td>
+                    </tr>
+                    <tr>
+                        <td>attachToEmail</td>
+                        <td>optinal</td>
+                        <td>This Boolean value "true/false" is used to indicate, if the generated document should be attached to the outgoing email or not. Default is true.</td>
+                    </tr>
+                    <tr>
+                        <td>attachToObj</td>
+                        <td>optinal</td>
+                        <td>This Boolean value "true/false" is used to indicate, if the generated document should be attached to the root object record or not. Default is true.</td>
+                    </tr>
+                    <tr>
+                        <td>createTask</td>
+                        <td>optinal</td>
+                        <td>Boolean value "true/false" to indicate, whether to create tasks for the involved contacts and leads as receiver. Default is true.</td>
+                    </tr>
+                    <tr>
+                        <td>taskSetWI</td>
+                        <td>optinal</td>
+                        <td>Boolean value "true/false" to indicate, whether to set the whatid on task, default is true.</td>
+                    </tr>
+                    <tr>
+                        <td>taskStatus</td>
+                        <td>optinal</td>
+                        <td>The status of task to be created, if createTask is true. Default Completed.</td>
+                    </tr>
+                    <tr>
+                        <td>taskPriority</td>
+                        <td>optinal</td>
+                        <td>The priority of task to be created, if createTask is true. Default Normal.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <p>&nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC25"><a href="#toc">2.5 Locale</a></a></h3></strong></p>
+        <p>Locale is a set of parameters that usually defines the user's language, country and any special variant preferences that the user wants to see in their user interface. In addition to that a locale identifier can include some other minor settings like number format setting, character classification, date/time format setting, currency format setting, paper size setting, etc. You can choose &#39;en&#39; for English, &#39;fr&#39; for French, &#39;de&#39; for German, etc.</p>
+        <p>&nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC26"><a href="#toc">2.6 Filter parameter for templates</a></a></h3></strong></p>
+        <p>There is an option to filter the templates according to Language and Category (if not done in URL). Select the desired value in the picklist and click on the button &#39;Filter&#39; as on the image below:</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_FilterPara}"/></p>
+        <p>&nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC27"><a href="#toc">2.7 Data Aggregation</a></a></h3></strong></p>
+        <p>There is a possibility to aggregate information from different records by selecting a few line items in the related list.
+        For example, by incorporating such filter conditions in the button it is possible to make a sum of the amounts in selected invoice line items in one template. </p>
+        <p>e.g.</p>
+        <p>templateId=a0VM0000000RPYt&amp;rootIds='+invoiceId+'&amp;pv0='+ids.join('%27%2C%27'));</p>
+        <p>It is possible to create up to 9 such criteria. Use parameters pv0 ... pv9 to pass values from getUrl into Data Set Filter Condition like:name = '{&#33;pv0}'.</p>
+        <p>&nbsp;</p>
+        
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC28"><a href="#toc">2.8 Override Template</a></a></h3></strong></p>
+        <p>There is a possibility to override the template, we can add additional content to the exist template we select.<br />
+        On the override page, we can change the content in template.<br />
+        After override, we can "Generate" the changed template, "Generate &amp; Attach" the changed template, "Preview" the changed template, "Attach &amp; Send Email" the changed template<br />
+        </p>
+        <p>Parameters for override page:<br />
+            <table border="1" cellpadding="1" cellspacing="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Name</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); "> 
+                            <strong><span style="color: rgb(255, 255, 255); ">Required</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Description</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>templateId</td>
+                        <td>required</td>
+                        <td>The template, which will be parsed.</td>
+                    </tr>
+                    <tr>
+                        <td>rootIds</td>
+                        <td>required</td>
+                        <td>The entry root Ids of the root object on the associated Data Source.</td>
+                    </tr>
+                    <tr>
+                        <td>showfooter</td>
+                        <td>optinal</td>
+                        <td>Used on override mode: flag to decide whether show template footer.Default fales.</td>
+                    </tr>
+                    <tr>
+                        <td>showheader</td>
+                        <td>optinal</td>
+                        <td>Used on override mode: flag to decide whether show template header.Default fales.</td>
+                    </tr>
+                    <tr>
+                        <td>override</td>
+                        <td>optinal</td>
+                        <td>Specify whether the user need to edit the result text after parsing before send out.</td>
+                    </tr>
+                    <tr>
+                        <td>generateOnOverride</td>
+                        <td>optinal</td>
+                        <td>Show generate button on override page or not.</td>
+                    </tr>
+                    <tr>
+                        <td>generateAndAttachOnOverride</td>
+                        <td>optinal</td>
+                        <td>Show generate and attach button on override page or not.</td>
+                    </tr>
+                    <tr>
+                        <td>aase</td>
+                        <td>optinal</td>
+                        <td>Show attach and send email button or not.Default true.</td>
+                    </tr>
+                    <tr>
+                        <td>retURL</td>
+                        <td>optinal</td>
+                        <td>Redirect URL.</td>
+                    </tr>
+                    <tr>
+                        <td>createTask</td>
+                        <td>optinal</td>
+                        <td>Specify whether create task or not. Default is true.</td>
+                    </tr>
+                    <tr>
+                        <td>taskPriority</td>
+                        <td>optinal</td>
+                        <td>Specify the priority of task if task is created. Default Normal.</td>
+                    </tr>
+                    <tr>
+                        <td>taskStatus</td>
+                        <td>optinal</td>
+                        <td>Specify the status of task if task is created.Default Completed.</td>
+                    </tr>
+                    <tr>
+                        <td>taskSubject</td>
+                        <td>optinal</td>
+                        <td>Specify the subject of task if task is created.</td>
+                    </tr>
+                    <tr>
+                        <td>taskType</td>
+                        <td>optinal</td>
+                        <td>The type of task to be created.</td>
+                    </tr>
+                    <tr>
+                        <td>taskSetWI</td>
+                        <td>optinal</td>
+                        <td>Boolean value "true/false" to indicate, whether to set the whatid on task, default is true.</td>
+                    </tr>
+                    <tr>
+                        <td>taskNameField</td>
+                        <td>optinal</td>
+                        <td>The field on root object for task name (whoid), if this is set, set_taskWhoIds contains only this id. Default null.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        
+        <p>&nbsp;</p>
+        <!-- Begin: added by Peng Zhu 2013-08-27 -->
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC29"><a href="#toc">2.9 Document Versioning &amp; History</a></a></h3></strong></p>
+        <p>When override a template, there is a possible to save the changed template as a versioned template.<br />
+        This Versoning &amp; History function only makes sense if the override feature is enabled. The fields Allow Override and Archive Overriden Templates on Template must be all checked.
+        </p>
+        <p>Additional parameter for Print page:<br />
+            <table border="1" cellpadding="1" cellspacing="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Name</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); "> 
+                            <strong><span style="color: rgb(255, 255, 255); ">Required</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Description</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>showVersion</td>
+                        <td>optional</td>
+                        <td>The boolean value true/false to enable show versioned template section or not.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <p>Choosing one versioned template, you can open and override it again.</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_VersionedTemplates}"/></p>
+        <p>&nbsp;</p>
+        <!-- Begin: added by Peng Zhu -->
+        
+        <p><strong><h2 style="font-size: 24px; "><a name="tocC3"><a href="#toc">3. Email Function</a></a></h2></strong></p>
+        <p>Clicking on the Mail Icon in the Action column, you can directly send an Email with related template as attachment.</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_EmailIcon}"/></p>
+        <p>&nbsp;</p>
+        <p>This Email will be stored on the related root object. The recipients can be selected between Contacts, Leads or Active Users. The recipient must have a valid Email address in the corresponding record.</p>
+        <p>For the email address of sender("From" Section), we have the actual user as default sender, in additional, we can set some default address in custom setting. The custom setting is "Default Email Sender".</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_SendEmail}"/></p>
+        <p>&nbsp;</p>
+        <p>If you need to replace the default template, please click the search icon, then a window is Pop-up and you can choose another Email Template. </p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_SelectTemplates}"/></p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_SelectTemplate}"/></p>
+        <p></p>
+        <p>In addition to the selected template you can also attach another templates or documents. You can choose between Attachments attached on the root object and documents, which can be selected from any of the folders you have an access. </p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_EmailAttach}"/></p>
+        <p>&nbsp;</p>
+        <p>An Email template can be selected in the Section &quot;Email Setup&quot; in the corresponding Template record.</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_EmailSetup}"/></p>
+        <p>&nbsp;</p>
+        <p>Selecting a checkbox &#39;Signature&#39; means that the sender&#39;s signature will be enclosed in the mail. Signature can be set up in the set up menu under Personal Setup/Email/My Email Settings</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_EmailSignature}"/></p>
+        <p>&nbsp;</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC31"><a href="#toc">3.1 Sending E-mail by using a Button</a></a></h3></strong></p>
+        <p>It is also possible to send an Email without the selection page. The best way to do it is to create a button with pre-configured URL on any Detail Page.</p>
+        <p>As an example, we created Button &#39;Send Email&#39; from Account Detail Page. </p>
+<!--        <p>You should go to App Setup/Customize/Account/Buttons and Links and then create a new custom button setting up the parameter as on the image below. URL</p>-->
+        <p>You should go to App Setup/Customize/Account/Buttons and Links and then create a new custom button setting up the parameter as on the image below.</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_EmailSend}"/></p>
+        <p>&nbsp;</p>
+        <p>There are 2 important parameters that need to be setup.
+        The parameter rid should refer to the root object Id and the parameter tid should belong to the corresponding template.</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC32"><a href="#toc">3.2 Email Data Sets</a></a></h3></strong></p>
+        <p>In the Template Data Source you can set Email parameters that are used when sending emails. You need to define objects (root and related) including related fields and you need to define Email recipient object/field. In addition to that you can filter recipients according to the certain criteria.</p>
+        <p>In the Template Data Source you can set up your Email parameter.</p>
+        <p>Click on the Tab Template Data Sources and then click on the Data Set where you want to set up your Email parameter.</p>
+        <p>&nbsp;</p>
+        
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_EmailPara}"/></p>
+        <p>&nbsp;</p>
+        <p>Then you need to create a new Template Data Set with a record type "Email Recipient" or select already existing Email Data Set, which you want to modify.</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_EmailRec}"/></p>
+        <p>&nbsp;</p>
+        <p>In the fields that define filter criteria for participants, you can set up filter conditions, which then automatically appear before sending an Email. 
+           You can also put more than one condition and you need to follow SOQL Syntax Terminology (Type=&quot;Buyer&quot; AND Position=&quot;CEO&quot;)</p>
+        
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC33"><a href="#toc">3.3 Filter parameter in Email function</a></a></h3></strong></p>
+        <p>There are certain parameters that can be used when creating a custom button on the root object:<br/>
+            <table border="1" cellpadding="1" cellspacing="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Name</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); "> 
+                            <strong><span style="color: rgb(255, 255, 255); ">Required</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Description</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>rid</td>
+                        <td>required</td>
+                        <td>The root object id, to which attachments, tasks will be created. Exactly one valid rid should be given.</td>
+                    </tr>
+                    <tr>
+                        <td>tid</td>
+                        <td>optinal</td>
+                        <td>The templatevizart template id, based on which the attachment will be generated. More over, it can define root object and the outgoing email template id. Maximal one tid should be given.</td>
+                    </tr>
+                    <tr>
+                        <td>tbody</td>
+                        <td>optinal</td>
+                        <td>The boolean value true/false to specify if the html content of the generated template should directly put into email body. Default false. It is only valid if the tid is specified.</td>
+                    </tr>
+                    <tr>
+                        <td>obj</td>
+                        <td>optinal/required</td>
+                        <td>The root object name. If tid is not specified, this should be required. If both tid, obj are specified, use obj.</td>
+                    </tr>
+                    <tr>
+                        <td>etid</td>
+                        <td>optinal</td>
+                        <td>The email template id, used to generate email body text. This will override the one on templatevizart template, if tid is given.</td>
+                    </tr>
+                    <tr>
+                        <td>aid</td>
+                        <td>optinal</td>
+                        <td>The attachment ids separated by ",", which will be attached to the outgoing email.</td>
+                    </tr>
+                    <tr>
+                        <td>addTo</td>
+                        <td>optinal</td>
+                        <td>The addtional send to addresses speparated by ";", which will be shown in Additional To section, and the user can modify it.</td>
+                    </tr>
+                    <tr>
+                        <td>addFrom</td>
+                        <td>optinal</td>
+                        <td>The send from addresses separated by ";", e.g. Max Muster$max.muster@example.com;Min Muster$min.muster@example.com.</td>
+                    </tr>
+                    <tr>
+                        <td>owaId</td>
+                        <td>optinal</td>
+                        <td>The org wide email add for default email sender.</td>
+                    </tr>
+                    <tr>
+                        <td>attachToEmail</td>
+                        <td>optinal</td>
+                        <td>If tid is given, this Boolean value "true/false" is used to indicate, if the generated document should be attached to the outgoing email or not. Otherwise it will be omitted. Default is true.</td>
+                    </tr>
+                    <tr>
+                        <td>attachToObj</td>
+                        <td>optinal</td>
+                        <td>If tid is given, this Boolean value "true/false" is used to indicate, if the generated document should be attached to the root object record or not. Otherwise it will be omitted. Default is true.</td>
+                    </tr>
+                    <tr>
+                        <td>defaultBCC</td>
+                        <td>optinal</td>
+                        <td>Boolean value "true/false" to indicate, whether to set the current user into the BCC receiver. Default is false.</td>
+                    </tr>
+                    <tr>
+                        <td>createTask</td>
+                        <td>optinal</td>
+                        <td>Boolean value "true/false" to indicate, whether to create tasks for the involved contacts and leads as receiver. Default is true.</td>
+                    </tr>
+                    <tr>
+                        <td>taskSetWI</td>
+                        <td>optinal</td>
+                        <td>Boolean value "true/false" to indicate, whether to set the whatid on task, default is true.</td>
+                    </tr>
+                    <tr>
+                        <td>taskNameField</td>
+                        <td>optinal</td>
+                        <td>The field on root object for task name (whoid), if this is set, set_taskWhoIds contains only this id. Default null.</td>
+                    </tr>
+                    <tr>
+                        <td>taskStatus</td>
+                        <td>optinal</td>
+                        <td>The status of task to be created, if createTask is true. Default Completed.</td>
+                    </tr>
+                    <tr>
+                        <td>taskPriority</td>
+                        <td>optinal</td>
+                        <td>The priority of task to be created, if createTask is true. Default Normal.</td>
+                    </tr>
+                    <tr>
+                        <td>taskSubject</td>
+                        <td>optinal</td>
+                        <td>The subject of task to be created, if createTask is true. Default Email: &lt;Email Subject&gt;.</td>
+                    </tr>
+                    <tr>
+                        <td>taskType</td>
+                        <td>optinal</td>
+                        <td>The type of task to be created.</td>
+                    </tr>
+                    <tr>
+                        <td>l</td>
+                        <td>optinal</td>
+                        <td>If tid is given, this l (language/locale) is used to specifiy the tempatevizart template language/locale.</td>
+                    </tr>
+                    <tr>
+                        <td>pv0-9</td>
+                        <td>optinal</td>
+                        <td>If tid is given, these parameters are used to pass filter parameters to the tempatevizart template.</td>
+                    </tr>
+                    <tr>
+                        <td>retURL</td>
+                        <td>optinal</td>
+                        <td>The return URL after send/cancel. Default to return to rid.</td>
+                    </tr>
+                    <tr>
+                        <td>gtAsAtt</td>
+                        <td>optinal</td>
+                        <td>If tid is given, this Boolean value "true/false" is used to indicate, if to generated the document and attach it onto the email. Default is true.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <p>https://xx.salesforce.com/apex/templatevizart__CtrlEmail_SendAnEmail?aid=00PD0000009TPvEMAW&amp;rid=001D000000j2mPH&amp;tid=a0ED0000009AUWbMAO </p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC34"><a href="#toc">3.4 Barcode</a></a></h3></strong></p>
+        <p>There is an option to include Barcode in the template.
+        For the time being the following barcode types are supported:
+        Code 39, Code 128 and Data Matrix.<br/>
+        In order to enter the BarCode you should go in Template Body section in the template and klick on the &#39;bulb&#39; icon in the upper right corner (as on the image below):</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_Barcode1}" /></p>
+        <p>&nbsp;</p>
+        <p>In the drop-down, please select function &#39;Barcode&#39;</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_Barcode2}" /></p>
+        <p>&nbsp;</p>
+        <p>After confirming this, a syntax will be automatically inserted into the template body.</p>
+        <p>The syntax you need to use is:
+        &#123;&#33;$BARCODE(typ, input, outputMode, units, width, height, showInputText, inputTextLocation, inputTextAlign, fontSize)&#125;</p>
+        <p>The valid parameters you can use:<br/>
+        -type: code128, code39, dataMatrix<br/>
+        -input: numbers or characters<br/>
+        -outputMode: html or null<br/>
+        -units: px, cm, in or null<br/>
+        -width: valid Decimal or null<br/>
+        -height: valid Decimal or null<br/>
+        -showInputText: true or false or null<br/>
+        -inputTextLocation: top or bottom or null<br/>
+        -inputTextAlign: left, center, right or null<br/>
+        -fontSize: valid integer or null</p>
+        <p>For example: </P>
+        <p>&#123;&#33;$BARCODE(code128,mytestinput1234,html,px,2,50,true,top,center,11)&#125;.</p>
+        <p>In order to use Bar Code function it is necessary to ask for a key to be provided by ITB</p>
+        <p><strong><h3 style="font-size: 20px; "><a name="tocC35"><a href="#toc">3.5 License Key</a></a></h3></strong></p>
+        <p>After you have obtained a key by ITB, you need to enter this key in your Custom Settings. 
+        Just click on: App Setup/Custom Settings und then chose &#39;Enhanced License Settings&#39; and finally click on Manage. </p>
+        <p>Only one key is allowed.</p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_LicenseKey1}" /></p>
+        <p>&nbsp;</p>
+        <p>By clicking on &#39;New&#39; button you can enter the key you purchased from ITB. </p>
+        <p>&nbsp;</p>
+        <p><apex:image url="{!$Resource.TemplateVizArt__Help_LicenseKey2}" /></p>        
+        
+        <p>&nbsp;</p>
+        <p><strong><h1 style="font-size: 32px; "><a name="tocD"><a href="#toc">D. Upgrade</a></a></h1></strong></p>
+        <p><strong><h2 style="font-size: 24px; "><a name="tocD1"><a href="#toc">1. Upgrade from 2.x to 3.x</a></a></h2></strong></p>
+        <p>
+            ITB has offered 2 different development solutions from Template VizArt. It is recommended to migrate from versions 2.x to versions 3.x because this version is developed as Aloha Application with no limitation regarding custom objects.
+            For the clients which use the version 2.x the approach should be as follows:</p>
+        <p>
+            1) Firstly upgrade your App on the version v2.41, which is the latest Version of the first solution (Upgrade Link: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tA00000007TAo). <br />
+            2) Then export all own templates using Template VizArt exporting function.<br />
+            3) After installing the latest version of the second solution (3.x) the templates need to be imported into the new App and the corresponding links need to be adapted in custom buttons, selection page, email page and doc generation page.
+            The links are:<br />
+            <table border="1" cellpadding="1" cellspacing="1">
+                <tbody>
+                    <tr>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Page</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">Old (2.x)</span></strong></td>
+                        <td style="background-color: rgb(146, 19, 27); ">
+                            <strong><span style="color: rgb(255, 255, 255); ">New (3.x)</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Template Generation</td>
+                        <td>
+                            /apex/ITBtemplate__CtrlGenerateDocument?...</td>
+                        <td>
+                            /apex/TemplateVizArt__CtrlGenerateDocument?...<br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Template Selection
+                        </td>
+                        <td>
+                            /apex/ITBtemplate__SelectionPage_CtrlSelectTemplate?...
+                        </td>
+                        <td>
+                            /apex/TemplateVizArt__CtrlSelection_CtrlSelectTemplate?...
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Template Email
+                        </td>
+                        <td>
+                            /apex/ITBtemplate__CtrlEmail_SendAnEmail?...
+                        </td>
+                        <td>
+                            /apex/TemplateVizArt__CtrlEmail_SendAnEmail?...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            The omitted parts after "?" are page parameters, which stay unchanged.
+        </p>
+    </body>
+</html>
+</apex:page>

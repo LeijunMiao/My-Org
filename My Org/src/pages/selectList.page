@@ -1,0 +1,33 @@
+<apex:page controller="selectList">
+    <apex:form >
+        <apex:selectList value="{!countries}" multiselect="true">
+            <apex:selectOptions value="{!items}"/>
+        </apex:selectList><p/>
+
+        <apex:commandButton value="Test" action="{!test}" rerender="out" status="status"/>
+    
+
+    <apex:outputPanel id="out">
+        <apex:actionstatus id="status" startText="testing...">
+            <apex:facet name="stop">
+                <apex:outputPanel >
+                    <p>You have selected:</p>
+                    <apex:dataList value="{!countries}" var="c">{!c}</apex:dataList>
+                    <apex:dataList value="{!string}" var="s">{!s}</apex:dataList>
+                    <apex:dataList value="{!pageListNum}" var="p">{!p}</apex:dataList>
+                </apex:outputPanel>
+            </apex:facet>
+        </apex:actionstatus>
+                <apex:selectList id="chooseColor" value="{!string}" size="1">
+            <apex:selectOption itemValue="red" itemLabel="Red"/>
+            <apex:selectOption itemValue="white" itemLabel="White"/>
+            <apex:selectOption itemValue="blue" itemLabel="Blue"/>
+        </apex:selectList> 
+        <apex:selectList size="1" value="{!pageListNum}" >
+				<apex:selectOption itemLabel="1" itemValue="1"/>
+				<apex:selectOption itemLabel="2" itemValue="2"/>
+				<apex:selectOption itemLabel="3" itemValue="3"/>
+			</apex:selectList>
+    </apex:outputPanel>
+</apex:form>
+</apex:page>

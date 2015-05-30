@@ -1,0 +1,624 @@
+<apex:component id="compSendEmail" controller="TemplateVizArt.CtrlSendAnEmail"
+    allowDML="true">
+    <apex:sectionHeader title="TemplateVizArt"
+        subtitle="{!$Label.templatevizart__Send_Email}" />
+    <apex:includeScript value="{!URLFOR($Resource.TemplateVizArt__JQueryMiNi_1_7_2)}" />
+<!--    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>-->
+<!--    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.3/jquery-ui.min.js'></script>-->
+    <apex:includeScript value="{!URLFOR($Resource.TemplateVizArt__Library)}" />
+<!--    <apex:stylesheet value="{!URLFOR($Resource.ITBinvoice)}" /> -->
+    <apex:pageMessage summary="{!errorMessage}" severity="error"
+        strength="3" rendered="{!OR(error, errorSend)}" id="errmes"/>
+    <apex:form id="topform" rendered="{!!error}">
+    <apex:pageMessages id="mes"/>
+    <apex:actionFunction action="{!sendAnEmailCustom}" name="sendEmailJs" rerender="mes,sentTo,errmes" status="status" >
+        <apex:param name="htmlTextBody" assignTo="{!email.htmlTextBody}" value="" />
+    </apex:actionFunction>
+        
+    <c:CompPopup />
+        <apex:pageBlock id="pb" title="{!$Label.templatevizart__Edit_Email}">
+            <apex:pageBlockButtons >
+                <input type="button" class="btn"
+                    value="{!$Label.SendButton}" onclick="GetTextArea();"/>
+                <apex:commandButton action="{!Cancel}"
+                    value="{!$Label.templatevizart__CancelButton}" immediate="true" />
+                <apex:actionStatus startText=" Loading... " stopText="" id="status">
+                    <apex:facet name="start"><img src="/img/loading.gif"/><span class="waitingDescription"></span></apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection collapsible="false" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.templatevizart__Related_To}" />
+                    <apex:outputPanel >
+                        <apex:outputText value="{!email.relatedToObj}"
+                            style="font-weight:bold" />&nbsp;<apex:outputLink value="/{!email.relatedTo}" target="_blank">{!email.relatedToName}</apex:outputLink>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="{!$Label.templatevizart__From}" id="addFrom" rendered="{!hasFromAddress}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="" />
+                    <apex:selectList value="{!email.addFrom}" size="1">
+                        <apex:selectOptions value="{!list_fromAdd}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="{!$Label.templatevizart__To}" id="sentTo">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="" />
+                    <apex:outputPanel id="toPanel">
+                        <apex:actionRegion >
+                            <apex:selectList value="{!addNumber}" size="1">
+                                <apex:selectOptions value="{!AddNumberOptions}" />
+                            </apex:selectList>
+                            &nbsp;
+                            <apex:selectList value="{!recipientObj}"
+                                size="1">
+                                <apex:selectOptions value="{!ObjectOptions}" />
+                            </apex:selectList>
+                            &nbsp;
+                            <apex:commandButton action="{!addRecipient}"
+                                value="{!$Label.templatevizart__AddButton}" rerender="toPanel" status="toStatus">
+                                <apex:param name="Test1" value="{!mode_to}"
+                                    assignTo="{!recipientMode}" />
+                            </apex:commandButton>
+                            <apex:actionStatus startText=" Loading... " stopText=""
+                                id="toStatus">
+                                <apex:facet name="start">
+                                    <img src="/img/loading.gif" />
+                                    <span class="waitingDescription">{!$Label.Loading}...</span>
+                                </apex:facet>
+                            </apex:actionStatus>
+
+                            <apex:pageBlockTable value="{!email.to}" var="item">
+                                <apex:column headerValue="{!$Label.templatevizart__Action}"
+                                    StyleClass="actionColumn">
+                                    <apex:commandLink action="{!deleteRecipient}"
+                                        rerender="toPanel" immediate="true"
+                                        rendered="{!!item.primary}" status="toStatus">
+                                        <apex:image value="{!URLFOR($Resource.TemplateVizArt__Icon_Delete)}"
+                                            ismap="true" title="{!$Label.templatevizart__Delete}" />
+                                        <apex:param name="Test1" value="{!mode_to}"
+                                            assignTo="{!recipientMode}" />
+                                        <apex:param name="Test2" value="{!item.counter}"
+                                            assignTo="{!recipientIdx}" />
+                                    </apex:commandLink>
+                                </apex:column>
+                                <apex:column headerValue="{!$Label.templatevizart__Type}">
+                                    <apex:outputText value="{!$ObjectType.Contact.label}"
+                                        rendered="{!item.recType==obj_contact}" />
+                                    <apex:outputText value="{!$ObjectType.Lead.label}"
+                                        rendered="{!item.recType==obj_lead}" />
+                                    <apex:outputText value="{!$ObjectType.User.label}"
+                                        rendered="{!item.recType==obj_user}" />
+                                </apex:column>
+                                <apex:column headerValue="{!$Label.templatevizart__Primary}">
+                                    <apex:inputCheckbox value="{!item.primary}" disabled="true"
+                                        rendered="{!item.primary}" />
+                                </apex:column>
+                                <apex:column headerValue="{!$Label.templatevizart__Recipient}">
+                                    <apex:outputPanel rendered="{!item.primary}">
+                                        <apex:inputField value="{!item.tp.TemplateVizArt__Contact__c}"
+                                            rendered="{!item.recType==obj_contact}" required="true">
+                                            <apex:actionSupport event="onchange"
+                                                action="{!refreshEmailAddress}" rerender="toPanel"
+                                                status="toStatus" />
+                                        </apex:inputField>
+                                        <apex:inputField value="{!item.tp.TemplateVizArt__Lead__c}"
+                                            rendered="{!item.recType==obj_lead}" required="true">
+                                            <apex:actionSupport event="onchange"
+                                                action="{!refreshEmailAddress}" rerender="toPanel"
+                                                status="toStatus" />
+                                        </apex:inputField>
+                                        <apex:inputField value="{!item.tp.TemplateVizArt__User__c}"
+                                            rendered="{!item.recType==obj_user}" required="true">
+                                            <apex:actionSupport event="onchange"
+                                                action="{!refreshEmailAddress}" rerender="toPanel"
+                                                status="toStatus" />
+                                        </apex:inputField>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!!item.primary}">
+                                        <apex:inputField value="{!item.tp.TemplateVizArt__Contact__c}"
+                                            rendered="{!item.recType==obj_contact}">
+                                            <apex:actionSupport event="onchange"
+                                                action="{!refreshEmailAddress}" rerender="toPanel"
+                                                status="toStatus" />
+                                        </apex:inputField>
+                                        <apex:inputField value="{!item.tp.TemplateVizArt__Lead__c}"
+                                            rendered="{!item.recType==obj_lead}">
+                                            <apex:actionSupport event="onchange"
+                                                action="{!refreshEmailAddress}" rerender="toPanel"
+                                                status="toStatus" />
+                                        </apex:inputField>
+                                        <apex:inputField value="{!item.tp.TemplateVizArt__User__c}"
+                                            rendered="{!item.recType==obj_user}">
+                                            <apex:actionSupport event="onchange"
+                                                action="{!refreshEmailAddress}" rerender="toPanel"
+                                                status="toStatus" />
+                                        </apex:inputField>
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <apex:column headerValue="{!$Label.templatevizart__Company}">
+                                    {!item.company}
+                                </apex:column>
+                                <apex:column headerValue="Email">
+                                    {!item.email}
+                                </apex:column>
+                            </apex:pageBlockTable>
+                        </apex:actionRegion>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="{!$Label.templatevizart__Additional_To}" id="addTo">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="" />
+                    <apex:outputPanel id="addToPanel">
+                        <apex:inputTextarea value="{!email.additional_to}" rows="3" cols="180"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="CC" id="cc">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="" />
+                    <apex:outputPanel id="ccPanel">
+                        <apex:actionRegion >
+                            <apex:selectList value="{!addNumber}" size="1">
+                                <apex:selectOptions value="{!AddNumberOptions}" />
+                            </apex:selectList>
+                            &nbsp;
+                            <apex:selectList value="{!recipientObj}"
+                                size="1">
+                                <apex:selectOptions value="{!ObjectOptions}" />
+                            </apex:selectList>
+                            &nbsp;
+                            <apex:commandButton action="{!addRecipient}"
+                                value="{!$Label.templatevizart__AddButton}" rerender="ccPanel" status="ccStatus">
+                                <apex:param name="Test1" value="{!mode_cc}"
+                                    assignTo="{!recipientMode}" />
+                            </apex:commandButton>
+                            <apex:actionStatus startText=" Loading... " stopText=""
+                                id="ccStatus">
+                                <apex:facet name="start">
+                                    <img src="/img/loading.gif" />
+                                    <span class="waitingDescription">{!$Label.Loading}...</span>
+                                </apex:facet>
+                            </apex:actionStatus>
+
+                            <apex:pageBlockTable value="{!email.cc}" var="item">
+                                <apex:column headerValue="{!$Label.templatevizart__Action}"
+                                    StyleClass="actionColumn">
+                                    <apex:commandLink action="{!deleteRecipient}"
+                                        rerender="ccPanel" immediate="true" status="ccStatus">
+                                        <apex:image value="{!URLFOR($Resource.TemplateVizArt__Icon_Delete)}"
+                                            ismap="true" title="{!$Label.templatevizart__Delete}" />
+                                        <apex:param name="Test1" value="{!mode_cc}"
+                                            assignTo="{!recipientMode}" />
+                                        <apex:param name="Test2" value="{!item.counter}"
+                                            assignTo="{!recipientIdx}" />
+                                    </apex:commandLink>
+                                </apex:column>
+                                <apex:column headerValue="{!$Label.templatevizart__Type}">
+                                    <apex:outputText value="{!$ObjectType.Contact.label}"
+                                        rendered="{!item.recType==obj_contact}" />
+                                    <apex:outputText value="{!$ObjectType.Lead.label}"
+                                        rendered="{!item.recType==obj_lead}" />
+                                    <apex:outputText value="{!$ObjectType.User.label}"
+                                        rendered="{!item.recType==obj_user}" />
+                                </apex:column>
+                                <apex:column headerValue="{!$Label.templatevizart__Recipient}">
+                                    <apex:inputField value="{!item.tp.TemplateVizArt__Contact__c}"
+                                        rendered="{!item.recType==obj_contact}">
+                                        <apex:actionSupport event="onchange"
+                                            action="{!refreshEmailAddress}" rerender="ccPanel"
+                                            status="ccStatus" />
+                                    </apex:inputField>
+                                    <apex:inputField value="{!item.tp.TemplateVizArt__Lead__c}"
+                                        rendered="{!item.recType==obj_lead}">
+                                        <apex:actionSupport event="onchange"
+                                            action="{!refreshEmailAddress}" rerender="ccPanel"
+                                            status="ccStatus" />
+                                    </apex:inputField>
+                                    <apex:inputField value="{!item.tp.TemplateVizArt__User__c}"
+                                        rendered="{!item.recType==obj_user}">
+                                        <apex:actionSupport event="onchange"
+                                            action="{!refreshEmailAddress}" rerender="ccPanel"
+                                            status="ccStatus" />
+                                    </apex:inputField>
+                                </apex:column>
+                                <apex:column headerValue="{!$Label.templatevizart__Company}">
+                                    {!item.company}
+                                </apex:column>
+                                <apex:column headerValue="Email">
+                                    {!item.email}
+                                </apex:column>
+                            </apex:pageBlockTable>
+                        </apex:actionRegion>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="BCC" id="bcc">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="" />
+                    <apex:outputPanel id="bccPanel">
+                        <apex:actionRegion >
+                            <apex:selectList value="{!addNumber}" size="1">
+                                <apex:selectOptions value="{!AddNumberOptions}" />
+                            </apex:selectList>
+                            &nbsp;
+                            <apex:selectList value="{!recipientObj}"
+                                size="1">
+                                <apex:selectOptions value="{!ObjectOptions}" />
+                            </apex:selectList>
+                            &nbsp;
+                            <apex:commandButton action="{!addRecipient}"
+                                value="{!$Label.templatevizart__AddButton}" rerender="bccPanel"
+                                status="bccStatus">
+                                <apex:param name="Test1" value="{!mode_bcc}"
+                                    assignTo="{!recipientMode}" />
+                            </apex:commandButton>
+                            <apex:actionStatus startText=" Loading... " stopText=""
+                                id="bccStatus">
+                                <apex:facet name="start">
+                                    <img src="/img/loading.gif" />
+                                    <span class="waitingDescription">{!$Label.Loading}...</span>
+                                </apex:facet>
+                            </apex:actionStatus>
+
+                            <apex:pageBlockTable value="{!email.bcc}" var="item">
+                                <apex:column headerValue="{!$Label.templatevizart__Action}"
+                                    StyleClass="actionColumn">
+                                    <apex:commandLink action="{!deleteRecipient}"
+                                        rerender="bccPanel" immediate="true" status="bccStatus">
+                                        <apex:image value="{!URLFOR($Resource.TemplateVizArt__Icon_Delete)}"
+                                            ismap="true" title="{!$Label.templatevizart__Delete}" />
+                                        <apex:param name="Test1" value="{!mode_bcc}"
+                                            assignTo="{!recipientMode}" />
+                                        <apex:param name="Test2" value="{!item.counter}"
+                                            assignTo="{!recipientIdx}" />
+                                    </apex:commandLink>
+                                </apex:column>
+                                <apex:column headerValue="{!$Label.templatevizart__Type}">
+                                    <apex:outputText value="{!$ObjectType.Contact.label}"
+                                        rendered="{!item.recType==obj_contact}" />
+                                    <apex:outputText value="{!$ObjectType.Lead.label}"
+                                        rendered="{!item.recType==obj_lead}" />
+                                    <apex:outputText value="{!$ObjectType.User.label}"
+                                        rendered="{!item.recType==obj_user}" />
+                                </apex:column>
+                                <apex:column headerValue="{!$Label.templatevizart__Recipient}">
+                                    <apex:inputField value="{!item.tp.TemplateVizArt__Contact__c}"
+                                        rendered="{!item.recType==obj_contact}">
+                                        <apex:actionSupport event="onchange"
+                                            action="{!refreshEmailAddress}" rerender="bccPanel"
+                                            status="bccStatus" />
+                                    </apex:inputField>
+                                    <apex:inputField value="{!item.tp.TemplateVizArt__Lead__c}"
+                                        rendered="{!item.recType==obj_lead}">
+                                        <apex:actionSupport event="onchange"
+                                            action="{!refreshEmailAddress}" rerender="bccPanel"
+                                            status="bccStatus" />
+                                    </apex:inputField>
+                                    <apex:inputField value="{!item.tp.TemplateVizArt__User__c}"
+                                        rendered="{!item.recType==obj_user}">
+                                        <apex:actionSupport event="onchange"
+                                            action="{!refreshEmailAddress}" rerender="bccPanel"
+                                            status="bccStatus" />
+                                    </apex:inputField>
+                                </apex:column>
+                                <apex:column headerValue="{!$Label.templatevizart__Company}">
+                                    {!item.company}
+                                </apex:column>
+                                <apex:column headerValue="Email">
+                                    {!item.email}
+                                </apex:column>
+                            </apex:pageBlockTable>
+                        </apex:actionRegion>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="bodySection" columns="1"
+                title="{!$Label.templatevizart__Subject_And_Body}">
+                <apex:pageBlockSectionItem id="EmailTemplateItem" rendered="{!!tBody}">
+                    <apex:outputLabel value="{!$Label.templatevizart__Email_Template}" />
+                    <apex:outputPanel >
+                        <apex:actionRegion >    
+                        <apex:inputText disabled="true" id="emailTemplateName" value="{!emailTemplateName}" size="100"/>            
+                         &nbsp;&nbsp;
+                        <apex:image id="emailTemplate" styleClass="lookupIcon" value="/s.gif" title="Email Template Lookup (New Window)" style="cursor:pointer;" onclick="openLookupPopup(this.id)"/>       
+                        <apex:inputHidden id="emailTemplateId" value="{!emailTemplateId}" />
+                        <apex:actionFunction name="fetchEmailContenctJS" action="{!fetchEmailContenct}" rerender="subject,bodyItem,htmlText" status="emailTemplateStatus" oncomplete="passValue('{!emailTextBody}');"/>
+                        </apex:actionRegion>
+                        <apex:actionStatus startText=" Loading... " stopText="" id="emailTemplateStatus">
+                            <apex:facet name="start">
+                                <img src="/img/loading.gif" />
+                                <span class="waitingDescription">{!$Label.Loading}...</span>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="subjectItem">
+                    <apex:outputLabel value="{!$Label.templatevizart__Subject}" />
+                    <apex:inputText id="subject" value="{!email.subject}" size="100" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="bodyItem">
+                    <apex:outputLabel value="{!$Label.templatevizart__Body}" />
+                    <apex:tabPanel switchType="client">
+                        <apex:tab label="{!$Label.templatevizart__Rich_Text}" name="richText"
+                            id="richText">
+                            <c:CompRichTextEditor editorText="{!email.htmlTextBody}"
+                                editorId="{!$Component.htmlText}" customFonts="{!CustomFonts}"
+                                language="{!Language}" />                                               
+                            <apex:inputHidden id="htmlText" value="{!email.htmlTextBody}" />
+                            <input type="hidden" id="emailBody" value="{!email.htmlTextBody}" />
+                        </apex:tab>
+                    </apex:tabPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.templatevizart__Signature}" rendered="{!email.owaId=null}"/>
+                    <apex:inputcheckBox value="{!email.signature}" rendered="{!email.owaId=null}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <script language="JavaScript" type="text/javascript">
+                collapseSection('{!$Component.cc}');
+                collapseSection('{!$Component.bcc}');
+            </script>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="{!$ObjectType.Attachment.label}"
+            id="attachments">
+            <apex:actionRegion >
+                <apex:pageBlockSection id="emailAttachments" columns="1"
+                    title="Email {!$ObjectType.Attachment.label}">
+                    <apex:pageBlockSectionItem >
+                        <apex:pageBlockTable value="{!email.ea}" var="item"
+                            captionStyle="font-weight:bold;">
+                            <apex:facet name="caption"></apex:facet>
+                            <apex:column StyleClass="actionColumn">
+                                <apex:facet name="header">{!$Label.templatevizart__Action}</apex:facet>
+                                <apex:commandLink action="{!deleteEmailAttachment}"
+                                    rendered="{!item.eType!=ea_generate}" rerender="attachments"
+                                    immediate="true" status="attStatus">
+                                    <apex:image value="{!URLFOR($Resource.TemplateVizArt__Icon_Delete)}"
+                                        ismap="true" title="{!$Label.templatevizart__Delete}" />
+                                    <apex:param name="Test" value="{!item.counter}"
+                                        assignTo="{!attachmentIdx}" />
+                                </apex:commandLink>
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header">{!$Label.templatevizart__File_Name}</apex:facet>
+                                <apex:outputLink value="/{!item.eId}" target="_blank"
+                                    rendered="{!item.eType!=ea_generate}">{!item.eName}</apex:outputLink>
+                                <apex:outputPanel layout="block" styleClass="requiredInput"
+                                    rendered="{!item.eType==ea_generate}">
+                                    <apex:outputPanel layout="block" styleClass="requiredBlock" />
+                                    <apex:inputText value="{!item.eName}" size="80" required="true"
+                                        onchange="onChangeAttName(this);" />
+                                </apex:outputPanel>
+                            </apex:column>
+                            <apex:column >
+                                <apex:facet name="header">{!$Label.templatevizart__Size}</apex:facet>
+                                {!item.eSize}
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputPanel >
+                            <apex:commandButton value="{!IF(showDocument, $Label.templatevizart__HideButton, $Label.templatevizart__ShowButton)} {!$ObjectType.Document.label}"
+                                action="{!showHideDocument}" rerender="attachments"
+                                status="attStatus" />&nbsp;
+                            <apex:commandButton value="{!IF(showAttachment, $Label.templatevizart__HideButton, $Label.templatevizart__ShowButton)} {!$ObjectType.Attachment.label}"
+                                action="{!showHideAttachment}" rerender="attachments"
+                                status="attStatus" rendered="true"/>&nbsp;
+                                
+                                
+                            
+                            <!--
+                            <apex:outputPanel id="dynamicallybutton">   
+                                <apex:repeat value="{!list_customSettingsWapper}" var="cs">
+                                    <apex:commandButton value="{!IF(cs.showOnPage, $Label.HideButton, $Label.ShowButton)} {!$ObjectType[cs.customSetting.Related_List_Object__c].label}"
+                                            action="{!ShowHiddenDynamically}" rerender="attachments" status="attStatus" rendered="true">
+                                        <apex:param name="q" value="{!cs.index}" assignTo="{!indexClick}" />
+                                    </apex:commandButton>&nbsp;
+                                </apex:repeat>
+                            </apex:outputPanel>
+                            -->
+                            
+                            <apex:actionStatus startText=" Loading... "
+                                stopText="" id="attStatus">
+                                <apex:facet name="start">
+                                    <img src="/img/loading.gif" />
+                                    <span class="waitingDescription">{!$Label.Loading}...</span>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                
+                <!--
+                <apex:outputPanel id="dynamicallylist"> 
+                <apex:repeat value="{!list_customSettingsWapper}" var="cs">
+                    <apex:pageBlockSection id="contentAttachments" columns="1" title="{!$ObjectType[cs.customSetting.Related_List_Object__c].label}" rendered="{!cs.showOnPage}">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputPanel >
+                                
+                                <apex:selectList value="{!cs.docFolderId}" size="1">
+                                    <apex:selectoptions value="{!FolderOptions}" />
+                                    <apex:actionSupport event="onchange" action="{!SelectFolderDynamically}"
+                                        rerender="attachments" status="contentAttachmentsstatus" >
+                                        <apex:param name="n" value="{!cs.customSetting.Related_List_Object__c}" assignTo="{!relatedObjClick}" />
+                                    </apex:actionSupport>
+                                </apex:selectList>
+                                &nbsp;
+                                <apex:commandButton value="{!$Label.templatevizart__RefreshButton}" action="{!SelectFolderDynamically}"
+                                    rerender="attachments" status="contentAttachmentsstatus" >
+                                    <apex:param name="m" value="{!cs.customSetting.Related_List_Object__c}" assignTo="{!relatedObjClick}" />
+                                </apex:commandButton>   
+                                &nbsp;
+                                
+                                <apex:commandButton value="{!$Label.templatevizart__AddButton}" action="{!AddAttachmentDynamically}" rerender="attachments" status="contentAttachmentsstatus" id="addDocumentButton" >
+                                    <apex:param name="q" value="{!cs.customSetting.Related_List_Object__c}" assignTo="{!relatedObjClick}" />
+                                </apex:commandButton>
+    
+                                <apex:actionStatus startText=" Loading... " stopText=""
+                                    id="contentAttachmentsstatus">
+                                    <apex:facet name="start">
+                                        <img src="/img/loading.gif" />
+                                        <span class="waitingDescription">{!$Label.Loading}...</span>
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem id="listtable">
+                            <apex:pageBlockTable value="{!map_relatedObject_resultsList[cs.customSetting.Related_List_Object__c]}" var="d">
+                                <apex:column StyleClass="actionColumn">
+                                    <apex:inputCheckbox value="{!d.selected}" />
+                                </apex:column>
+                                <apex:column StyleClass="actionColumn"
+                                    headerValue="{!$ObjectType.Document.fields.Name.label}">
+                                    <apex:outputLink value="/{!d.docId}" styleClass="actionLink"
+                                        target="_blank">{!d.Name}</apex:outputLink>
+                                </apex:column>
+                                <apex:column value="{!d.Description}"
+                                    headerValue="{!$ObjectType.Document.fields.Description.label}" />
+                                <apex:column value="{!d.ContentType}"
+                                    headerValue="{!$ObjectType.Document.fields.ContentType.label}" />
+                                <apex:column value="{!d.Size}" headerValue="{!$Label.templatevizart__Size}" />
+                                <apex:column headerValue="{!$Label.templatevizart__Preview}">
+                                    <apex:outputPanel rendered="{!d.ImageUrl!=null}">
+                                        <apex:image value="{!d.ImageUrl}" style="max-width:150px" />
+                                    </apex:outputPanel>
+                                </apex:column>
+                            </apex:pageBlockTable>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:repeat>
+                </apex:outputPanel>
+                -->
+                
+                <apex:pageBlockSection id="documents" columns="1"
+                    title="{!$ObjectType.Document.label}" rendered="{!showDocument}">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputPanel >
+                            <apex:selectList value="{!folderid}" size="1">
+                                <apex:selectoptions value="{!FolderOptions}" />
+                                <apex:actionSupport event="onchange" action="{!selectFolder}"
+                                    rerender="documents" status="selectDocstatus" />
+                            </apex:selectList>
+                            &nbsp;
+                            <apex:commandButton value="{!$Label.templatevizart__RefreshButton}" action="{!selectFolder}"
+                                rerender="documents" status="selectDocstatus" />
+                            &nbsp;
+                            <apex:commandButton value="{!$Label.templatevizart__AddButton}" action="{!addAttachment}"
+                                rerender="attachments" status="selectDocstatus"
+                                id="addDocumentButton" />
+
+                            <apex:actionStatus startText=" Loading... " stopText=""
+                                id="selectDocstatus">
+                                <apex:facet name="start">
+                                    <img src="/img/loading.gif" />
+                                    <span class="waitingDescription">{!$Label.Loading}...</span>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:pageBlockTable value="{!documents}" var="d">
+                            <apex:column StyleClass="actionColumn">
+                                <apex:inputCheckbox value="{!d.selected}" />
+                            </apex:column>
+                            <apex:column StyleClass="actionColumn"
+                                headerValue="{!$ObjectType.Document.fields.Name.label}">
+                                <apex:outputLink value="/{!d.docId}" styleClass="actionLink"
+                                    target="_blank">{!d.Name}</apex:outputLink>
+                            </apex:column>
+                            <apex:column value="{!d.Description}"
+                                headerValue="{!$ObjectType.Document.fields.Description.label}" />
+                            <apex:column value="{!d.ContentType}"
+                                headerValue="{!$ObjectType.Document.fields.ContentType.label}" />
+                            <apex:column value="{!d.Size}" headerValue="{!$Label.templatevizart__Size}" />
+                            <apex:column headerValue="{!$Label.templatevizart__Preview}">
+                                <apex:outputPanel rendered="{!d.ImageUrl!=null}">
+                                    <apex:image value="{!d.ImageUrl}" style="max-width:150px" />
+                                </apex:outputPanel>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection id="objAttachments" columns="1"
+                    title="{!$ObjectType.Attachment.label} ({!email.relatedToObj}: {!email.relatedToName})"
+                    rendered="{!showAttachment}">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputPanel >
+                            <apex:commandButton value="{!$Label.templatevizart__AddButton}"
+                                action="{!addObjAttachment}" rerender="attachments"
+                                status="selectAttstatus" />
+                            <apex:actionStatus startText=" Loading... " stopText=""
+                                id="selectAttstatus">
+                                <apex:facet name="start">
+                                    <img src="/img/loading.gif" />
+                                    <span class="waitingDescription">{!$Label.Loading}...</span>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:pageBlockTable value="{!objAttachments}" var="d">
+                            <apex:column StyleClass="actionColumn">
+                                <apex:inputCheckbox value="{!d.selected}" />
+                            </apex:column>
+                            <apex:column StyleClass="actionColumn"
+                                headerValue="{!$ObjectType.Attachment.fields.Name.label}">
+                                <apex:outputLink value="/{!d.docId}" styleClass="actionLink"
+                                    target="_blank">{!d.Name}</apex:outputLink>
+                            </apex:column>
+                            <apex:column value="{!d.Description}"
+                                headerValue="{!$ObjectType.Attachment.fields.Description.label}" />
+                            <apex:column value="{!d.ContentType}"
+                                headerValue="{!$ObjectType.Attachment.fields.ContentType.label}" />
+                            <apex:column value="{!d.Size}" headerValue="{!$Label.templatevizart__Size}" />
+                            <apex:column headerValue="{!$Label.templatevizart__Preview}">
+                                <apex:outputPanel rendered="{!d.ImageUrl!=null}">
+                                    <apex:image value="{!d.ImageUrl}" style="max-width:150px" />
+                                </apex:outputPanel>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:actionRegion>
+        </apex:pageBlock>
+        <apex:inputHidden value="{!generatedAttName}" id="generatedAttName" />
+        
+        
+    </apex:form>
+    
+    <script language="JavaScript" type="text/javascript">
+    itb_j$=jQuery.noConflict();
+        var editorHtml = '';
+        //$(document).ready(function(){
+             //editorHtml = $(".dispEditorText").html();
+             
+        //});
+        function onChangeAttName(txtField) {
+            if (txtField.value == null || txtField.value.trim() == "") {
+                txtField.value = document.getElementById("{!$Component.topform.generatedAttName}").value
+            }
+        }       
+        function closePopUp(){
+            popRemove();
+        }
+        
+        function GetTextArea(){
+            var content = theCK.document.getBody().getHtml();
+            //alert(content);
+            sendEmailJs(content);
+        }
+    </script>
+</apex:component>

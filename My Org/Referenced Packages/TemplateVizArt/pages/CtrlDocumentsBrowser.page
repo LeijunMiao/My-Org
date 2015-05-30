@@ -1,0 +1,3 @@
+<apex:page tabStyle="Document" showheader="false" cache="false">
+    <c:CompDocumentsBrowser />
+</apex:page>

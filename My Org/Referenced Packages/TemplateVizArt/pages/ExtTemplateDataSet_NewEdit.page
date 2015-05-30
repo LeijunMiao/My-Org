@@ -1,0 +1,130 @@
+<apex:page standardController="TemplateVizArt__Template_Data_Set__c" extensions="TemplateVizArt.ExtTemplateDataSet" title="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.label} {!$Label.templatevizart__EditButton}: {!IF(isNew, $Label.templatevizart__NewButton + ' ' + $ObjectType.TemplateVizArt__Template_Data_Set__c.label, TemplateVizArt__Template_Data_Set__c.Name)}">
+    <apex:sectionHeader title="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.label} {!$Label.templatevizart__EditButton}" subtitle="{!IF(isNew, $Label.templatevizart__NewButton + ' ' + $ObjectType.TemplateVizArt__Template_Data_Set__c.label, TemplateVizArt__Template_Data_Set__c.Name)}"/>
+        <apex:form id="topForm">
+            <apex:pageBlock > 
+                <apex:pageMessages id="messages" />                                
+                <apex:pageBlockButtons >          
+                    <apex:commandButton action="{!Save}" value="{!$Label.templatevizart__SaveButton}"/>
+                    <apex:commandButton action="{!Cancel}" value="{!$Label.templatevizart__CancelButton}"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection title="{!$Label.templatevizart__Information}">                    
+                    <apex:inputField value="{!TemplateVizArt__Template_Data_Set__c.name}" required="true"/>                     
+                    <apex:inputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Template_Data_Source__c}"/>
+                    <apex:pageBlockSectionItem rendered="{!isNew}">
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Type__c.label}"/>
+                        <apex:outputPanel >
+                            <apex:actionRegion >
+                                <apex:inputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Type__c}" required="true">
+                                    <apex:actionSupport event="onchange" rerender="furtherBlock" status="typeStatus"/>
+                                </apex:inputField>
+                            </apex:actionRegion>
+                            <apex:actionStatus startText=" {!$Label.templatevizart__Loading}... " stopText="" id="typeStatus">
+                                <apex:facet name="start"><img src="/img/loading.gif"/><span class="waitingDescription">{!$Label.templatevizart__Loading}...</span></apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:outputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Type__c}" rendered="{!!isNew}"/>
+                    <apex:inputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Previous_Template_Data_Set__c}"/>
+                </apex:pageBlockSection>  
+                <apex:pageBlockSection title="{!$Label.templatevizart__Relationship}">
+                    <apex:pageBlockSectionItem >   
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Main_Object__c.label}"/>
+                        <apex:outputpanel layout="block" styleClass="requiredInput">
+                            <apex:outputpanel layout="block" styleClass="requiredBlock"/>
+                            <apex:actionRegion >
+                                <apex:selectList value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Main_Object__c}" size="1">
+                                    <apex:selectOptions value="{!ObjectOptions}"/>
+                                    <apex:actionSupport event="onchange" rerender="mainObjectField" status="mainStatus"/>
+                                </apex:selectList>
+                            </apex:actionRegion>
+                            <apex:actionStatus startText=" {!$Label.templatevizart__Loading}... " stopText="" id="mainStatus">
+                                <apex:facet name="start"><img src="/img/loading.gif"/><span class="waitingDescription">{!$Label.templatevizart__Loading}...</span></apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Related_Object__c.label}"/>
+                        <apex:outputpanel layout="block" styleClass="requiredInput">
+                            <apex:outputpanel layout="block" styleClass="requiredBlock"/>
+                            <apex:actionRegion >
+                                <apex:selectList value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Related_Object__c}" size="1">   
+                                    <apex:selectOptions value="{!ObjectOptions}"/>
+                                    <apex:actionSupport event="onchange" rerender="relatedObjectField,emailRecipientField" status="relatedStatus"/>
+                                </apex:selectList>
+                               </apex:actionRegion>
+                            <apex:actionStatus startText=" {!$Label.templatevizart__Loading}... " stopText="" id="relatedStatus">
+                                <apex:facet name="start"><img src="/img/loading.gif"/><span class="waitingDescription">{!$Label.templatevizart__Loading}...</span></apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Main_Object_Field__c.label}"/>
+                        <apex:outputpanel layout="block" styleClass="requiredInput">
+                            <apex:outputpanel layout="block" styleClass="requiredBlock"/>
+                            <apex:selectList value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Main_Object_Field__c}" size="1" id="mainObjectField">   
+                                <apex:selectOptions value="{!MainObjectFieldOptions}"/>
+                            </apex:selectList>
+                        </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Related_Object_Field__c.label}"/>
+                        <apex:outputpanel layout="block" styleClass="requiredInput">
+                            <apex:outputpanel layout="block" styleClass="requiredBlock"/>
+                            <apex:selectList value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Related_Object_Field__c}" size="1" id="relatedObjectField">   
+                                <apex:selectOptions value="{!RelatedObjectFieldOptions}"/>
+                            </apex:selectList>
+                        </apex:outputpanel>
+                    </apex:pageBlockSectionItem>                 
+                </apex:pageBlockSection>
+                
+                <apex:outputPanel id="furtherBlock"> 
+                    <apex:pageBlockSection id="additionalSection" title="{!$Label.templatevizart__Additional}" rendered="{!OR(TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Type__c='Standard', TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Type__c=null)}">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Filter_Condition__c.label}"/>
+                            <apex:inputTextArea value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Filter_Condition__c}" rows="3" cols="50"/>
+                        </apex:pageBlockSectionItem>  
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Order_By__c.label}"/>
+                            <apex:inputTextArea value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Order_By__c}" rows="3" cols="50"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>  
+                    
+                    <apex:pageBlockSection id="customSoqlSection" title="{!$Label.templatevizart__Custom_SOQL}" columns="1" rendered="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Type__c='Custom SOQL'}">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Custom_SOQL__c.label}"/>
+                            <apex:inputTextArea value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Custom_SOQL__c}" rows="5" cols="100"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>  
+                    
+                    <apex:pageBlockSection id="emailSection" title="{!$Label.templatevizart__Email}" rendered="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Type__c='Email Recipient'}"> 
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Email_Recipient_Object__c.label}"/>
+                            <apex:outputpanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"/>
+                                <apex:selectList value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Email_Recipient_Object__c}" size="1" id="emailRecipientObject">   
+                                    <apex:selectOptions value="{!EmailRecipientObjectOptions}"/>
+                                </apex:selectList>
+                            </apex:outputpanel>
+                        </apex:pageBlockSectionItem> 
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Email_Recipient_Field__c.label}"/>
+                            <apex:outputpanel layout="block" styleClass="requiredInput">
+                                <apex:outputpanel layout="block" styleClass="requiredBlock"/>
+                                <apex:selectList value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Email_Recipient_Field__c}" size="1" id="emailRecipientField">   
+                                    <apex:selectOptions value="{!EmailRecipientFieldOptions}"/>
+                                </apex:selectList>
+                            </apex:outputpanel>
+                        </apex:pageBlockSectionItem>  
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Primary_Recipient_Filter__c.label}"/>
+                            <apex:inputTextArea value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Primary_Recipient_Filter__c}" rows="3" cols="50"/>
+                        </apex:pageBlockSectionItem>  
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Additional_Email_Recipient_Filter__c.label}"/>
+                            <apex:inputTextArea value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Additional_Email_Recipient_Filter__c}" rows="3" cols="50"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>  
+                </apex:outputPanel> 
+            </apex:pageBlock> 
+        </apex:form> 
+</apex:page>

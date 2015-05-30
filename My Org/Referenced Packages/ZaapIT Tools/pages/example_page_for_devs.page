@@ -1,0 +1,42 @@
+<apex:page standardController="Account" sidebar="true">
+<script>
+function refreshAfterSave(){
+//refreshDash1();
+//refreshDash2();
+self.location=self.location;
+}
+</script>
+<apex:pageBlock title="My Content">
+
+<!-- a must - when the left side-bar is not present- put inside an "apex:pageBlock" tag-->
+
+
+	<!-- you can use the c:zaapit_dev_tb tag on multiple tables on the same page -->
+	<!-- surround the "apex:pageBlockTable" with the c:zaapit_dev_tb tab -->
+	<!-- tb_order=1 is the number of the table in the page which in this case set to one, must in the range 1-1000,
+	 could cause problems when none unique -->
+	<c:zaapit_dev_tb tb_order="1">
+	        <apex:pageBlockTable value="{!account.Contacts}" var="item">
+				<apex:column value="{!item.id}"/> 
+	            <apex:column value="{!item.name}"/>
+	            <apex:column value="{!item.Department}"/> 
+	        </apex:pageBlockTable> 
+	</c:zaapit_dev_tb>
+	
+	<br/>
+	<br/>
+	<br/>
+	
+	<!-- surround the "apex:pageBlockTable" with the c:zaapit_dev_tb tab -->
+	<c:zaapit_dev_tb tb_order="2">
+	    <apex:pageBlockTable value="{!account.Contacts}" var="item">
+	    		<apex:column value="{!item.id}"/> 
+	            <apex:column value="{!item.title}"/> 
+				<apex:column value="{!item.phone}"/>
+				<apex:column value="{!item.email}"/> 
+	        </apex:pageBlockTable> 
+	</c:zaapit_dev_tb>
+
+ <c:zaapit_dev_top_inc />
+    </apex:pageBlock>
+</apex:page>

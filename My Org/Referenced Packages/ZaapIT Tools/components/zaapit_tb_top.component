@@ -1,0 +1,949 @@
+<apex:component >
+<apex:attribute name="maxRowsPerPage" description="maxRowsPerPage" type="integer" required="true"/>
+<apex:attribute name="isEditOL" description="isEditOL" type="boolean" required="true"/>
+<apex:attribute name="confName" description="confName" type="string" required="true"/>
+<apex:attribute name="Urlx1" description="Urlx1" type="string" required="true"/>
+
+<style>
+
+.btnicoflt .btnBox{display: block;text-align: center;width: 66%;}
+.foundX{font-size:8pt;padding-left:10px;font-weight:normal;display:inline-block;}
+.prevnext{white-space: nowrap;}
+.TotRowsPerPage{white-space: nowrap;}
+table .srtD {
+    background-image: url("{!$Resource.zp_sfdc}");
+    background-position: -23px -33px;
+    background-repeat: no-repeat;
+    padding-left:3px;
+    display:inline-block;
+}
+table .srtU {
+    background-image: url("{!$Resource.zp_sfdc}");
+    background-position: -23px -63px;
+    background-repeat: no-repeat;
+    padding-left:3px;
+    display:inline-block;
+}
+table .srt  {
+    -moz-user-select: none;
+    cursor: pointer;
+    display:block;
+    position:relative;
+    padding-right:17px;
+
+}
+.mainTBXs .headerRowZ{}
+input.filtDatex1{font-size:8pt;border:1px solid #AAAAAA;height: 18px;line-height:18px;}
+.searchTxt{color:#a1a1a1;z-index:2;position:absolute;left:3px;top:0px;line-height: 18px;height: 18px;display:inline-block;}
+.searchMGGlss1{position:absolute;right:0px;top:0px;display:block;width:18px;height:19px;background:url("{!$Resource.zp_sfdc}") -2px -147px no-repeat;} 
+.filterino{white-space: nowrap;position:absolute;z-index:3;top:0px;left:0px;background:#F2F3F3;border-top:1px solid #E0E3E5;border-right:2px solid #E0E3E5;border-bottom:2px solid #E0E3E5;border-left:1px solid #E0E3E5; padding:3px 3px 3px 1px; -webkit-box-shadow: 1px 3px 3px rgba(50, 50, 50, 0.75);-moz-box-shadow:1px 3px 3px rgba(50, 50, 50, 0.75);box-shadow: 1px 3px 3px rgba(50, 50, 50, 0.75);}
+.filterino input.filterinoIPT{ border:1px solid #AAAAAA;font-size:10pt;height: 18px;line-height:16px;font-size:8pt;}
+.filterino input[type=text]::-ms-clear {display: none;}
+.btnicoflt input[type=text]::-ms-clear {display: none;}
+span.filterinoIPTCS1{diplay: inline-block; z-index: 2; position: absolute; right: 3px;color:white;}
+.menuItemFlt{display: block; padding-left:20px;text-decoration:none;line-height:20px;}
+.clearFlt{background:url("{!$Resource.filter_lm}") 0px -84px no-repeat;}
+.SortAsn{margin-top: 5px;background:url("{!$Resource.zp_sfdc}") -13px -118px no-repeat;}
+.SortDec{background:url("{!$Resource.zp_sfdc}") -13px -88px no-repeat;}
+.GraphLnk{background:url("{!$Resource.zp_sfdc}") -1px -186px no-repeat;}
+ .iconWarp1{position:relative;disply:inline-block;}
+.filterino .selFilter{font-size:8pt;line-height:15px;height:16px;}
+.filterino .inptFilter{font-size:8pt;line-height:15px;height:16px;width:55px;}
+.filterObjShow1{margin-top:5px;padding-left:20px;background:url("{!$Resource.zp_sfdc}") 0px -167px no-repeat;}
+
+.availVals{max-height:250px; margin-top:5px;}
+.fltTblOfw{max-height:225px; overflow-y:auto;overflow-x:visible;padding-right: 20px;}
+.availVals {}
+.availVals .fltTblOf{}
+.availVals .fltTblOf td{vertical-align:middle;}
+.availVals .fltTblOf thead{font-weight:bold;}
+.availVals .fltTblOf .gray{color:#a1a1a1;text-align:right}
+.availVals .fltTblOf .vl1{}
+.availVals .fltTblOf .v1{}
+.availVals .ld1{background: url('/img/loading.gif') 45% 45% no-repeat;height:25px;}
+.availVals .btnD{text-align:right;margin: 3px 0px;}
+
+td.btnicoflt span.filterinoIPTCS1{top:3px;}
+  span.filterinoIPTCS1{top:1px;}
+
+.srt .sts0{z-index:2;position:absolute;right:0px;top:-2px;background:url("{!$Resource.filter_lm}") 1px -57px no-repeat;line-height:17px; display:inline-block;padding-left:17px;}
+.srt .sts0:hover{z-index:2;position:absolute;right:0px;top:-2px;background:url("{!$Resource.filter_lm}") 1px -27px no-repeat;line-height:17px; display:inline-block;padding-left:17px;}
+.srt .sts1{z-index:2;position:absolute;right:0px;top:-2px;background:url("{!$Resource.filter_lm}") 1px 0px no-repeat;line-height:17px; display:inline-block;padding-left:17px;}
+th.srt{white-space: nowrap;}
+.srt .sts1.hd1,.srt .sts0.hd1{display:none;}
+
+.hd1{display:none;}
+.pbBottomButtons{display:{!IF(maxRowsPerPage>=30,'block','none')};}
+tr.marked{background:#FFE5AD;}
+.btnsSV.x{background:#FFE5AD;padding:3px;display: inline-block;border:1px solid #d5d5d5;}
+.btnsSV.x #mUnsv{display: inline-block;}
+#mUnsv{display: none;}
+.TotRowsPerPage{float:right;color:#666666;}
+.TotRowsPerPage .n{margin:0px 5px;padding:5px;diaply:inline-block;color:#666666;border:1px solid #FFFFFF;}
+.TotRowsPerPage .m{margin:0px 5px;padding:5px;diaply:inline-block;color:#333333;border:1px solid #002398;}
+.TotRowsPerPage a{text-decoration: none;}
+.prevnext a{text-decoration: none;}
+.prevnext .n{margin:0px 5px;padding:5px;diaply:inline-block;color:#666666;border:1px solid #FFFFFF;}
+.prevnext .m{margin:0px 5px;padding:5px;diaply:inline-block;color:#000000;border:1px solid #FFFFFF;background:#DDDDDD;font-weight:bold;}
+.ui-icon-circle-closeZP{}
+.ui-icon-circle-closeZPH{width:18px;height:18px;display:block;background-image: url("{!$Resource.clear_search}"); background-position: 0px -2px; background-repeat: no-repeat;}
+#loadingx1Anchor{position:relative;}
+#loadingx1{z-index:3;position:absolute;background:#E5E5E5 url('/img/loading.gif') 45% 45% no-repeat;}
+.actionLink:link {color: #015BA7;    font-weight: normal;    text-decoration: none;}
+.actionLink:visited {color: #015BA7;    font-weight: normal;    text-decoration: none;}
+.actionLink:hover{color: #015BA7;    font-weight: normal;    text-decoration: underline;}
+.actionLink:active {color: #015BA7;    font-weight: normal;    text-decoration: none;}
+
+.cent1{text-align:center;}
+.floatTopHead{position:fixed;top:45px;border-collapse:collapse;}
+.btnicofltTBTOP{position:fixed;top:0px;z-index:3;border-collapse:collapse;background:#FFFFFF;}
+#scrollCntrls1{position:fixed;z-index:3;right:0px;top:400px;}
+#scrollCntrls1 .btn1{padding:5px;margin:3px;}
+#graphsRusx{height:350px;width:800px;}
+.graphs{position:relative;}
+.graphs .graphsIn{padding:0px;}
+.graphs .ld1{background: url('/img/loading.gif') 49% 49% no-repeat;height:250px;}
+.graphsRefresh{position:absolute;z-index:2;top:0px;right:2px;}
+.graphsRefresh .btl{padding: 2px; display: block; text-align: center; border: 1px solid rgb(213, 213, 213);}
+
+.seatchInptFZP{border:1px solid #AAAAAA;}
+</style>
+ 
+<!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.20/themes/redmond/jquery-ui.css" type="text/css"/>-->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/redmond/jquery-ui.css" type="text/css"/>
+<script type="text/javascript" src="{!$Resource.zp_jquery172}"></script>
+ <script type="text/javascript" src="{!$Resource.zp_jqueryui_1820}" ></script> 
+ 
+  
+<!-- <apex:attribute name="table" description="This is the object to query." type="String" required="true" assignTo="{!table}"/>
+ -->
+
+<script type="text/javascript" defer="defer">
+
+function fixTitlex1(obj){
+	var titd1=$(obj).attr("titd1");
+	if(titd1==null){
+		var tit=$(obj).attr("title");
+		var text=$.trim($(obj).text());
+		if(tit==null && text!=null && text!='' && text.length>30){
+			$(obj).attr("title",(text));
+		}
+		$(obj).attr("titd1","1");
+	}
+}
+var totChanged=0;
+function cbAll(obj){
+    var isCHK=$(obj).prop("checked");
+    $(".lcbX input[type='checkbox']").each(function(){$(this).prop("checked",isCHK);});
+}
+function cbAllV(obj){
+
+	$("input.lcbXAll").prop("checked",($(obj).prop("checked") && $("input.lcbXRow").size()==$("input.lcbXRow:checked").size()));
+}
+function markChangeRW(obj,refresh){
+    var rowChanged=false; 
+    var mTR=$(obj).parents("tr:first");
+    mTR.find("input,select,textarea").each(function(){
+        rowChanged=rowChanged||$(this).data("oldV")!=$(this).val();
+        if($(this).prop("checked")!=null && !$(this).parent().hasClass("lcbX")){
+            rowChanged=rowChanged||$(this).data("oldCH")!=$(this).prop("checked");
+        }
+    });
+    if(rowChanged){
+        if(!mTR.hasClass("marked")){
+            totChanged++;
+        }       
+        mTR.addClass("marked");
+        mTR.find(".lcbX input").prop("checked",true);
+    }else{
+        if(mTR.hasClass("marked")){
+            totChanged--;
+        }       
+        mTR.removeClass("marked");
+        mTR.find(".lcbX input").prop("checked",false);
+    }
+    setTimeout(function(){showChanged1(refresh);},150);
+}
+function showChanged1(refresh){
+
+    $(".unSVNum").html(totChanged+"");
+    if(totChanged!=0){
+        $(".btnsSV").addClass("x");
+    }else{
+        $(".btnsSV").removeClass("x");
+    }
+    if(refresh==null){
+    	checkPosFixHeaderResize();
+    	checkFilterHeaderResize();
+    }
+}
+   function fixLnkInternal(){
+        try{
+        if(window.self != window.top){
+            $(".lnkPrp1 a[href!='']").click(function(){
+                window.top.location=$(this).attr("href");
+                return false;
+            });
+        }
+        }catch(e){}
+   }
+   var markCheckedRows=false;
+   var isEditMode1=false;
+function fixOnload(){
+//if(true)reutrn;
+    $(".availVals").html("<div class='ld1'></div>");
+    $("#loadingx1").hide();
+    //if(fixIfmHegt!=null)fixIfmHegt();
+    if($(".foundX").size()==0){
+//        $(".Zstbl1 h2.mainTitle").append('<span class="foundX">'+$("#found1").html()+'</span>');
+        $(".Zstbl1 h2.mainTitle").append('<span class="foundX"></span>');
+    }else{
+        $(".foundX").html("");//$("#found1").html());
+    }
+	setTimeout( getTotals1,15);
+    if(isEditMode1){
+    $("#mainTBX1 tbody input,#mainTBX1 tbody select,#mainTBX1 tbody textarea").each(    function(){
+            $(this).data("oldV",$(this).val());
+            if($(this).prop("checked")!=null && !$(this).parent().hasClass("lcbX")){
+                $(this).data("oldCH",$(this).prop("checked"));
+            }
+            $(this).change(function(){
+                if(!$(this).parent().hasClass("lcbX")){
+                    markChangeRW(this,"1");
+                }
+            });
+        });
+    }
+    if(markCheckedRows){
+        $("#mainTBX1 tbody tr").each(function(){markCheckedRow(this);});
+        totChanged=$("#mainTBX1 tbody tr.marked").size();
+        showChanged1();
+    }
+        
+    
+    fixLnkInternal();
+    $(".CBMU1").prop("checked","");
+        
+        try{
+        if(refreshAfterSave!=null){
+        //refreshAfterSave();
+        }
+        }catch(e){}
+        
+        if(!markCheckedRows){
+            checkPosFixHeaderResize();
+            checkFilterHeaderResize();
+        }
+        //alert(isSearchFocus1 + $(".seatchInptFZP:visible").size());
+        /*if(isSearchFocus1){
+            isFirstLoadPage=false;
+            var seatchInptFZP=$(".seatchInptFZP:first:visible");
+            if(!isInIframe() && seatchInptFZP.size()>0){
+                
+                seatchInptFZP[0].focus();
+                seatchInptFZP.val(seatchInptFZP.val());//end of word
+            }
+        }*/
+        searchOnload1();
+        
+        $("input.filtDatex1").datepicker( { 
+    dateFormat: "yy-mm-dd"
+    ,changeMonth: true
+    ,changeYear: true 
+    }).change(function(){
+        var origFl=$(this).attr("origFl");
+        $("."+origFl).val($("."+origFl+"1").val()+"~"+$("."+origFl+"2").val());
+        filterCol(null,100);;//13
+     }).css({"width":"69px","height":"17px"}).keydown(function(){return false;});
+     
+        //$("#scrollCntrls1").css({"top":(Math.round($(self).height()/2)-50)+"px"}).show();
+        
+}
+function clearBtnFocusIn(){
+    var par1=$(this).parents("span:first");
+    par1.find(".ui-icon-circle-closeZP").addClass("ui-icon-circle-closeZPH").show();
+    par1.find(".searchTxt").hide();
+}
+function clearBtnFocusOut(){
+    if($.trim($(this).val())==""){
+        $(this).parents("span:first").find(".ui-icon-circle-closeZP").hide("fade",1000);
+    }
+}
+function clickSearchTxt(obj){//searchTxt
+    $(obj).hide();
+    $(obj).parents("span:first").find("input:first").focus();
+}
+
+function searchOnload1(){
+   
+    //$("#foundX").html($("#found1").html());
+    //.keypress(function(){searchChanged(2500);})
+    $("input.seatchInptFZP:first").keyup(function(event){
+        var waitMilis=1;
+        if (event!=null && event.keyCode===13){
+            waitMilis=1;
+            searchChanged(waitMilis);
+        }else{
+            waitMilis=1500;
+            searchChanged(waitMilis);
+        }
+        //searchChanged(waitMilis);
+    
+    }).focusin(clearBtnFocusIn).focusout(clearBtnFocusOut);
+     $("input.filterinoIPT").keypress(filterCol).keyup(filterCol).focusin(clearBtnFocusIn).focusout(clearBtnFocusOut);
+     $(".filtDatex1Mnx").each(function(){
+        var vx1=$(this).val().split("~");
+        if(vx1.length>0){
+            var origFl=$(this).parents("span:first").attr("origFl");
+            $("."+origFl+"1").val(vx1[0]);
+            if(vx1.length>1){
+                $("."+origFl+"2").val(vx1[1]);
+            }
+        }
+        
+     });
+     $(".filterObjShow1 input.inptFilter").keyup(function(event){
+        if (event!=null && event.keyCode===13){ 
+            setTimeout(clickVisFilerBtn,10);
+        }
+     });
+     
+    //setTimeout('$(".seatchInptFZP").attr("onfocus","");',300);
+   setTimeout('fixIfmHegt();',300);
+   
+}
+function markCheckedRow(row){
+    if(!$(row).hasClass("marked") && $(row).find(".lcbX input:checked").length==1){
+        $(row).addClass("marked");
+        $(row).find("td:first").append("<input type='hidden' class='mupdateX' name='mupdateX' value='1' oldV='2'/>");
+        //markChangeRW($(row).find(".mupdateX"))
+        //totChanged++;
+    }
+}
+
+$(document).ready(function(){
+//if(true)return;
+    fixOnload();
+    
+    
+     
+        $(self).scroll(function(){
+            if(posFixth!=null){
+                window.clearTimeout(posFixth);
+            }
+            posFixth=setTimeout(fixAferScroll,100);
+        });
+        $(self).resize(function(){
+            if(posFixth!=null){
+                window.clearTimeout(posFixth);
+            }
+            posFixth=setTimeout(fixAferResize,300);
+        });
+        $("#handlebarContainer").click( function(){
+                if(posFixth!=null){
+                    window.clearTimeout(posFixth);
+                }
+                posFixth=setTimeout(fixAferResize,300);
+        });
+});
+function fixAferResize(){
+    
+    checkPosFixHeaderResize();
+    checkFilterHeaderResize(); 
+
+}
+
+function fixAferScroll(){
+    checkPosFixHeader();
+    checkFilterHeaderResize();
+    
+}
+function closeFilterx(){
+
+    //close filter
+    if(lastOpenCFilterId!=null && lastOpenCFilterSearchBID!=null && $("#"+lastOpenCFilterSearchBID).is(":visible")){
+        $("#"+lastOpenCFilterId).click();
+    }
+}
+function checkPosFixHeaderResize(){
+//alert("111");
+        widthWasSetScroll=false;
+            $(".floatTopHead").remove();
+            $("#btnicofltTB").removeClass("btnicofltTBTOP");
+            $("#mainTBX1 table:first").width("");
+            $("#mainTBX1 thead th").width("");
+           $("#btnicofltTB").parents("div:first").width("").height("");
+            $("#btnicofltTB").width("").height("");
+            if(isScrollMode()){
+                checkPosFixHeader();
+            }
+}
+
+function checkFilterHeaderResize(){
+    if(lastOpenCFilterId!=null && lastOpenCFilterSearchBID!=null ){
+        if(isScrollMode() && lastOpenCFilterId.indexOf("-2")==-1){
+            lastOpenCFilterId=lastOpenCFilterId+"-2";
+        }else if( !isScrollMode() && lastOpenCFilterId.indexOf("-2")>-1){
+            lastOpenCFilterId=lastOpenCFilterId.substring(0,lastOpenCFilterId.length-2);
+        }
+        if( $("#"+lastOpenCFilterSearchBID).is(":visible")){
+                 $("#"+lastOpenCFilterSearchBID).hide();
+                 $("#"+lastOpenCFilterId).click();
+        }
+    }
+     
+}
+function isScrollMode(){
+            var pos1=$("#mainTBX1").offset();
+            var st1=$(self).scrollTop();
+            return (st1!=null && pos1.top!=null && pos1.top <st1);
+}
+var posFixth=null;
+var widthWasSetScroll=false;
+function checkPosFixHeader(){
+            var pos1=$("#mainTBX1").offset();
+            
+            var st1=$(self).scrollTop();
+            var sl1=$(self).scrollLeft();
+            if(st1!=null && pos1.top!=null && pos1.top <st1){
+                if($(".floatTopHead").size()==0){
+                    if(!widthWasSetScroll){
+                        widthWasSetScroll=true;
+                            //closeFilterx();
+                            $(".btnicoflt").parents("table:first").attr("id","btnicofltTB");
+                            $("#btnicofltTB").width($("#btnicofltTB").width());
+                                                
+                            $("#btnicofltTB").height($("#btnicofltTB").height());
+                            
+                            var firstPrt=$("#btnicofltTB").parents("div:first");
+                            firstPrt.attr("id","btnicofltTBD");
+                            firstPrt.height(firstPrt.height());
+                            
+                        if($("#mainTBX1 table:first").css("width")!=""){
+                        $("#mainTBX1 table:first").width($("#mainTBX1 table:first").width());
+                        $("#mainTBX1 thead th").each(function(){
+                        
+                            $(this).width($(this).width());
+                            $(this).height($(this).height());
+                        });
+                        }
+                    }
+                    $("#btnicofltTB").addClass("btnicofltTBTOP");   
+                    $("#mainTBX1").append("<table class=\"floatTopHead list\" cellspacing=\"0\" border=\"0\"><thead class=\"rich-table-thead\">"+$("#mainTBX1 thead").html()+"</thead></table>")
+                    $(".floatTopHead thead th .fltIC").each(function(){
+                        var curId=$(this).attr("id");
+                        if(curId.indexOf("-2")==-1){
+                            $(this).attr("id",curId+"-2");
+                        }
+                    });
+                    $(".floatTopHead").width($("#mainTBX1 table:first").width());
+                }
+                $("#btnicofltTB").css({"left":(pos1.left-sl1)+"px"});
+                $(".floatTopHead").css({"left":(pos1.left-sl1)+"px","top":($("#btnicofltTBD").height()+(openDialogAsMod()?0:-10))+"px"});
+                $("#scrollCntrls1").css({"top":(Math.round($(self).height()/2)-50)+"px"});
+                $("#scrollCntrls1").show();
+
+            }else{
+                if($("#btnicofltTB").hasClass("btnicofltTBTOP")){
+                    //closeFilterx();
+                }
+                $(".floatTopHead").remove();
+                $("#btnicofltTB").removeClass("btnicofltTBTOP");
+                $("#scrollCntrls1").hide();
+                
+                
+            }
+}
+function  noticeUnsave(){
+    var res= ({!NOT(isEditOL)} || totChanged==0 ||confirm("You have "+totChanged+" changed row"+(totChanged>1?"s":"")+"!\nIgnore the changes and continue?"));
+    return res;
+}
+
+function  noticeUnsaveCancelWork(){
+    var res= ({!NOT(isEditOL)} || totChanged==0 );
+    if(!res){
+        alert("You have "+totChanged+" changed row"+(totChanged>1?"s":"")+"!\nPlease save or cancel your work before using the filters.");
+    }
+    return res;
+}
+function isInIframe(){
+    return  (window.top!=null && window.top != self && parent.frames.length > 0);
+}
+function  isIframex1(id1,pgRows,hideConfirm){
+    var isIfrm= (window.top!=null && window.top != self && parent.frames.length > 0);
+    var res=isIfrm;
+    if(isIfrm && (hideConfirm=="true" || confirm("Long lists are only available as a sperate page.\nDo you want to open this list in a new page?"))){
+        var pg1="{!Urlx1}".split(/\?/);
+        window.open(pg1[0]+"?id="+id1+"&pgRows="+pgRows);       
+    }
+    return res;
+}
+var lastValTosearchTBX1="";
+var lastValTosearchTBX1LJZ=null;
+var lastValTosearchTBX1Cnt=0;
+function searchTBX1(milisWait){
+    lastValTosearchTBX1Cnt++;
+    if(lastValTosearchTBX1LJZ!=null){
+        window.clearTimeout(lastValTosearchTBX1LJZ);
+    }
+    if(milisWait==null){
+        milisWait=1500;
+    }
+    lastValTosearchTBX1=$('.seatchInptFZP:first').val();
+    lastValTosearchTBX1LJZ=window.setTimeout("if(lastValTosearchTBX1Cnt=="+lastValTosearchTBX1Cnt+" && lastValTosearchTBX1!=null && noticeUnsaveCancelWork()){loadingSH();searchTB(lastValTosearchTBX1);}",milisWait);
+    //lastValTosearchTBX1LJZ=window.setTimeout("if(lastValTosearchTBX1Cnt=="+lastValTosearchTBX1Cnt+"){alert(lastValTosearchTBX1);}",milisWait);
+}
+function loadingSH(){
+    $("#loadingx1").fadeTo("fast",0.5);
+    $("#loadingx1").width($("#mainTBX1").width());
+    $("#loadingx1").height($("#mainTBX1").height());
+    $("#loadingx1").show();
+}
+var lastFilterColJS=null;
+var lastFilterCnt=0;
+
+ function filterCol(event,extVal){
+     var waitMilis=1;
+        if ((event!=null && event.keyCode===13) || (extVal!=null && extVal==13)){
+            waitMilis=1;
+        }else if(extVal!=null && extVal>13){
+            waitMilis=extVal;
+        }else{
+            waitMilis=1500;
+        }
+     if(lastFilterColJS!=null){
+        window.clearTimeout(lastFilterColJS);
+     }
+     lastFilterCnt++;
+     lastFilterColJS=window.setTimeout("if(lastFilterCnt=="+lastFilterCnt+" && lastFilterColJS!=null && noticeUnsaveCancelWork()){loadingSH();filterColsX();}",waitMilis);
+    
+
+ }
+ var filterClicked=false;
+ var lastOpenCFilterId=null;
+ var lastOpenCFilterSearchBID=null;
+function openCFilter(pobj,objId,fieldName,fieldCalss1,filterObjShowType,colName,event){
+    
+    var curObj=$("#"+objId);
+    if(!curObj.is(":visible")){
+        $(".filterino").hide();
+        var parent1=$(pobj).parents("th:first");
+        //calc width and pos
+        var position = parent1.position();
+        var offset = parent1.offset();
+        var scrollMode=isScrollMode();
+        var sl1=$(self).scrollLeft();
+        var sT1=$(self).scrollTop();
+        var availVals=curObj.find(".availVals:first").width("");
+        var fltTblOfw=curObj.find(".fltTblOfw:first").height("");
+        //inner stuffScondClick
+        var exptWidth2=(fltTblOfw.size()>0 && fltTblOfw[0].scrollWidth >fltTblOfw.width()?fltTblOfw[0].scrollWidth:availVals.width());
+        var expWidth=Math.max(Math.max(parent1.width(),120),exptWidth2);
+    
+        var expLeft=0;
+        if(scrollMode){
+            expLeft=Math.round(offset.left-sl1);
+        }else{
+            expLeft=Math.round(position.left);
+        }
+         //expLeft=Math.round((scrollMode?(Math.round(offset.left)-Math.round(sl1)):Math.round(position.left)));
+        var bodyW=$("body").width()+(scrollMode?0:sl1);
+
+        if( expLeft+expWidth>bodyW){
+            expLeft=bodyW-expWidth-20;
+        }
+        //alert(expLeft + " "+availVals.size() + " "+availVals.width());
+        curObj.css({ top: ((scrollMode?offset.top-sT1+9+parent1.height():position.top+9+parent1.height())), left: (expLeft),position:(scrollMode?"fixed":"absolute")});
+        //curObj.css({ top: ((scrollMode?offset.top-sT1+9+parent1.height():position.top-curObj.height()-9)), left: (scrollMode?offset.left-(sl1):position.left),position:(scrollMode?"fixed":"absolute")});
+         
+        curObj.find("input:first").width(expWidth);
+    }
+    curObj.toggle(); 
+
+    if(curObj.is(":visible")){
+        if(curObj.find(".availVals").width()>20){
+            var availVals=curObj.find(".availVals");
+            var fltTblOfw=curObj.find(".fltTblOfw");
+            curObj.find("input:first").width(Math.max(parent1.width(),(fltTblOfw.size()>0 && fltTblOfw[0].scrollWidth >fltTblOfw.width()?fltTblOfw[0].scrollWidth:availVals.width())));
+        }
+        var firstinpt=curObj.find("input:first");
+        if(firstinpt.is(":visible") ){
+            isSearchFocus1=false;
+            //firstinpt[0].focus();
+            //firstinpt.val(firstinpt.val());//end of word
+        }
+        lastOpenCFilterId=$(pobj).attr("id");
+        lastOpenCFilterSearchBID=objId;
+        setTimeout(function(){loadDataFilter(fieldName,objId,fieldCalss1,filterObjShowType,colName);},1);
+        //fixIfmHegt();
+    }else{
+        lastOpenCFilterId=null;
+        lastOpenCFilterSearchBID=null;
+        //fixIfmHegt();
+    }
+    fixIfmHegt();
+    stopProp1(event);
+        //filterClicked=false;
+    setTimeout("filterClicked=false;",50);
+    return false;
+}
+function scrollTop1(){
+     $("html, body").animate({ scrollTop: 0 }, "slow");
+}
+function scrollBottom1(){
+     $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+}
+function openDialogAsMod(){
+    var t1=true;
+    try{
+        t1=navigator.userAgent.indexOf("Chrome")==-1;
+    }catch(e1){}
+    return t1;
+}
+
+function stopProp1(event){
+    if(event!=null &&event.preventDefault){
+        event.returnValue = false;
+        event.preventDefault();
+        
+    }
+    if(event!=null && event.stopPropagation){
+        event.stopPropagation();
+        }
+}
+
+var graphWasLoaded=0;
+function createGarphsDataFilter(field1,filterIdSpan,fieldCalss1,filterObjShowType,amountFleild,amountFName,colName,filterCount1,hasGeo,resultData,fetchCount1){
+   var fieldMap1=new Array();
+   var maxResRows=200;
+   try{
+   
+    var orderTH=8;
+   var resultsHTML="";
+   var useExpField=false;
+   var boolValFirst=-1;
+   if(filterObjShowType=='1' || filterObjShowType=='4' || filterObjShowType=='2'|| filterObjShowType=='6'|| filterObjShowType=='5'|| filterObjShowType=='7'){//text,bool,date,datetime,int,reference
+        
+        var isGeo1=("true"==hasGeo)&&(filterObjShowType=='1' ||filterObjShowType=='1f'  )&& (field1.indexOf("country")>-1);
+        var gwinId=filterIdSpan+"GWin";
+        var gwinIdIn=filterIdSpan+"GWinIn";
+        var funcStr="createGarphsDataFilter(\""+field1+"\",\""+filterIdSpan+"\",\""+fieldCalss1+"\",\""+filterObjShowType+"\",\""+amountFleild+"\",\""+amountFName+"\",\""+colName+"\",\""+filterCount1+"\",\""+hasGeo+"\")";
+        var width1=(isGeo1?800:650);
+        var height1=(isGeo1?450:305);
+        if($("#"+gwinId).size()==0){
+            var graphTitle="{!$Label.Graphs_title_field_per_col}".replace("{0}",(amountFName==""?"{!$Label.Graphs_title_count_txt}":amountFName)).replace("{1}",colName);
+            $("body").append("<div id='"+gwinId+"' class='graphs' title='"+graphTitle+"' style='height:"+(height1)+"px;width:"+(width1)+"px;padding:0px;'><a href='javascript:void(0);' class='graphsRefresh btn' onclick='"+funcStr+"'><span class=''><span class='ui-icon ui-icon-refresh'></span></span></a><div id='"+gwinIdIn+"' class='graphsIn' style='height:"+(height1-55)+"px;width:"+(width1-50)+"px;'> <div class='ld1'></div></div></div>");
+            $("#"+gwinId).dialog({width:width1,height:height1
+                ,position: { my: "right bottom", at: "right bottom", of: "#mainTBX1" }
+            });
+        }else{
+            $("#"+gwinId+ " #"+gwinIdIn).html("<div class='ld1'></div>");
+            $("#"+gwinId).dialog({width:width1,height:height1});
+            //$("#"+gwinId).dialog("destroy");
+        }
+            $("#"+gwinId).dialog("moveToTop");
+            
+
+        //loadingSH();
+        var fieldSoql=field1;
+        if(filterObjShowType=='7' && field1!='id' ){
+            if(field1.indexOf("id")==field1.length-2){
+                field1=field1.substring(0,field1.length-2)+".name";
+            }
+            if(field1.indexOf("__c")==field1.length-3){
+                field1=field1.substring(0,field1.length-1)+"r.name";//'zaapit__'+
+            }
+            fieldSoql=field1;
+        }else if(filterObjShowType=='6'){
+            fieldSoql="DAY_ONLY("+field1+")";
+            useExpField=true;
+        }
+        var query1="";
+        if(amountFleild!=null && amountFleild!=""){
+            query1="SELECT "+fieldSoql+" f1,count(id) c1,sum("+amountFleild+") s1 "+DBsubQery+" group by "+fieldSoql+" order by "+(filterObjShowType!='5'?" sum("+amountFleild+")desc, "+fieldSoql+" asc ":" "+fieldSoql+" asc, sum("+amountFleild+")desc " )+" limit "+maxResRows;
+        }else{
+            query1="SELECT "+fieldSoql+" f1,count(id) c1 "+DBsubQery+" group by "+fieldSoql+" order by "+(filterObjShowType!='5'?" count(id) desc,"+fieldSoql+" asc ":" "+fieldSoql+" asc, count(id) desc ")+" limit "+maxResRows;
+        }
+         //alert(query1);
+    
+    if(resultData==null && fetchCount1==null){
+    Visualforce.remoting.Manager.invokeAction(
+	            remoteQueryAjax2,
+	            query1, 
+	            function(result, event){
+	                if (event.status && result!=null) {
+	
+					    createGarphsDataFilter(field1,filterIdSpan,fieldCalss1,filterObjShowType,amountFleild,amountFName,colName,filterCount1,hasGeo,result,"1");
+					    
+					
+					 } else if (event.type === 'exception') {
+	                    if(event.message!=null && (event.message+"").indexOf("Logged in")>-1){
+                        	self.location=self.location;
+                        }else{
+                        	alert("An error has occurred: "+event.message);
+                       	}
+	                } else {
+	                    //self.location=self.location;
+	                    // $("#"+filterIdSpan+" .availVals").html("");
+	                }
+	            }, 
+	            {escape: true}
+	        );
+	        return;
+	        }
+
+        var queryMore = true;
+        var hasRows = false;
+        var count1=0;
+        var showButtons=false;
+         var data = new google.visualization.DataTable();
+             
+
+            var records = resultData;
+            if(records!=null && records.length>0){
+                   
+                for (var key in records[0]) {
+                    //alert(key+" "+records[0][key]+" "+(typeof  records[0][key]));
+                    fieldMap1[key.toLowerCase()]=key;
+                    if(records[0][key]!=null && (typeof records[0][key]) == "object"){
+                    
+                        for (var key1 in records[0][key]) {
+                            fieldMap1[key1.toLowerCase()]=key1;
+                        }
+                    }  
+                }
+                
+            }
+            var type1="string";
+            if(filterObjShowType=='5'){//int
+                if(filterCount1<=orderTH){
+                    type1="string";//
+                }else{
+                    type1="number";
+                }
+            }else if(filterObjShowType=='2' || filterObjShowType=='6'){//date
+                type1="date";
+            }
+           // else if(isGeo1){
+           //    type1="country";
+           // }
+            
+            data.addColumn({type:type1, label:colName});
+            data.addColumn({type:"number", id:'Total',label:(amountFName==null || amountFName==""?"{!$Label.Total_text}":amountFName)});
+             
+            //data.addColumn({type:'string',role:'tooltip'});
+            //data.addColumn('string', null);   
+            
+            //alert(records[0]);
+            var expfieldsStart=(!useExpField?0:1);
+            var expfieldsStart2=expfieldsStart+1;
+            var countFname="c1";//'expr'+expfieldsStart;
+            var sumFname="s1";//'expr'+expfieldsStart2;
+            var fieldDotIdx=field1.indexOf(".");
+            var field1Xnd=(fieldDotIdx>-1?field1.substring(fieldDotIdx+1):field1);
+            var mainFieldName="f1";//(useExpField?"expr0":fieldMap1[field1Xnd]);
+            data.addRows(records.length);
+            
+            for (var i = 0; i < records.length; i++) {
+                hasRows=true;
+                var val1=records[i][mainFieldName];
+                 var val1Vis=val1;
+                if(val1==null || val1==""){
+                    val1Vis="{!$label.Blanks_txt}";
+                } 
+               
+                
+                var val1Count=records[i][countFname];
+                var val2sum=records[i][sumFname];
+                var objN="";
+                if(filterObjShowType=='5'){//int
+                    if(filterCount1<=orderTH){
+                        data.setValue(i,0,val1+" ("+val1Count+")");
+                    }else{
+                        data.setValue(i,0,Number(val1));
+                    }
+                }else if(filterObjShowType=='2' || filterObjShowType=='6'){//date
+                	if(val1!=null && val1!=""){
+                    	var darr=val1.split(/\-/);
+                    	data.setValue(i,0,new Date(darr[0],(Number(darr[1])-1),darr[2]));
+                    }else{
+                    	data.setValue(i,0,null);
+                    }
+                }else if(filterObjShowType=='4'){//booleans
+                    var valBoo=(val1+"")=="true";
+                    val1Vis=(valBoo?"Yes":"No");
+                    if(boolValFirst==-1){
+                        boolValFirst=(valBoo?1:0);
+                    }
+                    data.setValue(i,0,val1Vis +" ("+val1Count+")");
+                }else{
+                    if(!isGeo1){
+                        data.setValue(i,0,val1Vis +" ("+val1Count+")");
+                    }else{
+                        data.setValue(i,0,val1Vis);
+                    }
+                }
+                if(val2sum!=null){
+                    data.setValue(i,1,Number(val2sum==null || val2sum=="" ?0:val2sum));
+                    //data.setValue(i,2,val1+": $"+val2sum+" ("+val1Count+")");
+                }else{
+                    data.setValue(i,1,Number(val1Count==null || val1Count=="" ?0:val1Count));
+                    //data.setValue(i,2,val1+": "+val1Count+"");
+                }
+                //data.setValue(i,3,field1+"="+val1);
+
+            count1++;
+            }
+           
+   
+        //alert(data+ "\n\n "+amountFleild);
+        if(hasRows){
+         //var data = google.visualization.arrayToDataTable(dataPreG);
+
+        
+         
+        if(amountFleild!=null && amountFleild!=""){
+            var symbol= orgDefCurrency;
+            symbol=symbol.substring(0,1);
+             var formatter = new google.visualization.NumberFormat(
+                {prefix: symbol});
+            formatter.format(data, 1); // Apply formatter to second column 
+            // var formatter = new google.visualization.PatternFormat('{0}: {1}');
+            // formatter.format(data, [0,1], 0); 
+        }
+        
+       
+            
+            var options = null;//
+          var chart=null;
+         if(filterObjShowType=='5'){//int
+          
+              
+            if(filterCount1<=orderTH){
+		            options={fontSize:9,chartArea:{top:0,height:"90%"}
+		            ,colors:['blue','#CC0000','orange','#00CC00','#800080','#FFAA00','#00FFFF','#FF00AA','green','#AA00AA','#00AAAA','#AAAA00','#999900','#555500','lime']
+		            // title: 'My Daily Activities'
+		            };
+                chart = new google.visualization.ColumnChart(document.getElementById(gwinIdIn));
+            }else{
+                options={fontSize:9,chartArea:{top:0,height:"95%"}
+	            ,colors:['blue','#CC0000','orange','#00CC00','#800080','#FFAA00','#00FFFF','#FF00AA','green','#AA00AA','#00AAAA','#AAAA00','#999900','#555500','lime']
+	            // title: 'My Daily Activities'
+	            };
+                chart = new google.visualization.LineChart(document.getElementById(gwinIdIn));
+            }
+          }else if(filterObjShowType=='2' || filterObjShowType=='6'){//date
+          
+               options={fontSize:9,chartArea:{top:5,height:"95%"}
+            ,colors:['blue','#CC0000','orange','#00CC00','#800080','#FFAA00','#00FFFF','#FF00AA','green','#AA00AA','#00AAAA','#AAAA00','#999900','#555500','lime']
+            // title: 'My Daily Activities'
+            };
+            
+            chart = new google.visualization.AnnotatedTimeLine(document.getElementById(gwinIdIn));
+
+             var rangechange= function () {
+                var topping="";
+                try{
+                var selTot=chart.getVisibleChartRange();
+                var start=selTot.start;
+                var startStr=start.getFullYear()+"-"+(start.getMonth()+1<10?"0":"")+""+(start.getMonth()+1)+"-"+(start.getDate()<10?"0":"")+""+start.getDate();
+                var end=selTot.end;
+                var endStr=end.getFullYear()+"-"+(end.getMonth()+1<10?"0":"")+""+(end.getMonth()+1)+"-"+(end.getDate()<10?"0":"")+""+end.getDate();
+                //alert(startStr + " " +endStr+ " ");
+                $('#'+filterIdSpan+' .'+fieldCalss1+"1").val(startStr);
+                $('#'+filterIdSpan+' .'+fieldCalss1+"2").val(endStr).change();
+                //filterCol(null,100);//13
+                }catch(e){}
+                //$('#'+filterIdSpan+' .'+fieldCalss1).val(topping).focusin().keyup();
+                };
+                google.visualization.events.addListener(chart, 'rangechange', rangechange); 
+            
+          }else if(filterObjShowType=='4'){//booleans
+              options={fontSize:9,chartArea:{left:0,top:5,width:"100%",height:"95%"}
+                ,colors:[(boolValFirst==1?'#00AA00':'#CC0000'),(boolValFirst!=1?'#00AA00':'#CC0000'),'orange','#00CC00','#800080','#FFAA00','#00FFFF','#FF00AA','green','#AA00AA','#00AAAA','#AAAA00','#999900','#555500','lime']
+                // title: 'My Daily Activities'
+                };
+                chart = new google.visualization.PieChart(document.getElementById(gwinIdIn));
+          }else if(isGeo1){
+                
+                options={fontSize:9,chartArea:{left:0,top:5,width:"100%",height:"95%"},displayMode:"regions"
+                    //,colors:['blue','#CC0000','orange','#00CC00','#800080','#FFAA00','#00FFFF','#FF00AA','green','#AA00AA','#00AAAA','#AAAA00','#999900','#555500','lime']
+                    // title: 'My Daily Activities'
+                    };
+                 chart = new google.visualization.GeoChart(document.getElementById(gwinIdIn));
+          
+          }else{
+              options={fontSize:9,chartArea:{left:0,top:5,width:"100%",height:"95%"}
+            ,colors:['blue','#CC0000','orange','#00CC00','#800080','#FFAA00','#00FFFF','#FF00AA','green','#AA00AA','#00AAAA','#AAAA00','#999900','#555500','lime']
+            // title: 'My Daily Activities'
+            };
+             var formatter = new google.visualization.PatternFormat((amountFName==null || amountFName==""?"{!$Label.Total_text}":amountFName)+': {1}');
+             formatter.format(data, [0,1], 1); 
+            chart = new google.visualization.PieChart(document.getElementById(gwinIdIn));
+          }
+          
+          
+           var selectHandler= function () {
+            var topping="";
+            try{
+            var selTot=chart.getSelection();
+            //alert(selTot);
+            var selectedItem = selTot[0];
+            if (selectedItem) {
+                topping = data.getValue(selectedItem.row, 0);
+                //alert('The user selected ' + topping);
+                topping=new String(topping==null?"":topping);
+                if(topping!=null && topping.indexOf(" (")>-1){
+                    topping=topping.split(/ \(/)[0];
+                }
+                if(topping.indexOf(",")>-1){
+                    topping=topping.replace(/\,/ig,"_");
+                }
+                if(topping=="{!$Label.Blanks_txt}"){
+                    topping=" ,";//blanko filter
+                }else{
+                	topping=topping+",";
+                }
+                 //alert('The user selected ' + topping);
+            }
+            }catch(e){}
+            $('#'+filterIdSpan+' .'+fieldCalss1).val(topping).focusin().keyup();
+            filterCol(null,50);
+            };
+            google.visualization.events.addListener(chart, 'select', selectHandler); 
+
+          chart.draw(data, options);
+        }
+        }
+    }catch(e1){
+        
+            if(e1!=null && (e1+"").indexOf("INVALID_FIELD")>-1){
+                alert("One of the below marked fields have access right issues: \n\n"+e1);
+            }else if(e1!=null && (e1+"").indexOf("INVALID_SESSION_ID")>-1){
+                self.location=self.location;
+            }else if((e1+"").indexOf("Unable to connect")==-1){
+                alert("An error has occur: "+e1);
+            }
+        }
+  }
+  
+        
+function togglesGraphs1(){
+//  $("#graphsRusx").html("Hello").show("slide", { direction: "left" }, 3000);
+}
+function togglesMaps1(){
+    //$("#mapRusx").html("Hello").show("slide", { direction: "left" }, 3000);
+}
+
+
+
+</script>
+
+<!--
+
+<div style="{!IF(confName=='ContactWL','display:block','display:none')};color:gray;font-size:11pt;padding:10px;text-align:center;">This "editable" working-list was made by ZaapIT for illustration purposes. 
+ To get your custom "editable" table please
+  <a href="mailto:support@zaapit.com?subject=Custom Editable Table.">contact us</a>.</div>
+   -->
+ 
+</apex:component>

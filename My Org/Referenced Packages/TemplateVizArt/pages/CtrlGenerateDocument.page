@@ -1,0 +1,106 @@
+<apex:page id="thePageGenerate" Controller="TemplateVizArt.CtrlGenerateDocument" showHeader="false" sidebar="false" tabStyle="TemplateVizArt__Template__c" standardStylesheets="true" language="{!language}"  renderAs="{!Renderformat}" contentType="{!contentType}" cache="true">
+
+    <!--
+    <head>
+        <system.webServer>
+            <httpProtocol>
+              <customHeaders>
+                <clear />
+                <add name="X-UA-Compatible" value="IE=edge" />
+              </customHeaders>
+            </httpProtocol>
+        </system.webServer>
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7; IE=EmulateIE9" />
+    </head>  
+    -->
+    
+    <apex:includeScript value="{!URLFOR($Resource.TemplateVizArt__JQueryMiNi_1_7_2)}" />
+    <apex:includeScript value="{!URLFOR($Resource.TemplateVizArt__Library)}" />
+    <apex:outputText value="{!cssCode}" escape="false"/>
+    <c:CompGenerateDocument id="compText" Header="{!Header}" Footer="{!Footer}" EditorText="{!EditorText}" rendered="{!!isOverride}"/>
+
+    <apex:form id="theformEdited" rendered="{!isOverride}">
+        <script type="text/javascript">
+            var custom_setting_fonts = '{!HTMLENCODE(CustomFonts)}';
+        </script>
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="top">
+                <apex:outputPanel rendered="{!generateOnOverride}">
+                    <input type="button" class="btn" id="theButtonEdited" value="{!$Label.GenerateButton}" onclick="GenerateGetTextArea();" />
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!generateAndAttachOnOverride}">
+                    <input type="button" class="btn" id="theButtonAttched" value="{!$Label.GenerateAttachButton}" onclick="GenerateAndAttachGetTextArea();" />
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!attachAndSendEmail}">
+                    <input type="button" class="btn" id="theButtonAttchedAndE" value="{!$Label.AttachAndSendEmail}" onclick="AttachAndSendEmailGetTextArea();" />
+                </apex:outputPanel>
+                
+<!--                <apex:commandButton id="theButtonEdited" value="{!$Label.GenerateButton}" action="{!showOverride}" rendered="{!generateOnOverride}"/>-->
+<!--                <apex:commandButton id="theButtonAttched" value="{!$Label.GenerateAttachButton}" action="{!generateAndAttach}" rendered="{!generateAndAttachOnOverride}"/>-->
+                <!-- added by yinfeng.guo : 2012-07-23 -->
+                <input type="button" class="btn" id="previewButton" value="{!$Label.templatevizart__Preview}"  onclick="GetTextArea();"/>
+                <!-- added by yinfeng.guo : 2012-07-23 -->
+                <apex:commandButton value="{!$Label.templatevizart__BackButton}" action="{!cancel}" rendered="{!retURL!=null}"/>
+                
+                <apex:actionStatus startText=" Loading... " stopText="" id="status">
+                    <apex:facet name="start"><img src="/img/loading.gif"/><span class="waitingDescription"></span></apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockButtons>
+            <!--  -->
+            <apex:outputLabel value="Versioned Template Name:" for="versionTempName" style="margin-bottom:6px;margin-right:10px;font-weight:bold;" rendered="{!showVersionInput}"></apex:outputLabel>
+            <apex:inputText id="versionTempName" value="{!versionTempName}" style="margin-bottom:6px;width:300px;" rendered="{!showVersionInput}"></apex:inputText>
+            
+            <apex:pageBlockSection title="{!$Label.templatevizart__Review_Document}" columns="1" id="body">
+                <c:CompGenerateDocumentOverride id="compEdition" EditorText="{!EditorText}" pageController="{!this}" />
+            </apex:pageBlockSection>
+            <div id="previewPanel">
+            <apex:pageBlockSection title="{!$Label.templatevizart__Preview}" columns="1" id="previewSection" >
+                <apex:iframe src="{!iframeUrl}" scrolling="false"/>
+            </apex:pageBlockSection>
+            </div>
+            <script type="text/javascript">
+                document.getElementById("previewPanel").style.display="none";
+                function hideEditor(){
+                    document.getElementById("previewPanel").style.display="";
+                    collapseSection("{!$Component.body}");
+                }
+            </script>
+        </apex:pageBlock>
+        
+        <!-- added by yinfeng.guo : to show preview use iframe     rendered="{!showPreview}"-->
+        <apex:actionFunction action="{!preview}" name="ShowPreview" rerender="previewSection" status="status" oncomplete="hideEditor()">
+            <apex:param name="templateText" assignTo="{!templateText}" value="" />
+        </apex:actionFunction>
+        <apex:actionFunction action="{!showOverride}" name="showOverride" rerender="previewSection" status="status" >
+            <apex:param name="templateText" assignTo="{!templateText}" value="" />
+        </apex:actionFunction>
+        <apex:actionFunction action="{!generateAndAttach}" name="GenerateAndAttach" rerender="previewSection" status="status" >
+            <apex:param name="templateText" assignTo="{!templateText}" value="" />
+        </apex:actionFunction>
+        <apex:actionFunction action="{!attachAndSendEmail}" name="AttachAndSendEmail" rerender="previewSection" status="status" >
+            <apex:param name="templateText" assignTo="{!templateText}" value="" />
+        </apex:actionFunction>
+        <script>
+            function GetTextArea(){
+                var content = text.document.getBody().getHtml();
+                ShowPreview(content);
+            }
+            function GenerateGetTextArea(){
+                var content = text.document.getBody().getHtml();
+                showOverride(content);
+            }
+            function GenerateAndAttachGetTextArea(){
+                var content = text.document.getBody().getHtml();
+                GenerateAndAttach(content);
+            }
+            function AttachAndSendEmailGetTextArea(){
+                var content = text.document.getBody().getHtml();
+                AttachAndSendEmail(content);
+            }
+        </script>
+        <!-- added by yinfeng.guo : to show preview use iframe -->
+    </apex:form>
+    
+</apex:page>

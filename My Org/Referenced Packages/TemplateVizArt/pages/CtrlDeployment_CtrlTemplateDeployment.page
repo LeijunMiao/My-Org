@@ -1,0 +1,111 @@
+<apex:page controller="TemplateVizArt.CtrlTemplateDeployment" title="{!$Label.templatevizart__TemplateDeployment}" action="{!init}">
+    <c:CompTemplateDeployment pageController="{!pageController}"/>
+    <!--    <apex:sectionHeader title="TemplateVizArt" -->
+    <!--        subtitle="{!$Label.templatevizart__TemplateDeployment}" /> -->
+    <!--    <apex:pageMessage summary="{!$Label.NoAddOnLicense}" severity="error" -->
+    <!--        strength="3" rendered="{!!hasLicense}" /> -->
+    <!--    <apex:form id="topform" rendered="{!hasLicense}"> -->
+    <!--        <apex:pageMessages /> -->
+    <!--        <apex:pageMessage summary="{!currentMsg}" severity="error" -->
+    <!--            strength="3" rendered="{!mode='error'}" /> -->
+    <!--        <apex:pageMessage summary="{!currentMsg}" severity="error" -->
+    <!--            strength="3" rendered="{!mode='errorFile'}" /> -->
+
+    <!--        <apex:pageBlock id="export" title="{!$Label.Export}" -->
+    <!--            rendered="{!mode='export'}"> -->
+    <!--            <apex:outputLink value="/servlet/servlet.FileDownload?file={!docId}" -->
+    <!--                id="theLink">{!docName}</apex:outputLink> -->
+    <!--        </apex:pageBlock> -->
+
+    <!--        <apex:pageBlock id="import" title="{!$Label.Import}" -->
+    <!--            rendered="{!OR(mode='import', mode='errorFile')}"> -->
+    <!--            <apex:inputFile value="{!doc.body}" filename="Templates" /> -->
+    <!--            <br /> -->
+    <!--            <apex:commandButton value="{!$Label.ParseButton}" -->
+    <!--                action="{!doImport}" /> -->
+    <!--        </apex:pageBlock> -->
+
+    <!--        <apex:pageBlock id="override" title="{!$Label.Override}" -->
+    <!--            rendered="{!mode='override'}"> -->
+    <!--            <apex:pageBlockButtons > -->
+    <!--                <apex:commandButton action="{!doOverride}" -->
+    <!--                    value="{!$Label.ConfirmButton}" /> -->
+    <!--            </apex:pageBlockButtons> -->
+
+    <!--            <apex:pageMessage summary="{!$Label.DuplicateTDS}" severity="info" -->
+    <!--                strength="3" /> -->
+
+    <!--            <apex:pageBlockSection title="{!$Label.Existing_Templates}" -->
+    <!--                columns="1" rendered="{!templateE.exists}"> -->
+    <!--                <apex:pageBlockTable value="{!templateE.list_ds}" var="item"> -->
+    <!--                    <apex:column > -->
+    <!--                        <apex:facet name="header">{!$Label.Name}</apex:facet> -->
+    <!--                        <apex:outputLink value="/{!item.rId}" target="_blank">{!item.rName}</apex:outputLink> -->
+    <!--                    </apex:column> -->
+    <!--                    <apex:column > -->
+    <!--                        <apex:facet name="header">{!$Label.Description}</apex:facet> -->
+    <!--                        <apex:outputText value="{!item.rDes}" /> -->
+    <!--                    </apex:column> -->
+    <!--                    <apex:column > -->
+    <!--                        <apex:facet name="header">{!$Label.Override}</apex:facet> -->
+    <!--                        <apex:inputCheckbox value="{!item.overrides}" /> -->
+    <!--                    </apex:column> -->
+    <!--                </apex:pageBlockTable> -->
+    <!--            </apex:pageBlockSection> -->
+
+    <!--            <apex:pageBlockSection title="{!$Label.Existing_Data_Sources}" -->
+    <!--                columns="1" rendered="{!dataSourceE.exists}"> -->
+    <!--                <apex:pageBlockTable value="{!dataSourceE.list_ds}" var="item"> -->
+    <!--                    <apex:column > -->
+    <!--                        <apex:facet name="header">{!$Label.Name}</apex:facet> -->
+    <!--                        <apex:outputLink value="/{!item.rId}" target="_blank">{!item.rName}</apex:outputLink> -->
+    <!--                    </apex:column> -->
+    <!--                    <apex:column > -->
+    <!--                        <apex:facet name="header">{!$Label.Description}</apex:facet> -->
+    <!--                        <apex:outputText value="{!item.rDes}" /> -->
+    <!--                    </apex:column> -->
+    <!--                    <apex:column > -->
+    <!--                        <apex:facet name="header">{!$Label.Override}</apex:facet> -->
+    <!--                        <apex:inputCheckbox value="{!item.overrides}" /> -->
+    <!--                    </apex:column> -->
+    <!--                </apex:pageBlockTable> -->
+    <!--            </apex:pageBlockSection> -->
+
+    <!--            <apex:pageBlockSection title="{!$Label.Existing_Images}" columns="1" -->
+    <!--                rendered="{!imageE.exists}"> -->
+    <!--                <apex:pageBlockTable value="{!imageE.list_ds}" var="item"> -->
+    <!--                    <apex:column > -->
+    <!--                        <apex:facet name="header">{!$Label.Name}</apex:facet> -->
+    <!--                        <apex:outputLink value="/{!item.rId}" target="_blank">{!item.rName}</apex:outputLink> -->
+    <!--                    </apex:column> -->
+    <!--                    <apex:column > -->
+    <!--                        <apex:facet name="header">{!$Label.Description}</apex:facet> -->
+    <!--                        <apex:outputText value="{!item.rDes}" /> -->
+    <!--                    </apex:column> -->
+    <!--                    <apex:column > -->
+    <!--                        <apex:facet name="header">{!$Label.Content_Type}</apex:facet> -->
+    <!--                        <apex:outputText value="{!item.contentType}" /> -->
+    <!--                    </apex:column> -->
+    <!--                    <apex:column > -->
+    <!--                        <apex:facet name="header">{!$Label.Override}</apex:facet> -->
+    <!--                        <apex:inputCheckbox value="{!item.overrides}" /> -->
+    <!--                    </apex:column> -->
+    <!--                </apex:pageBlockTable> -->
+    <!--            </apex:pageBlockSection> -->
+    <!--        </apex:pageBlock> -->
+
+    <!--        <apex:pageBlock title="Result" rendered="{!mode='success'}"> -->
+    <!--            <apex:pageMessage summary="{!$Label.ImportConfirm}" severity="info" -->
+    <!--                strength="3" /> -->
+    <!--            <apex:pageBlockSection title="" columns="1" collapsible="false"> -->
+    <!--                <apex:repeat value="{!list_results}" var="item"> -->
+    <!--                    <apex:pageBlockSectionItem > -->
+    <!--                        <apex:outputPanel >{!item.rType}&nbsp;<apex:outputLink value="/{!item.rId}" target="_blank">{!item.rName}</apex:outputLink>&nbsp;{!item.rAction}</apex:outputPanel> -->
+    <!--                    </apex:pageBlockSectionItem> -->
+    <!--                </apex:repeat> -->
+    <!--            </apex:pageBlockSection> -->
+    <!--        </apex:pageBlock> -->
+
+
+    <!--    </apex:form> -->
+</apex:page>
