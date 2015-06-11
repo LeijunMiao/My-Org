@@ -1,5 +1,0 @@
-<apex:page title="{!$Label.templatevizart__Configuration}: {!$Label.templatevizart__Manage}">
-    <apex:sectionHeader title="{!$Label.templatevizart__Configuration}"
-        subtitle="{!$Label.templatevizart__Manage}" />
-    <c:CompManageSettings />
-</apex:page>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Custom Object - Demo</description>
-    <label>Custom Object - Demo</label>
-    <mobileReady>false</mobileReady>
-    <motif>Custom15: People</motif>
-    <page>zaapit_tb_GeneralWL5</page>
-</CustomTab>

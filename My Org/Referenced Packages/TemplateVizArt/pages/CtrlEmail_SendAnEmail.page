@@ -1,4 +1,0 @@
-<!-- <apex:page controller="CtrlSendAnEmail" title="{!$Label.templatevizart__Send_Email}" tabStyle="Template__c"> -->
-<apex:page title="{!$Label.templatevizart__Send_Email}" tabStyle="TemplateVizArt__Template__c">
-    <c:CompSendEmail />
-</apex:page>

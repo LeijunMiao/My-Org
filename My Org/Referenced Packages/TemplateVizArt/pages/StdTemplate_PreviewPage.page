@@ -1,3 +1,0 @@
-<apex:page standardController="TemplateVizArt__Template__c">
-    <c:CompTemplatePreview template="{!TemplateVizArt__Template__c}"/>
-</apex:page>
