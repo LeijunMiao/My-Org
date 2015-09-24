@@ -1,0 +1,12 @@
+<apex:page id="thePage" Controller="TemplateVizArt.CtrlGenerateDocumentOverride" tabStyle="TemplateVizArt__Template__c" action="{!attachAndSendEmail}">
+    <apex:sectionHeader title="{!$Label.templatevizart__AttachAndSendEmail}" rendered="{!andSendEmail}"/>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessage summary="{!$Label.templatevizart__AttachAndSendEmailConfirm}" severity="info" strength="3" rendered="{!andSendEmail}"/>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!attachAndSendEmail}" value="{!$Label.templatevizart__OK}" rendered="{!andSendEmail}"/>
+                <apex:commandButton action="{!cancel}" value="{!$Label.templatevizart__CancelButton}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>   
+    </apex:form>
+</apex:page>

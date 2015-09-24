@@ -1,0 +1,8 @@
+<apex:component controller="TemplateVizArt.CompGenerateDocument" access="global">
+    <apex:attribute name="Header" description="Header Part" type="String" required="required" assignTo="{!Header}" access="global"/>
+    <apex:attribute name="Footer" description="Footer Part" type="String" required="required" assignTo="{!Footer}" access="global"/>
+    <apex:attribute name="EditorText" description="Body Part" type="String" required="required" assignTo="{!EditorText}" access="global"/>
+    
+    <apex:outputText value="{!EditorText}" escape="false"/>
+	
+</apex:component>

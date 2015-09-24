@@ -1,0 +1,117 @@
+<apex:component id="compTemplateDeployMent"
+	controller="TemplateVizArt.CompTemplateDeployment" allowDML="true">
+	<apex:attribute name="pageController" assignTo="{!pageController}"
+		description="Template deployment controller " type="TemplateVizArt.CtrlTemplateDeployment"
+		required="true" />
+	<apex:sectionHeader title="TemplateVizArt"
+		subtitle="{!$Label.templatevizart__TemplateDeployment}" />
+	<apex:pageMessage summary="{!$Label.templatevizart__NoAddOnLicense}" severity="error"
+		strength="3" rendered="{!!pageController.hasLicense}" />
+	<apex:form id="topform" rendered="{!pageController.hasLicense}">
+		<apex:pageMessages />
+		<apex:pageMessage summary="{!pageController.currentMsg}" severity="error"
+			strength="3" rendered="{!pageController.mode='error'}" />
+		<apex:pageMessage summary="{!pageController.currentMsg}" severity="error"
+			strength="3" rendered="{!pageController.mode='errorFile'}" />
+
+		<apex:pageBlock id="export" title="{!$Label.templatevizart__Export}"
+			rendered="{!pageController.mode='export'}">
+			<apex:outputLink value="/servlet/servlet.FileDownload?file={!pageController.docId}"
+				id="theLink">{!pageController.docName}</apex:outputLink>
+		</apex:pageBlock>
+
+		<apex:pageBlock id="import" title="{!$Label.templatevizart__Import}"
+			rendered="{!OR(pageController.mode='import', pageController.mode='errorFile')}">
+			<apex:inputFile value="{!pageController.doc.body}" filename="Templates" />
+			<br />
+			<apex:commandButton value="{!$Label.templatevizart__ParseButton}" action="{!pageController.doImport}"/>
+		</apex:pageBlock>
+
+		<apex:pageBlock id="override" title="{!$Label.templatevizart__Override}"
+			rendered="{!pageController.mode='override'}">
+			<apex:pageBlockButtons location="top">
+				<apex:commandButton action="{!pageController.doOverride}" value="{!$Label.templatevizart__ConfirmButton}" status="confirmStatus" rerender="topform"/>
+				<apex:actionStatus startText=" Loading... " stopText="" id="confirmStatus">
+					<apex:facet name="start">
+						<img src="/img/loading.gif" />
+						<span class="waitingDescription">{!$Label.Loading}...</span>
+					</apex:facet>
+				</apex:actionStatus>
+			</apex:pageBlockButtons>
+
+			<apex:pageMessage summary="{!$Label.templatevizart__DuplicateTDS}" severity="warning" strength="3" />
+
+			<apex:pageBlockSection title="{!$Label.templatevizart__Existing_Templates}"
+				columns="1" rendered="{!pageController.templateE.exists}">
+				<apex:pageBlockTable value="{!pageController.templateE.list_ds}" var="item">
+					<apex:column >
+						<apex:facet name="header">{!$Label.templatevizart__Name}</apex:facet>
+						<apex:outputLink value="/{!item.rId}" target="_blank">{!item.rName}</apex:outputLink>
+					</apex:column>
+					<apex:column >
+						<apex:facet name="header">{!$Label.templatevizart__Description}</apex:facet>
+						<apex:outputText value="{!item.rDes}" />
+					</apex:column>
+					<apex:column >
+						<apex:facet name="header">{!$Label.templatevizart__Override}</apex:facet>
+						<apex:inputCheckbox value="{!item.overrides}" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="{!$Label.templatevizart__Existing_Data_Sources}"
+				columns="1" rendered="{!pageController.dataSourceE.exists}">
+				<apex:pageBlockTable value="{!pageController.dataSourceE.list_ds}" var="item">
+					<apex:column >
+						<apex:facet name="header">{!$Label.templatevizart__Name}</apex:facet>
+						<apex:outputLink value="/{!item.rId}" target="_blank">{!item.rName}</apex:outputLink>
+					</apex:column>
+					<apex:column >
+						<apex:facet name="header">{!$Label.templatevizart__Description}</apex:facet>
+						<apex:outputText value="{!item.rDes}" />
+					</apex:column>
+					<apex:column >
+						<apex:facet name="header">{!$Label.templatevizart__Override}</apex:facet>
+						<apex:inputCheckbox value="{!item.overrides}" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection title="{!$Label.templatevizart__Existing_Images}" columns="1"
+				rendered="{!pageController.imageE.exists}">
+				<apex:pageBlockTable value="{!pageController.imageE.list_ds}" var="item">
+					<apex:column >
+						<apex:facet name="header">{!$Label.templatevizart__Name}</apex:facet>
+						<apex:outputLink value="/{!item.rId}" target="_blank">{!item.rName}</apex:outputLink>
+					</apex:column>
+					<apex:column >
+						<apex:facet name="header">{!$Label.templatevizart__Description}</apex:facet>
+						<apex:outputText value="{!item.rDes}" />
+					</apex:column>
+					<apex:column >
+						<apex:facet name="header">{!$Label.templatevizart__Content_Type}</apex:facet>
+						<apex:outputText value="{!item.contentType}" />
+					</apex:column>
+					<apex:column >
+						<apex:facet name="header">{!$Label.templatevizart__Override}</apex:facet>
+						<apex:inputCheckbox value="{!item.overrides}" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+
+		<apex:pageBlock title="Result" rendered="{!pageController.mode='success'}">
+			<apex:pageBlockSection title="" columns="1" collapsible="false">
+				<apex:repeat value="{!pageController.list_results}" var="item">
+					<apex:pageBlockSectionItem >
+						<apex:outputPanel >{!item.rType}&nbsp;<apex:outputLink value="/{!item.rId}" target="_blank">{!item.rName}</apex:outputLink>&nbsp;{!item.rAction}</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+				</apex:repeat>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+
+		<apex:pageBlock id="test" title="{!$Label.templatevizart__Test}" rendered="false">
+			<apex:outputText escape="false" value="{!pageController.test}" />
+		</apex:pageBlock>
+	</apex:form>
+</apex:component>

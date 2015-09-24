@@ -1,0 +1,86 @@
+<apex:page sidebar="false" showHeader="false" controller="ExtJobAppPopup">
+<apex:includeScript value="{!URLFOR($Resource.jquery191)}" />
+<apex:form >
+	<apex:pageMessages id="msg" escape="false"/>
+	<apex:outputPanel id="mainPanel" layout="block" style="margin:5px;padding:10px;padding-top:2px;">
+		<apex:outputPanel id="searchPanel" layout="block" style="margin:5px;padding:10px;padding-top:2px;">
+			<apex:outputLabel value="Search" style="font-weight:Bold;padding-right:10px;" for="txtSearch"/>
+			<apex:inputText id="txtSearch" value="{!searchString}" onkeydown="if(event.keyCode==13){searchCodeInJs();}"/>
+			<span style="padding-left:5px">
+				<apex:commandButton id="goBtn" value="Go" action="{!searchCode}" rerender="codePB,msg" status="searchStatus"></apex:commandButton>
+				<apex:actionStatus startText=" Loading... " stopText="" id="searchStatus" >
+					<apex:facet name="start"><img src="/img/loading.gif"/><span class="waitingDescription"></span></apex:facet>
+				</apex:actionStatus>  
+			</span>
+			<apex:actionFunction name="searchCodeInJs" action="{!searchCode}" rerender="codePB,msg" status="searchStatus"/>
+		</apex:outputPanel>
+		
+		<apex:outputPanel id="codePanel" style="margin:10px;max-height:350px;overflow-Y:auto;" layout="block">
+			<apex:pageBlock id="codePB"> 
+				<apex:pageBlockTable value="{!list_code}" var="c" id="codePBT">
+					<apex:column >  
+						<apex:facet name="header">
+							<apex:outputPanel >Project Code</apex:outputPanel>
+						</apex:facet>
+						<a onclick="saveCodeName('{!c}');">{!c}</a>
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:outputPanel>
+		<table style="width:100%;">
+			<tr>
+				<td style="text-align:center;">
+					<span style="padding-left:15px;">
+						<apex:commandButton id="cancelBtn" value="Cancel" style="width:50px;" onclick="cancel();"></apex:commandButton>
+					</span>
+				</td>
+			</tr>
+		</table>
+	</apex:outputPanel>
+</apex:form>
+	<script type="text/javascript">
+		var j$ = jQuery.noConflict();
+		
+		function hideLoading(){
+			parent.document.getElementById('loading').style.display = "none";
+		}
+		hideLoading();
+
+		function cancel() {
+			parent.closeAddAccountPopup();
+		}	
+
+		function saveCodeName(s){
+			//var result = collectSelectedCodeName();
+			parent.document.getElementById('codeList').value = s;
+			parent.document.getElementById('codeList').focus();
+			cancel();
+		}
+		
+		function collectSelectedCodeName(){
+			var mainTable = j$("table[id$='codePBT']");
+			var result = '';
+			//j$("input[type='checkbox']", mainTable).each(function(){
+			j$("input:checked", mainTable).each(function(){
+				//console.log(j$(this).attr('name'));
+				j$(this).siblings().each(function(){
+					//console.log(j$(this).text());
+					result += j$.trim(j$(this).text()) + ', ';
+				});
+			});
+			if(result != ''){
+				result = j$.trim(result);
+				result = result.substring(0, result.length - 1);
+			}
+			//console.log('result : ' + result);
+			return result;
+		}  
+		
+		function stopRKey(evt) { 
+	        var evt = (evt) ? evt : ((event) ? event : null); 
+	        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+	        if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+	    } 
+		document.onkeypress = stopRKey;   
+	</script> 
+</apex:page>

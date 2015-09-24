@@ -1,0 +1,55 @@
+<apex:component >
+<apex:attribute name="searchFieldID" description="searchFieldID" type="string" required="false" default="1" />
+<apex:attribute name="value" description="searchSTR" type="string" required="false" default="" />
+<apex:attribute name="Search_label" description="Search_label" type="string" required="false" default="" />
+<apex:attribute name="width" description="width" type="integer" required="false" default="152" />
+<apex:attribute name="waitMilis" description="waitMilis" type="integer" required="false" default="600" />
+<apex:attribute name="styleClass" description="styleClass" type="string" required="false" default="" />
+<apex:attribute name="onchangeFunction" description="onchangeFunction" type="string" required="false" default="alert" />
+<style>
+.searchInptFZP{!searchFieldID}{border:1px solid #AAAAAA;}
+.hd1{!searchFieldID}{display:none;}
+.searchTxt{!searchFieldID}{color:#a1a1a1;z-index:2;position:absolute;left:3px;top:0px;line-height: 18px;height: 18px;display:inline-block;}
+input.searchInptFZP{!searchFieldID}[type=text]::-ms-clear {display: none;}
+.ui-icon-circle-closeZP{!searchFieldID}{}
+.ui-icon-circle-closeZPH{!searchFieldID}{width:18px;height:18px;display:block;background-image: url("{!$Resource.clear_search}"); background-position: 0px -2px; background-repeat: no-repeat;}
+span.filterinoIPTCS1{!searchFieldID}{diplay: inline-block; z-index: 2; position: absolute; right: 3px;color:white;top:3px;}
+</style>
+<script>
+function clearBtnFocusIn{!searchFieldID}(){
+    var par1=$(this).parents("span:first");
+    par1.find(".ui-icon-circle-closeZP{!searchFieldID}").addClass("ui-icon-circle-closeZPH{!searchFieldID}").show();
+    par1.find(".searchTxt{!searchFieldID}").hide();
+}
+function clearBtnFocusOut{!searchFieldID}(){
+    if($.trim($(this).val())==""){
+        var par1=$(this).parents("span:first");
+        par1.find(".ui-icon-circle-closeZP{!searchFieldID}").hide("fade",1000);
+        par1.find(".searchTxt{!searchFieldID}").show(1000);
+    }
+}
+var inputSearchInpt{!searchFieldID}=null;
+$(document).ready(function(){
+$("input.searchInptFZP{!searchFieldID}:first").keyup(function(event){
+        var waitMilis=1;
+        if (event!=null && event.keyCode===13){
+            waitMilis=1;
+        }else{
+            waitMilis={!waitMilis};
+        }
+        var str=$(this).val();
+
+        if(inputSearchInpt{!searchFieldID}!=null){
+            self.clearTimeout(inputSearchInpt{!searchFieldID});
+            inputSearchInpt{!searchFieldID}=null;
+        }
+        inputSearchInpt{!searchFieldID}=self.setTimeout(function(){{!onchangeFunction}(str);},waitMilis);    
+    }).focusin(clearBtnFocusIn{!searchFieldID}).focusout(clearBtnFocusOut{!searchFieldID});
+});
+</script>
+ <span class="{!styleClass}" style="position: relative;display:inline-block;width:{!width}px;"><span class="searchTxt{!searchFieldID} {!IF(value!='','hd1{!value}','')}" style="top:2px" onclick="$(this).hide();$(this).parents('span:first').find('input:first').focus();">{!IF(Search_label=='',$Label.Search_label,Search_label)}</span><apex:inputText onkeydown="if (event!=null && event.keyCode===13){return false;}" value="{!value}"
+      style="width:{!width-2}px;height:16px;" styleClass="searchInptFZP{!searchFieldID}"/><span               
+  onclick="$('.searchInptFZP{!searchFieldID}').val('');$('.searchInptFZP{!searchFieldID}:first').focus().keyup();" 
+  class="filterinoIPTCS1{!searchFieldID} ui-icon-circle-closeZP{!searchFieldID}"></span>
+  </span>
+</apex:component>

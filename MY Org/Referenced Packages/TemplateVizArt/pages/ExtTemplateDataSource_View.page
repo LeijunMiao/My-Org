@@ -1,0 +1,12 @@
+<apex:page standardcontroller="TemplateVizArt__Template_Data_Source__c" extensions="TemplateVizArt.ExtTemplateDataSource" showHeader="false" sideBar="false">
+    <apex:form >
+        <apex:pageBlock mode="maindetail">
+            <apex:pageBlockSection showHeader="false">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Source__c.fields.TemplateVizArt__Root_Object__c.label}"/>
+                    <apex:outputText value="{!ObjectLabel}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

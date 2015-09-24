@@ -1,0 +1,1792 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Action</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Action</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>Active</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>IsActive</shortDescription>
+        <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>AddAttachment</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AddAttachment</shortDescription>
+        <value>Are you sure to attach the generated template onto the root record?</value>
+    </labels>
+    <labels>
+        <fullName>AddButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AddButton</shortDescription>
+        <value>Add</value>
+    </labels>
+    <labels>
+        <fullName>Additional</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Additional</shortDescription>
+        <value>Additional</value>
+    </labels>
+    <labels>
+        <fullName>Additional_To</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Additional To</shortDescription>
+        <value>Additional To</value>
+    </labels>
+    <labels>
+        <fullName>AllInOneButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AllInOneButton</shortDescription>
+        <value>All-in One</value>
+    </labels>
+    <labels>
+        <fullName>AreYouSure</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AreYouSure</shortDescription>
+        <value>Are you sure?</value>
+    </labels>
+    <labels>
+        <fullName>Attach</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attach</shortDescription>
+        <value>Attach</value>
+    </labels>
+    <labels>
+        <fullName>AttachAndSendEmail</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AttachAndSendEmail</shortDescription>
+        <value>Attach &amp; Send Email</value>
+    </labels>
+    <labels>
+        <fullName>AttachAndSendEmailConfirm</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AttachAndSendEmailConfirm</shortDescription>
+        <value>Are you sure to attach the generated template onto the root record and send an email with this attachment?</value>
+    </labels>
+    <labels>
+        <fullName>Attach_and_Send</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attach and Send</shortDescription>
+        <value>Attach &amp; Send</value>
+    </labels>
+    <labels>
+        <fullName>Attached_Templates</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attached Templates</shortDescription>
+        <value>Attached Templates</value>
+    </labels>
+    <labels>
+        <fullName>Attachment_Task_Setup</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Attachment&amp;Task Setup</shortDescription>
+        <value>Attachment &amp; Task Setup</value>
+    </labels>
+    <labels>
+        <fullName>Available_Templates</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Available Templates</shortDescription>
+        <value>Available Templates</value>
+    </labels>
+    <labels>
+        <fullName>BackButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BackButton</shortDescription>
+        <value>Back</value>
+    </labels>
+    <labels>
+        <fullName>Body</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Body</shortDescription>
+        <value>Body</value>
+    </labels>
+    <labels>
+        <fullName>Cancel</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>CancelButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CancelButton</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>CantProdBarcode</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CantProdBarcode</shortDescription>
+        <value>Sorry, can not produce barcode for your input</value>
+    </labels>
+    <labels>
+        <fullName>CantReachEditor</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CantReachEditor</shortDescription>
+        <value>Could not reach editor window. If your user profile has development mode enabled, please disable it.</value>
+    </labels>
+    <labels>
+        <fullName>Chosen_Format_Not_Allowed</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Chosen Format Not Allowed</shortDescription>
+        <value>The chosen format is not allowed!!</value>
+    </labels>
+    <labels>
+        <fullName>Classification</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Classification</shortDescription>
+        <value>Classification</value>
+    </labels>
+    <labels>
+        <fullName>ClickLink</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ClickLink</shortDescription>
+        <value>Please click on the following link</value>
+    </labels>
+    <labels>
+        <fullName>CloseButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CloseButton</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>Company</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Company</shortDescription>
+        <value>Company</value>
+    </labels>
+    <labels>
+        <fullName>Configuration</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Configuration</shortDescription>
+        <value>Configuration</value>
+    </labels>
+    <labels>
+        <fullName>ConfirmButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ConfirmButton</shortDescription>
+        <value>Confirm</value>
+    </labels>
+    <labels>
+        <fullName>ConfirmMessage</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Clone Confirm Message</shortDescription>
+        <value>Please click CONFIRM to clone the template, or click BACK to return to the original template.</value>
+    </labels>
+    <labels>
+        <fullName>Content_Type</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Content Type</shortDescription>
+        <value>Content Type</value>
+    </labels>
+    <labels>
+        <fullName>Created</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Created</shortDescription>
+        <value>Created</value>
+    </labels>
+    <labels>
+        <fullName>Custom_SOQL</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Custom SOQL</shortDescription>
+        <value>Custom SOQL</value>
+    </labels>
+    <labels>
+        <fullName>DMLError</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DMLError</shortDescription>
+        <value>DML Error:</value>
+    </labels>
+    <labels>
+        <fullName>DataSetNoExist</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DataSetNoExist</shortDescription>
+        <value>Data Set does not exist</value>
+    </labels>
+    <labels>
+        <fullName>Delete</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>DeleteButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DeleteButton</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>Description</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>DocumentBrowser</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DocumentBrowser</shortDescription>
+        <value>Document Browser</value>
+    </labels>
+    <labels>
+        <fullName>DocumentUniqueName</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DocumentUniqueName</shortDescription>
+        <value>Error: This Document Unique Name already exists or has been previously used. Please choose a different name.</value>
+    </labels>
+    <labels>
+        <fullName>Document_and_Attachment</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Document and Attachment</shortDescription>
+        <value>Document and Attachment</value>
+    </labels>
+    <labels>
+        <fullName>Documents</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Documents</shortDescription>
+        <value>Documents</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateTDS</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateTDS</shortDescription>
+        <value>Unchecking Override will result in duplicate Templates and Data Sources, or using the existing Images.</value>
+    </labels>
+    <labels>
+        <fullName>Edit</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>EditButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>EditButton</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>Edit_Email</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit Email</shortDescription>
+        <value>Edit Email</value>
+    </labels>
+    <labels>
+        <fullName>Email</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>EmailRecipientRequired</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EmailRecipientRequired</shortDescription>
+        <value>Please add at least one Email Recipient. (To)</value>
+    </labels>
+    <labels>
+        <fullName>EmailSetup</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>EmailSetup</shortDescription>
+        <value>Email Setup</value>
+    </labels>
+    <labels>
+        <fullName>Email_Deployment</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email Deployment</shortDescription>
+        <value>Please deploy the following email templates at first:</value>
+    </labels>
+    <labels>
+        <fullName>Email_File_Attachment</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Email File Attachment</shortDescription>
+        <value>Email File Attachment</value>
+    </labels>
+    <labels>
+        <fullName>Email_Template</fullName>
+        <categories>Visual Force Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email Template</shortDescription>
+        <value>Email Template</value>
+    </labels>
+    <labels>
+        <fullName>Email_Template_Folder</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email Template Folder</shortDescription>
+        <value>Email Template Folder</value>
+    </labels>
+    <labels>
+        <fullName>Error</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>Error_Message</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error Message</shortDescription>
+        <value>Error Message</value>
+    </labels>
+    <labels>
+        <fullName>Error_On_Save</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error On Save</shortDescription>
+        <value>Error on saving, please contact your System Administrator.</value>
+    </labels>
+    <labels>
+        <fullName>Excel_Type</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Excel Type</shortDescription>
+        <value>Excel</value>
+    </labels>
+    <labels>
+        <fullName>Existing_Data_Sources</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Existing Data Sources</shortDescription>
+        <value>Existing Data Sources</value>
+    </labels>
+    <labels>
+        <fullName>Existing_Images</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Existing Images</shortDescription>
+        <value>Existing Images</value>
+    </labels>
+    <labels>
+        <fullName>Existing_Templates</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Existing Templates</shortDescription>
+        <value>Existing Templates</value>
+    </labels>
+    <labels>
+        <fullName>Export</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Export</shortDescription>
+        <value>Export</value>
+    </labels>
+    <labels>
+        <fullName>ExportConfirm</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ExportConfirm</shortDescription>
+        <value>The export progress succeeded.</value>
+    </labels>
+    <labels>
+        <fullName>File_Name</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>File Name</shortDescription>
+        <value>File Name</value>
+    </labels>
+    <labels>
+        <fullName>FillAllValues</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FillAllValues</shortDescription>
+        <value>Please fill all values.</value>
+    </labels>
+    <labels>
+        <fullName>Filter</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Filter</shortDescription>
+        <value>Filter</value>
+    </labels>
+    <labels>
+        <fullName>FilterButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FilterButton</shortDescription>
+        <value>Filter</value>
+    </labels>
+    <labels>
+        <fullName>Filtering</fullName>
+        <categories>Visualforce Status</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Filtering</shortDescription>
+        <value>Filtering</value>
+    </labels>
+    <labels>
+        <fullName>Folders</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Folders</shortDescription>
+        <value>Folders</value>
+    </labels>
+    <labels>
+        <fullName>From</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>From</shortDescription>
+        <value>From</value>
+    </labels>
+    <labels>
+        <fullName>FromAddress</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FromAddress</shortDescription>
+        <value>FromAddress</value>
+    </labels>
+    <labels>
+        <fullName>FromName</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FromName</shortDescription>
+        <value>FromName</value>
+    </labels>
+    <labels>
+        <fullName>GenerateAttachButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GenerateAttachButton</shortDescription>
+        <value>Generate &amp; Attach</value>
+    </labels>
+    <labels>
+        <fullName>GenerateButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GenerateButton</shortDescription>
+        <value>Generate</value>
+    </labels>
+    <labels>
+        <fullName>Generated_Templates</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Generated Templates</shortDescription>
+        <value>Generated Templates</value>
+    </labels>
+    <labels>
+        <fullName>Generating</fullName>
+        <categories>Visualforce Status</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Generating</shortDescription>
+        <value>Generating</value>
+    </labels>
+    <labels>
+        <fullName>Help_Barcode_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Help_Barcode_Function</shortDescription>
+        <value>Description: produce a barcode for the input, this function supports 3 typ for now: code39, code128 and data matrix. 
+Usage: {!$BARCODE(typ, input, outputMode, units, width, height, showInputText, inputTextLocation, inputTextAlign, fontSize)} and replace all parameters 
+Example: {!$BARCODE(code128, mytestinput1234, html,px,2,50,true,top,center,11)} 
+
+Valid Parameters: 
+-------------------------------- 
+typ: code128, code39 or dataMatrix 
+input: number and charaters 
+outputMode: html or null 
+units: px, cm, in or null 
+width: valid Decimal or 0 
+height: valid Decimal or 0 
+showInputText: true or false or null 
+inputTextLocation: top or bottom or null 
+inputTextAlign: left, center or right or null 
+fontSize: valid integer or 0 
+--------------------------------</value>
+    </labels>
+    <labels>
+        <fullName>Help_ConcatFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ConcatFunction</shortDescription>
+        <value>Description: The concat() function is used to join two or more strings value. 
+
+This method does not change the existing strings value, it only returns a copy of the joined strings. 
+Usage: {!$CONCAT(delimiter, field1[, field2, ..., fieldn])} and replace delimiter with the expression that you would like to separate fields field1 to fieldn. 
+Example: {!$CONCAT(&quot;, &quot;, {!Account.Name}, {Account.BillingCountry})}</value>
+    </labels>
+    <labels>
+        <fullName>Help_DateFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DateFunction</shortDescription>
+        <value>Description: Returns a given date in user&apos;s locale 
+Usage: {!$DATE(year, month, day)} and replace year with a four-digit year, month with a two-digit month, and day with a two-digit day. 
+Example: {!$DATE(2010, 01, 21)}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Day_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Day Function</shortDescription>
+        <value>Description: Returns a day of the month in the form of a number between 1 and 31 
+Usage: {!$DAY(date)} and replace date with a date field or value such as TODAY() 
+Example: {!$DAY(Account.Create)} 
+{!$DAY(TODAY())}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Format_Number_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Format Number Function</shortDescription>
+        <value>Description: Returns a numeric value in the user&apos;s locale. 
+Usage: {!$FORMATNUMBER(number)} and replace number with the number you want to format in the user&apos;s locale. 
+Example: {!$FORMATNUMBER({!Opportunity.Amount})}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Format_Number_Scale</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Format Number Scale</shortDescription>
+        <value>Description: Returns a numeric value in the user&apos;s locale with specified scale. 
+Usage: {!$FORMATNUMBERSCALE(number, scale)} and replace number with the number you want to format, replace the scale with a non-negative integer. 
+Example: {!$FORMATNUMBERSCALE({!Opportunity.Amount}, 2)}</value>
+    </labels>
+    <labels>
+        <fullName>Help_IfFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>If Function</shortDescription>
+        <value>Description: 
+Determines if expressions are true or false. Returns a given value if true and another value if false. This function cannot be nested currently, i.e. you cannot use the IF function within another IF. To workaround this, you should use formula fields on the object. 
+Usage: {!$IF(logical_test, value_if_true, value_if_false)} 
+- logical_test: Replace with logical expression you want evaluated, e.g. {!Contact.Salutation} = &quot;Mr.&quot; 
+- value_if_true: Replace with the value you want returned if the expression is true, e.g. &quot;Dear Mr.&quot;, {!Contact.FirstName} 
+- value_if_false: Replace with the value you want returned if the expression is false, e.g. &quot;Dear Ms.&quot;</value>
+    </labels>
+    <labels>
+        <fullName>Help_LeftFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Left Function</shortDescription>
+        <value>Description:	Returns the specified number of characters from the beginning of a text string. 
+Use: {!$LEFT(text, num_chars)} and replace text with the field or expression you want returned; replace num_chars with the number of characters from the left you want returned. 
+Example: {!$LEFT({!Account.Name}, 5)}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Left_Pad_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Left Pad Function</shortDescription>
+        <value>Description:	Inserts spaces or characters you specify to the left-side of a text string. 
+Usage:	
+{!$LPAD(text, padded_length, pad_string)} and replace the variables: 
+text is the field or expression you want to insert spaces or characters to the left of. 
+_padded_length is the number of total characters in the text that will be returned. 
+_pad_string is the character or characters that should be inserted. _pad_string is optional and defaults to a blank space. 
+If the value in text is longer than pad_string, text is truncated to the size of padded_length. 
+Example: {!$LPAD({!Account.Name}, 30, &quot;-&quot;)}</value>
+    </labels>
+    <labels>
+        <fullName>Help_LengthFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Length Function</shortDescription>
+        <value>Description:	Returns the number of characters in a specified text string. 
+Usage: {!$LEN(text)} and replace text with the field or expression whose length you want returned. 
+
+Example: {!$LEN({!Account.Name})} 
+This formula returns the number of characters in name field.</value>
+    </labels>
+    <labels>
+        <fullName>Help_Line_BreakFunktion</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Line Break Funktion</shortDescription>
+        <value>Description:	Inserts a line break in a string of text. 
+Usage: {!$BR()} 
+Example: {!Contact.Salutation} {!$BR()} {!Contact.FirstName} {!Contact.LastName} 
+
+This formula field displays a formatted name of contact,including spaces and line breaks.</value>
+    </labels>
+    <labels>
+        <fullName>Help_Lower_Case_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Lower Case Function</shortDescription>
+        <value>Description:	Converts all letters in the specified text string to lowercase. Any characters that are not letters are unaffected by this function. Locale rules are applied if a locale is provided. 
+Usage: {!$LOWER(text)} and replace text with the field or text you wish to convert to lowercase. and locale with the optional 
+
+Example: {!$LOWER({!Account.Name})}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Mid_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Mid Function</shortDescription>
+        <value>Description:	Returns the specified number of characters from the middle of a text string given the starting position. 
+
+Usage: {!$MID(text, start_num, num_chars)} and replace text with the field or expression to use when returning characters; replace start_num with the number of characters from the left to use as a starting position; replace num_chars with the total number of characters to return. 
+Example: {!$MID({!Contact.Salutation} , 3, 4)} returns four characters of the Salutation beginning with the third character from the left.</value>
+    </labels>
+    <labels>
+        <fullName>Help_Month_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Month Function</shortDescription>
+        <value>Description: Returns the month, a number between 1 (January) and 12 (December) in number format of a given date. 
+Usage: {!$MONTH(date)} and replace date with the field or expression for the date containing the month you want returned. 
+Example: {!$MONTH(Account.Create)} 
+{!$MONTH(TODAY())}</value>
+    </labels>
+    <labels>
+        <fullName>Help_NormalizeSpaceFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Normalize Space Function</shortDescription>
+        <value>Description: 
+Returns the current String with leading, trailing, and repeating white space characters removed.
+Usage: {!$NORMALIZESPACE(text)}
+- text: Replace with the value with input text value.</value>
+    </labels>
+    <labels>
+        <fullName>Help_NowFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Now Function</shortDescription>
+        <value>Returns the current time in user&apos;s locale 
+Usage: {!$NOW()}, requires no parameter. 
+Example: {!$NOW()}</value>
+    </labels>
+    <labels>
+        <fullName>Help_PageFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Page Function</shortDescription>
+        <value>Description: Returns the actual page number 
+Usage: {!$PAGE()}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Page_Break_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Page Break Function</shortDescription>
+        <value>Description: Returns a page break 
+Usage: {!$PAGEBREAK()}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Pages_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Pages Function</shortDescription>
+        <value>Description: Returns the total number of pages 
+Usage: {!$PAGES()}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Repeat_End_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Repeat End Function</shortDescription>
+        <value>Description: 
+Use the repeat element whenever you want to resolve one-to-many relationships, e.g. in our example above one campaign can have one or many speaker engagements. In case we want to print all speaker engagements for one campaign we&apos;ll need to loop over all speaker engagements. You&apos;ll need to use a repeat element always when a related list is evaluated starting from the root object (or any other object related to the root object). 
+Usage: {!#RepeatStart:data_set_name}All mark ups or merge fields are evaluated and copied{!#RepeatEnd:data_set_name} 
+Example: {!#RepeatStart:SpeakerEngagements}{!Speakers.LastName}, {!Speakers.FirstName} 
+
+{!#RepeatEnd:SpeakerEngagements}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Repeat_Start_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Repeat Start Function</shortDescription>
+        <value>Description: 
+Use the repeat element whenever you want to resolve one-to-many relationships, e.g. in our example above one campaign can have one or many speaker engagements. In case we want to print all speaker engagements for one campaign we&apos;ll need to loop over all speaker engagements. You&apos;ll need to use a repeat element always when a related list is evaluated starting from the root object (or any other object related to the root object). 
+Usage: {!#RepeatStart:data_set_name}All mark ups or merge fields are evaluated and copied{!#RepeatEnd:data_set_name} 
+Example: {!#RepeatStart:SpeakerEngagements}{!Speakers.LastName}, {!Speakers.FirstName} 
+
+{!#RepeatEnd:SpeakerEngagements}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Right_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Right Function</shortDescription>
+        <value>Description:	Returns the specified number of characters from the end of a text string. 
+Usage: {!$RIGHT(text, num_chars)} and replace text with the field or expression you want returned; replace num_chars with the number of characters from the right you want returned. 
+Example: {!$RIGHT({!Account.Name}, 2)}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Right_Pad_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Right Pad Function</shortDescription>
+        <value>Description:	Inserts blank spaces or characters that you specify to the right-side of a text string. 
+Usage: {!$RPAD(text, padded_length, pad_string)} nd replace the variables: 
+text is the field or expression after which you want to insert spaces or characters. 
+pad_length is the number of total characters in the text string that will be returned. 
+pad_string is the character or characters that should be inserted. pad_string is optional and defaults to a blank space. 
+If the value in text is longer than pad_string, text is truncated to the size of padded_length. 
+Example: {!$RPAD({!Account.Name}, 30, &quot;-&quot;)}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Round</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Round</shortDescription>
+        <value>Description: Returns a numeric value rounded with the specified scale. 
+Usage: {!$ROUND(number, scale)} and replace number with the number you want to format, replace the scale with a non-negative integer. 
+Example: {!$ROUND({!Opportunity.Amount}, 2)}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Substitute_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Substitute Function</shortDescription>
+        <value>Description: 
+Substitutes new text for old text in a text string. 
+Usage: {!$SUBSTITUTE(text, old_text, new_text)} and replace text with the field or value for which you want to substitute values, old_text with the text you want replaced, and new_text with the text you want to replace the old_text. 
+Example: 
+{!$SUBSTITUTE({!Account.Name}, &quot;Coupon&quot;, &quot;Discount&quot;)}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Today_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Today Function</shortDescription>
+        <value>Description: Returns today&apos;s date formatted in the user&apos;s locale 
+Usage: {!$TODAY()}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Tomorrow_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Tomorrow Function</shortDescription>
+        <value>Description: Returns the date of tomorrow formatted in the user&apos;s locale 
+Usage: {!$TOMORROW()}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Trim_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Trim Function</shortDescription>
+        <value>Description:	Removes the spaces and tabs from the beginning and end of a text string. 
+Usage: {!$TRIM(text)} and replace text with the field or expression you want to trim.</value>
+    </labels>
+    <labels>
+        <fullName>Help_Upper_CaseFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Upper Case Function</shortDescription>
+        <value>Description:	Converts all letters in the specified text string to uppercase. Any characters that are not letters are unaffected by this function. Locale rules are applied if a locale is provided. 
+Usage: {!$UPPER(text)} and replace text with the field or expression you wish to convert to uppercase 
+Example: {!$UPPER({!Account.Name})}</value>
+    </labels>
+    <labels>
+        <fullName>Help_UserInfoFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>USERINFO Function</shortDescription>
+        <value>Description: Returns information for current user. 
+Usage: {!$USERINFO(info_param)} and replace info_param. 
+Example: {!$USERINFO(Language)} returns the user language 
+
+Valid info_params: 
+-------------------------------- 
+DefaultCurrency 
+FirstName 
+Language 
+LastName 
+Locale 
+Name 
+OrganizationId 
+OrganizationName 
+ProfileId 
+SessionId 
+UiTheme 
+UiThemeDisplayed 
+UserId 
+UserName 
+UserRoleId 
+UserType 
+isMultiCurrencyOrganization 
+API Name: Besides above parameters, we can use field &quot;API Name&quot; as well.
+-------------------------------- 
+See http://www.salesforce.com/us/developer/docs/apexcode/Content/apex_methods_system_userinfo.htm for more details.</value>
+    </labels>
+    <labels>
+        <fullName>Help_YearFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Year Function</shortDescription>
+        <value>Description:Returns the four-digit year in number format of a given date. 
+Usage:YEAR(date) and replace date with the field or expression that contains the year you want returned. 
+Example: {!$YEAR(Account.Create)}</value>
+    </labels>
+    <labels>
+        <fullName>Help_Yesterday_Function</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Yesterday Function</shortDescription>
+        <value>Description:Returns the date of yesterday formatted in the user&apos;s locale 
+Usage: {!$YESTERDAY()}</value>
+    </labels>
+    <labels>
+        <fullName>HideButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HideButton</shortDescription>
+        <value>Hide</value>
+    </labels>
+    <labels>
+        <fullName>Import</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Import</shortDescription>
+        <value>Import</value>
+    </labels>
+    <labels>
+        <fullName>ImportConfirm</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ImportConfirm</shortDescription>
+        <value>The import progress succeeded.</value>
+    </labels>
+    <labels>
+        <fullName>Information</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Information</shortDescription>
+        <value>Information</value>
+    </labels>
+    <labels>
+        <fullName>Input2Long</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Input2Long</shortDescription>
+        <value>Input is too long</value>
+    </labels>
+    <labels>
+        <fullName>InputError</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InputError</shortDescription>
+        <value>Input must more than 5 characters</value>
+    </labels>
+    <labels>
+        <fullName>Install</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Install</shortDescription>
+        <value>Install</value>
+    </labels>
+    <labels>
+        <fullName>InstallConfirm</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Install Confirm Message</shortDescription>
+        <value>Installation successfully. Please repeat this procedure after upgrading the TemplateVizArt managed package.</value>
+    </labels>
+    <labels>
+        <fullName>InstallInfo</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Install Info Message</shortDescription>
+        <value>After installation of our managed package you need to configure TemplateVizArt. Hit Install to set all TemplateVizArt configurations in your org.</value>
+    </labels>
+    <labels>
+        <fullName>InvalidFunction</fullName>
+        <categories>Function Library</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Invalid Function</shortDescription>
+        <value>Function not found. Please contact your administrator.</value>
+    </labels>
+    <labels>
+        <fullName>LabelPrinting</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LabelPrinting</shortDescription>
+        <value>Label Printing</value>
+    </labels>
+    <labels>
+        <fullName>Loading</fullName>
+        <categories>Visualforce Status</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading</shortDescription>
+        <value>Loading</value>
+    </labels>
+    <labels>
+        <fullName>Log_Activity</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Log Activity</shortDescription>
+        <value>Log Activity</value>
+    </labels>
+    <labels>
+        <fullName>MainObjectFieldNoExist</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MainObjectFieldNoExist</shortDescription>
+        <value>Main object field does not exist in Data Set</value>
+    </labels>
+    <labels>
+        <fullName>MainObjectNoExist</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MainObjectNoExist</shortDescription>
+        <value>Main object does not exist in Data Set</value>
+    </labels>
+    <labels>
+        <fullName>Manage</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Manage</shortDescription>
+        <value>Manage</value>
+    </labels>
+    <labels>
+        <fullName>MergeFieldNoExist</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MergeFieldNoExist</shortDescription>
+        <value>Merge field does not exist</value>
+    </labels>
+    <labels>
+        <fullName>Msg_Choose_Recipient</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Msg Choose Recipient</shortDescription>
+        <value>Please choose at least one recipient!</value>
+    </labels>
+    <labels>
+        <fullName>Msg_Choose_Template</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Msg Choose Template</shortDescription>
+        <value>Please choose one template.</value>
+    </labels>
+    <labels>
+        <fullName>Msg_No_CampaignMember</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Msg No CampaignMember</shortDescription>
+        <value>No Available Campaign Members</value>
+    </labels>
+    <labels>
+        <fullName>Msg_No_Email_Template</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Msg No Email Template</shortDescription>
+        <value>No Available Email Template to use.</value>
+    </labels>
+    <labels>
+        <fullName>Msg_No_Template</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Msg No Template</shortDescription>
+        <value>No Available Template to use.</value>
+    </labels>
+    <labels>
+        <fullName>My_Personal_Documents</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>My Personal Documents</shortDescription>
+        <value>My Personal Documents</value>
+    </labels>
+    <labels>
+        <fullName>My_Personal_Email_Templates</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>My Personal Email Templates</shortDescription>
+        <value>My Personal Email Templates</value>
+    </labels>
+    <labels>
+        <fullName>Name</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Name</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>NewButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NewButton</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
+        <fullName>NoAddOnLicense</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NoAddOnLicense</shortDescription>
+        <value>You have no valid License for this add-on. Please contact your Administrator.</value>
+    </labels>
+    <labels>
+        <fullName>NoEmailDataSet</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NoEmailDataSet</shortDescription>
+        <value>No Data Set with type &quot;Email Recipient&quot; associated with template found.</value>
+    </labels>
+    <labels>
+        <fullName>NoRootObject</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NoRootObject</shortDescription>
+        <value>Root Object not present. Please check the Data Source related to this template.</value>
+    </labels>
+    <labels>
+        <fullName>NoTemplateIds</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NoTemplateIds</shortDescription>
+        <value>Please specify valid Template Ids in the URL.</value>
+    </labels>
+    <labels>
+        <fullName>NoTemplatePart</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NoTemplatePart</shortDescription>
+        <value>No Template or non-blanck Template Part found!</value>
+    </labels>
+    <labels>
+        <fullName>None_Value</fullName>
+        <categories>Picklist Values</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>None Value</shortDescription>
+        <value>--None--</value>
+    </labels>
+    <labels>
+        <fullName>OK</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>OK</shortDescription>
+        <value>OK</value>
+    </labels>
+    <labels>
+        <fullName>OkInfo</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Ok Info Message</shortDescription>
+        <value>TemplateVizArt configurations in your org are up to date. No need to take action until you upgrade to next release.</value>
+    </labels>
+    <labels>
+        <fullName>OneRootObjectId</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OneRootObjectId</shortDescription>
+        <value>Exactly one valid root object ID ist required from passed through URL.</value>
+    </labels>
+    <labels>
+        <fullName>Open</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Open</shortDescription>
+        <value>Open</value>
+    </labels>
+    <labels>
+        <fullName>Other_Type</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Other Type</shortDescription>
+        <value>PDF</value>
+    </labels>
+    <labels>
+        <fullName>Override</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Override</shortDescription>
+        <value>Override</value>
+    </labels>
+    <labels>
+        <fullName>ParseButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ParseButton</shortDescription>
+        <value>Parse</value>
+    </labels>
+    <labels>
+        <fullName>PreventDataSetTypeChange</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>PreventDataSetTypeChange</shortDescription>
+        <value>You can not change the type of Data Set.</value>
+    </labels>
+    <labels>
+        <fullName>Preview</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Preview</shortDescription>
+        <value>Preview</value>
+    </labels>
+    <labels>
+        <fullName>Primary</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Primary</shortDescription>
+        <value>Primary</value>
+    </labels>
+    <labels>
+        <fullName>Print</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Print</shortDescription>
+        <value>Print</value>
+    </labels>
+    <labels>
+        <fullName>PrintOptions</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>PrintOptions</shortDescription>
+        <value>Print Options</value>
+    </labels>
+    <labels>
+        <fullName>Query_Error</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Query Error</shortDescription>
+        <value>Query Error</value>
+    </labels>
+    <labels>
+        <fullName>Recipient</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recipient</shortDescription>
+        <value>Recipient</value>
+    </labels>
+    <labels>
+        <fullName>RefreshButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RefreshButton</shortDescription>
+        <value>Refresh</value>
+    </labels>
+    <labels>
+        <fullName>RelatedObjectFieldNoExist</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>RelatedObjectFieldNoExist</shortDescription>
+        <value>Related object field does not exist in Data Set</value>
+    </labels>
+    <labels>
+        <fullName>RelatedObjectNoExist</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>RelatedObjectNoExist</shortDescription>
+        <value>Related object does not exist in Data Set</value>
+    </labels>
+    <labels>
+        <fullName>Related_To</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Related To</shortDescription>
+        <value>Related To</value>
+    </labels>
+    <labels>
+        <fullName>Relationship</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Relationship</shortDescription>
+        <value>Relationship</value>
+    </labels>
+    <labels>
+        <fullName>Returning</fullName>
+        <categories>Visualforce Status</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Returning</shortDescription>
+        <value>Returning</value>
+    </labels>
+    <labels>
+        <fullName>Review_Document</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Review Document</shortDescription>
+        <value>Review Document</value>
+    </labels>
+    <labels>
+        <fullName>Rich_Text</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rich Text</shortDescription>
+        <value>Rich Text (HTML)</value>
+    </labels>
+    <labels>
+        <fullName>Rich_Text_Type</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Rich Text Type</shortDescription>
+        <value>Rich Text File</value>
+    </labels>
+    <labels>
+        <fullName>RootObject</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>RootObject</shortDescription>
+        <value>Root Object</value>
+    </labels>
+    <labels>
+        <fullName>RootObjectNoExist</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>RootObjectNoExist</shortDescription>
+        <value>Root object does not exist.</value>
+    </labels>
+    <labels>
+        <fullName>RootObjectRequired</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>RootObjectRequired</shortDescription>
+        <value>A valid Root Object is required.</value>
+    </labels>
+    <labels>
+        <fullName>Save</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>SaveButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SaveButton</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>Saving</fullName>
+        <categories>Visualforce Status</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Saving</shortDescription>
+        <value>Saving</value>
+    </labels>
+    <labels>
+        <fullName>SelectButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SelectButton</shortDescription>
+        <value>Select</value>
+    </labels>
+    <labels>
+        <fullName>SelectionNoObject</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SelectionNoObject</shortDescription>
+        <value>Please specify a valid root object (API name) in URL parameter obj.</value>
+    </labels>
+    <labels>
+        <fullName>SelectionNoRootId</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SelectionNoRootId</shortDescription>
+        <value>Please specify valid root object IDs in URL parameter ids, separated by comma.</value>
+    </labels>
+    <labels>
+        <fullName>SelectionNoTemplate</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SelectionNoTemplate</shortDescription>
+        <value>No templates associated with root object found.</value>
+    </labels>
+    <labels>
+        <fullName>SendButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SendButton</shortDescription>
+        <value>Send</value>
+    </labels>
+    <labels>
+        <fullName>Send_Email</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send Email</shortDescription>
+        <value>Send an Email</value>
+    </labels>
+    <labels>
+        <fullName>Send_Email_Enhance</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Send Email Enhance</shortDescription>
+        <value>Send Email</value>
+    </labels>
+    <labels>
+        <fullName>Send_Email_No_Param</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send Email No Param</shortDescription>
+        <value>A valid rid (Root object Id) in the page URL parameters is required. If no valid tid (Template Id) is specified, a valid obj (Object Name) should be available.</value>
+    </labels>
+    <labels>
+        <fullName>ShowButton</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ShowButton</shortDescription>
+        <value>Show</value>
+    </labels>
+    <labels>
+        <fullName>Signature</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Signature</shortDescription>
+        <value>Signature</value>
+    </labels>
+    <labels>
+        <fullName>Size</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Size</shortDescription>
+        <value>Size</value>
+    </labels>
+    <labels>
+        <fullName>Status</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>Style_Deployment</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Style Deployment</shortDescription>
+        <value>Please deploy the following styles in static resource at first:</value>
+    </labels>
+    <labels>
+        <fullName>Subject</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subject</shortDescription>
+        <value>Subject</value>
+    </labels>
+    <labels>
+        <fullName>Subject_And_Body</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subject And Body</shortDescription>
+        <value>Email Content</value>
+    </labels>
+    <labels>
+        <fullName>TemplateDeployment</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TemplateDeployment</shortDescription>
+        <value>Template Deployment</value>
+    </labels>
+    <labels>
+        <fullName>TemplateOverride</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TemplateOverride</shortDescription>
+        <value>Template Override</value>
+    </labels>
+    <labels>
+        <fullName>Template_Body</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Template Body</shortDescription>
+        <value>Template Body</value>
+    </labels>
+    <labels>
+        <fullName>Template_Footer</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Template Footer</shortDescription>
+        <value>Template Footer</value>
+    </labels>
+    <labels>
+        <fullName>Template_Header</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Template Header</shortDescription>
+        <value>Template Header</value>
+    </labels>
+    <labels>
+        <fullName>Template_Selection</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Template Selection</shortDescription>
+        <value>Template Selection</value>
+    </labels>
+    <labels>
+        <fullName>Template_Selection_Enhanced</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Template Selection Enhanced</shortDescription>
+        <value>Template Selection Enhanced</value>
+    </labels>
+    <labels>
+        <fullName>Template_Type</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Template Type</shortDescription>
+        <value>Template Type</value>
+    </labels>
+    <labels>
+        <fullName>Test</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Test</shortDescription>
+        <value>Test</value>
+    </labels>
+    <labels>
+        <fullName>Text_Only</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Text Only</shortDescription>
+        <value>Text-Only</value>
+    </labels>
+    <labels>
+        <fullName>Title</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Title</shortDescription>
+        <value>Title</value>
+    </labels>
+    <labels>
+        <fullName>Title_Recipient</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Title Recipient</shortDescription>
+        <value>Sie haben die Email erfolgreich an folgende Empfänger versendet</value>
+    </labels>
+    <labels>
+        <fullName>To</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>To</shortDescription>
+        <value>To</value>
+    </labels>
+    <labels>
+        <fullName>ToAddress</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ToAddress</shortDescription>
+        <value>ToAddress</value>
+    </labels>
+    <labels>
+        <fullName>Type</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Type</shortDescription>
+        <value>Type</value>
+    </labels>
+    <labels>
+        <fullName>Unfiled_Public_Email_Templates</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Unfiled Public Email Templates</shortDescription>
+        <value>Unfiled Public Email Templates</value>
+    </labels>
+    <labels>
+        <fullName>Unknown</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unknown</shortDescription>
+        <value>UNKNOWN</value>
+    </labels>
+    <labels>
+        <fullName>Upgrade</fullName>
+        <categories>Visualforce Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Upgrade</shortDescription>
+        <value>Upgrade</value>
+    </labels>
+    <labels>
+        <fullName>UpgradeConfirm</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Upgrade Confirm Message</shortDescription>
+        <value>Upgrade successfully. Please repeat this procedure after upgrading the TemplateVizArt managed package.</value>
+    </labels>
+    <labels>
+        <fullName>UpgradeInfo</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Upgrade Info Message</shortDescription>
+        <value>You&apos;ve upgraded your managed package. To enable your application you&apos;ll need to hit Upgrade. This will upgrade all TemplateVizArt configurations in your org.</value>
+    </labels>
+    <labels>
+        <fullName>UpgradeWizardIntro</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Upgrade Wizard Introduction</shortDescription>
+        <value>This upgrade wizards supports you to easily upgrade all settings of any new version of the TemplateVizArt managed package. All you need to do is to hit the Upgrade button. For all new installations you&apos;ll see Install instead. Your org is up to date if you don&apos;t see an Install or Upgrade button.</value>
+    </labels>
+    <labels>
+        <fullName>Value_Task_Description</fullName>
+        <categories>Visualforce Values</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Value Task Description</shortDescription>
+        <value>Link to the training</value>
+    </labels>
+    <labels>
+        <fullName>Versioned_Template</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Versioned Template</shortDescription>
+        <value>Versioned Template</value>
+    </labels>
+    <labels>
+        <fullName>Waiting</fullName>
+        <categories>Visualforce Titles</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Waiting</shortDescription>
+        <value>Please Waiting</value>
+    </labels>
+    <labels>
+        <fullName>Word_Type</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Word Type</shortDescription>
+        <value>Word</value>
+    </labels>
+    <labels>
+        <fullName>WrongTemplateExportFiel</fullName>
+        <categories>Visualforce Messages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>WrongTemplateExportFiel</shortDescription>
+        <value>Please select a correct Template Export file.</value>
+    </labels>
+</CustomLabels>

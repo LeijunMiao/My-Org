@@ -1,0 +1,133 @@
+<apex:page standardController="Account" extensions="ExtAccount">
+<apex:includeScript value="{!URLFOR($Resource.jquery191)}" />
+<apex:includeScript value="{!URLFOR($Resource.jqueryPager)}"/>
+<apex:stylesheet value="{!$Resource.PagerCss}"/>
+	 <script>
+	
+	        $(document).ready(function() {
+	            $("#pager").pager({ pagenumber: {!pageclickednumber}, pagecount: {!pageNum}, buttonClickCallback: PageClick });
+	            //$('[id*=pageclickednumberId]').val(0);
+	        });
+	
+	        PageClick = function(pageclickednumber) {
+	            $("#pager").pager({ pagenumber: pageclickednumber, pagecount: {!pageNum}, buttonClickCallback: PageClick });
+	            $("[id*=pageclickednumberId]").val(pageclickednumber);
+	            PageNum();
+	        }
+	        function changeJsPage(){
+	        	PageListNum();
+	        	var listNum=$("[id*=selectId]").val();
+	        	var pageNum={!listSize}/listNum+1;
+	        	if({!listSize}%listNum==0)pageNum--;
+	        	$("#pager").pager({ pagenumber: 1, pagecount: pageNum, buttonClickCallback: PageClick });
+	        }
+			;function searchStart(){
+				$('#loading-content-div2').show();
+			}
+			;function searchStop(){
+				$('#loading-content-div2').hide();
+			}
+			function notTooBig(){
+				if( $("[id*=pageclickednumberId]").val()>{!pageNum}) $("[id*=pageclickednumberId]").val({!pageNum})
+			}
+			function selectAll(){
+				var checkboxs=document.getElementsByName("checkboxName");
+				for(var i=0;i<checkboxs.length;i++){
+					var e=checkboxs[i];
+					e.checked=!e.checked;
+				}
+			}
+			CtrlCalendar.delEvent('123', function(result, event)
+	    	{
+	        if (event.status) 
+	        { 
+	        } 
+	        else if (event.type === 'exception') 
+	        {
+				alert('Add exception');
+			}
+	        else 
+	        {
+	            alert('else');
+	        }
+	    }, {escape:true});
+	   </script>
+<apex:form id="theForm"> 
+
+	<apex:inputHidden value="{!listSize}" id="listSizeId"/>	
+	<apex:variable var="p" value="{!pageclickednumber}"/>	
+	<apex:actionFunction name="PageNum" action="{!getPageNum}" status="searchStatus"/>  
+	<apex:actionFunction name="PageListNum" action="{!getPageListNum}" rerender="out" status="searchStatus"/>  
+	<apex:sectionHeader title="Account Edit" subtitle="{!Account.Name}" />
+	<apex:pageBlock title="Account edit" mode="Edit" tabStyle="Account" id="pageBlockId">
+	<div id="loading-content-div2" style="display:none; position:absolute; text-align:center;width:85%;height:50%; line-height:360px; background-color:#FFF;opacity:0.85;position:fixed;z-index:5000;filter:alpha(opacity=85);background-repeat:no-repeat;background-position:center center;background-image:url('/img/loading.gif');" title="Please wait..."></div>
+		<apex:pageblockbuttons > 
+			<apex:commandbutton value="Save" action="{!Save}" />
+			<apex:commandbutton value="Cancle" action="{!cancel}" />
+		</apex:pageblockbuttons>
+		<apex:pageBlockSection title="Account Information" >  
+				<apex:outputfield value="{!Account.OwnerId}" />
+			<apex:repeat value="{!$ObjectType.Account.FieldSets.AccountEdit_Information}" var="f">
+				<apex:inputField value="{!account[f]}" />
+			</apex:repeat>
+		</apex:pageBlockSection> 
+		<apex:pageBlockSection title="Contacts" columns="1">
+			<apex:commandbutton value="Delete All Selected" action="{!delAll}"/>
+		<apex:actionStatus onstop="searchStop()" onstart="searchStart()" id="searchStatus" ></apex:actionStatus>
+		
+			<apex:outputpanel id="out">
+			<!--  <apex:inputText value="{!contactId}"/>-->
+			<apex:inputHidden value="{!pageNum}" id="pageNumId"/>
+			<table id="contactTable" class="list" cellspacing="0" cellpadding="0" border="0" style="width: 100%;">			
+				<thead>				
+					<tr class="headerRow">
+						<th><apex:inputCheckbox id="selectAllId"  onchange="selectAll()"/></th>
+						<th>Action</th>
+					<apex:repeat value="{!$ObjectType.Contact.FieldSets.contact_Information}" var="ci">
+						<th>{!ci.Label}
+						</th>
+					</apex:repeat> 
+					</tr>
+				</thead> 
+				<tbody>
+					<apex:repeat value="{!map_numListContact[p]}" var="c">
+						<tr>
+						 	<td><input type="checkbox" name="checkboxName" value="{!c.isCheck}"/>
+						 	<!-- <apex:inputCheckbox value="{!c.isCheck}" id="checkboxId"/> -->
+						 	</td>
+							<td><apex:commandLink value="Del" action="{!deleteContact}" >
+									<apex:param name="delContact" value="{!c.contact.Id}" assignTo="{!contactId}"/>
+								</apex:commandLink>
+								|
+								<apex:commandLink value="Edit" action="{!editContact}">
+									<apex:param name="editContact" value="{!c.contact.Id}" assignTo="{!contactId}"/>
+								</apex:commandLink>
+							</td>
+							<apex:repeat value="{!$ObjectType.Contact.FieldSets.contact_Information}" var="cif">
+							<td><apex:outputField value="{!c.contact[cif]}" />
+							</td>
+							</apex:repeat>
+						</tr>
+					</apex:repeat>	
+				</tbody>				
+			</table>
+			<apex:outputLabel value="Jump" for="pageclickednumberId" style="font-weight: bold;"/>		
+			<apex:inputText value="{!pageclickednumber}" id="pageclickednumberId" style="width:40px" onchange="notTooBig()"/>			
+			<apex:commandbutton value="Go" action="{!Go}" rerender="out" status="searchStatus"/>
+			all［{!pageNum}］pages
+			<apex:outputLabel value="  show number:" for="selectId" style="font-weight: bold;margin-left:50px;"/>	
+			<apex:selectList size="1" value="{!pageListNum}"   onchange="changeJsPage()" id="selectId">
+				<apex:selectOption itemLabel="1" itemValue="1"/>
+				<apex:selectOption itemLabel="2" itemValue="2"/>
+				<apex:selectOption itemLabel="3" itemValue="3"/>
+				<apex:selectOption itemLabel="4" itemValue="4"/>
+				<apex:selectOption itemLabel="5" itemValue="5"/>
+			</apex:selectList>
+			
+		</apex:outputpanel>
+		<div id="pager" ></div>
+		</apex:pageBlockSection>		
+	</apex:pageBlock>
+</apex:form>
+	<!-- <apex:listViews type="Contact"/> -->
+</apex:page>

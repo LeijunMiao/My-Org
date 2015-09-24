@@ -1,0 +1,3 @@
+<apex:page title="{!$Label.templatevizart__Template_Selection_Enhanced}" tabStyle="TemplateVizArt__Template__c">
+    <c:CompSelectTemplateEnhanced />
+</apex:page>

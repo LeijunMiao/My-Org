@@ -1,0 +1,23 @@
+<apex:page >
+
+<apex:form >
+
+<apex:pageBlock >
+
+<apex:pageBlockSection >
+
+<apex:pageBlockSectionItem >
+
+<apex:outputLabel value="{!$Label.Field1Label}"></apex:outputLabel>
+
+<apex:inputText />
+
+</apex:pageBlockSectionItem>
+
+</apex:pageBlockSection>
+
+</apex:pageBlock>
+
+</apex:form>
+
+</apex:page>

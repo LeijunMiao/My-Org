@@ -1,0 +1,4 @@
+<apex:component >
+<script type="text/javascript" src="{!$Resource.zp_srt_tbls_js}"></script>
+<style>body .pbBody table.list.kjlZP1 tfoot td{background: url("/img/alohaSkin/grid_headerbg.gif") repeat-x scroll 0 bottom #FFFFFF; }</style>
+</apex:component>

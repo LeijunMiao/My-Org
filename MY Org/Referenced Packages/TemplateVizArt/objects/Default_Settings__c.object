@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Hold the default settings for TemplateVizArt</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicate the status of a record</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicate the status of a record</inlineHelpText>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Description for the record</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Description for the record</inlineHelpText>
+        <label>Description</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Field_API_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Hold the the field API text value will assign to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Hold the the field API text value will assign to</inlineHelpText>
+        <label>Field API Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Object__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Hold the special value for this record</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Hold the special value for this record</inlineHelpText>
+        <label>Object</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Text_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Hold a text value</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Hold a text value</inlineHelpText>
+        <label>Text Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Default Settings</label>
+</CustomObject>

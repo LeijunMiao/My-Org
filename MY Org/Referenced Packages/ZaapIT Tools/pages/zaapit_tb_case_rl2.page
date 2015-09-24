@@ -1,0 +1,5 @@
+<apex:page standardController="case" > 
+    <c:zaapit_tables_v1 />
+    <!-- Thank you for looking :) please contact us for customizing this application -->
+    
+</apex:page>

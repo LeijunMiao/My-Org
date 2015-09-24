@@ -1,0 +1,55 @@
+<apex:page sidebar="false" showHeader="false"  title="Bayer Vital Veranstaltungskalender Referentenübersicht">
+  <apex:stylesheet value="{!$Resource.EventManagementTableCss}" />
+  <apex:stylesheet value="{!URLFOR($Resource.EventManagementTable, 'TableFilter/filtergrid.css')}"/><!--
+  <apex:includeScript value="{!$Resource.EventManagementTableFilterJs}" />
+  --><apex:includeScript value="{!URLFOR($Resource.EventManagementTable, 'TableFilter/tablefilter_all_min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.EventManagementTable, 'TableFilter/tfAdapter.sortabletable.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.EventManagementTable, 'TableFilter/sortabletable.js')}"/>
+    <body>
+    
+        <table id="demo" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>country</th>
+                    <th>isocode</th>
+                    <th align="right">year</th>
+                    <th align="right">POP</th>
+                    <th align="right">XRAT</th>
+                    <th align="right">PPP</th>
+                    <th align="right">cgdp</th>
+                    <th align="right">cc</th>
+                    <th align="right">ci</th>
+                </tr>
+            </thead>
+        <tbody>
+        <tr >
+            <td>Angola</td>
+            <td>AGO</td>
+            <td align="right">1994</td>
+            <td align="right">10627.18</td>
+            <td align="right">59.51499939</td>
+            <td align="right">53.32</td>
+            <td align="right">1095.94</td>
+            <td align="right">34.66</td>
+            <td align="right">9.09</td>
+        </tr>
+        <tr >
+            <td>bngola</td>
+            <td>bGO</td>
+            <td align="right">1996</td>
+            <td align="right">11316.94</td>
+            <td align="right">128029.2031</td>
+            <td align="right">54873.28</td><td align="right">1362.32</td>
+            <td align="right">37.17</td>
+            <td align="right">8.57</td>
+        </tr>
+        </tbody>
+        </table>
+    </body> 
+        <script>
+    var tfConfig = { 
+    sort: true,   
+   }
+        var tf1 = setFilterGrid("demo",tfConfig);
+    </script>
+</apex:page>

@@ -1,0 +1,26 @@
+<apex:page >
+<script>
+      function validateNumber(x){
+        var inputNum = $(x).val();
+        inputNum=inputNum.replace(/\./g, ",");
+        $(x).val(inputNum);
+        return true;
+        }
+        function upperCase()
+        {
+        var y=document.getElementsById("").value;
+        document.getElementsById("").value=y.replace(/\./g, ",");;
+        }
+</script>
+<apex:form >
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Congratulations</h1>
+This is your new Page
+<!-- End Default Content REMOVE THIS -->
+<!--<input type="text" id="change" />
+--><!--<input type="button" value="add" onclick="upperCase()"/>
+--><apex:commandButton value="add" onclick="upperCase()"/>
+<apex:inputText style="padding:0px;margin:0px;height:15px;width:68px;"/>
+<apex:inputText style="padding:0px;margin:0px;height:15px;width:68px;"/>
+</apex:form>
+</apex:page>

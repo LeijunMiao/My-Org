@@ -1,0 +1,58 @@
+<apex:page standardController="TemplateVizArt__Template_Data_Set__c" extensions="TemplateVizArt.ExtTemplateDataSet" title="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.label}: {!TemplateVizArt__Template_Data_Set__c.Name}">
+    <apex:sectionHeader title="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.label}" subtitle="{!TemplateVizArt__Template_Data_Set__c.Name}"/>
+        <apex:Form >
+            <apex:PageBlock mode="maindetail">
+                <apex:pageBlockButtons location="both">
+                    <apex:commandButton action="{!Edit}" value="{!$Label.templatevizart__EditButton}"/>
+                    <apex:commandButton onclick="return confirm('{!$Label.templatevizart__AreYouSure}')" action="{!Del}" value="{!$Label.templatevizart__DeleteButton}"/>
+                </apex:pageBlockButtons>
+                <apex:PageBlockSection >
+                    <apex:outputField value="{!TemplateVizArt__Template_Data_Set__c.Name}"/>
+                    <apex:outputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Template_Data_Source__c}"/>
+                    <apex:outputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Type__c}"/>
+                    <apex:outputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Previous_Template_Data_Set__c}"/>
+                </apex:PageBlockSection>
+                
+                <apex:PageBlockSection Title="{!$Label.templatevizart__Relationship}">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Main_Object__c.label}"/>
+                        <apex:outputText value="{!MainObjectLabel}"/>
+                    </apex:pageBlockSectionItem>  
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Related_Object__c.label}"/>
+                        <apex:outputText value="{!RelatedObjectLabel}"/>
+                    </apex:pageBlockSectionItem>  
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Main_Object_Field__c.label}"/>
+                        <apex:outputText value="{!MainObjectFieldLabel}"/>
+                    </apex:pageBlockSectionItem>  
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Related_Object_Field__c.label}"/>
+                        <apex:outputText value="{!RelatedObjectFieldLabel}"/>
+                    </apex:pageBlockSectionItem>  
+                </apex:PageBlockSection>
+                
+                <apex:PageBlockSection Title="{!$Label.templatevizart__Additional}" rendered="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Type__c='Standard'}">
+                    <apex:outputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Filter_Condition__c}"/>
+                    <apex:outputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Order_By__c}"/>
+                </apex:PageBlockSection>
+                
+                <apex:PageBlockSection Title="{!$Label.templatevizart__Custom_SOQL}" rendered="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Type__c='Custom SOQL'}" columns="1">
+                    <apex:outputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Custom_SOQL__c}"/>
+                </apex:PageBlockSection>
+                
+                <apex:PageBlockSection Title="{!$Label.templatevizart__Email}" rendered="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Type__c='Email Recipient'}">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Email_Recipient_Object__c.label}"/>
+                        <apex:outputText value="{!EmailRecipientObjectLabel}"/>
+                    </apex:pageBlockSectionItem>  
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template_Data_Set__c.fields.TemplateVizArt__Email_Recipient_Field__c.label}"/>
+                        <apex:outputText value="{!EmailRecipientFieldLabel}"/>
+                    </apex:pageBlockSectionItem>  
+                    <apex:outputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Primary_Recipient_Filter__c}"/>
+                    <apex:outputField value="{!TemplateVizArt__Template_Data_Set__c.TemplateVizArt__Additional_Email_Recipient_Filter__c}"/>
+                </apex:PageBlockSection>
+            </apex:PageBlock>
+        </apex:Form>
+</apex:page>

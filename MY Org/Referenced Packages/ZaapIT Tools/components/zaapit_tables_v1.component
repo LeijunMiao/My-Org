@@ -1,0 +1,1345 @@
+<apex:component controller="zaapit.zaapit_tables" allowdml="true" extensions="zaapit.JSZTableAction"> 
+<script>
+var remoteTotMethod='{!$RemoteAction.JSZTableAction.calculateTotalSumsRMT}';
+var remoteQueryAjax2='{!$RemoteAction.JSZTableAction.queryAjax2}';
+var remotequeryAjax2CountFL='{!$RemoteAction.JSZTableAction.queryAjax2CountFL}';
+var orgDefCurrency="{!currencyDef}";
+</script> 
+<apex:outputPanel id="regBlock" rendered="{!NOT(isExportMode)}">
+<script>
+var isSearchFocus1=true;
+var openPOInst=true;
+</script>
+<div id="theIframeCont"></div>
+    <apex:form id="pgblck">
+    <style> 
+.textOver1{max-width:{!2000/fieldset.size}px;display:inline-block;max-height:14px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap; }
+textarea.iTb{width:95%;min-width:150px;}
+html{!IF(mainId=='','.zp2dbbo','')},body{!IF(mainId=='','.zp2dbbo','.hasMotif')}{margin:0px;padding:0px;}
+body .list{!IF(useSmallTableFont,'','.regularfontZP')} *{font-size:8pt;}
+#mainTBX1 .zen .zen-mediaExt .zen-mediaBody{display:none;}
+#mainTBX1 .zen .followUnfollowElement{display:inline-block;}
+#mainTBX1 .zen {display:inline-block;}
+
+#mainTBX1 tr.markedRowTA{background:yellow;}
+
+#mainTBX1{!IF(NOT(currConf.hideTotalsRow__c),'XXX','')} .list .totalRow td,#mainTBX1{!IF(NOT(currConf.hideTotalsRow__c),'XXX','')} .list .totalRow th{padding:0px;background:#F2F3F3;}
+#mainTBX1{!IF((currConf.hideTotalsRow__c),'XXX','')} .list .totalRow td,#mainTBX1{!IF((currConf.hideTotalsRow__c),'XXX','')} .list .totalRow th{background:#F2F3F3;border-top:1px solid #E0E3E5;}  
+
+</style>
+
+<div id="postinstMsg" style="display:none;z-index:5;position:fixed;left:0px;width:100%;bottom:0px;height:55px;background:#e5e5e5;opacity:0.9;-moz-opacity:0.9;">
+<div style="text-align:center;margin-top:10px;">
+<a target="_blank" href="http://www.zaapit.com/page/smart_tables" style="color:#0000FF;font-size:11pt;font-weight:bold;">
+Visit Zaapit.com and learn how to configure &amp; customize the Smart-Related-Grids.<br/>The Smart-Tables product user guide is on the right side under "helpful links".
+</a>
+<a class="btn" style="padding:3px;margin-left:10px;" href="javascript:void(0);" onclick="$('#postinstMsg').hide();">Close</a>
+</div>
+</div>
+<script type="text/javascript">
+   function setFocusOnLoad() {}//mockachino!
+  var lastTextareaObj=null;
+  function fixDilalogIframeHeight(){
+  	var isIfrm= (top != self && parent.frames.length > 0);
+       var maxHieghtIframe=750;
+       if($(window).height()<maxHieghtIframe || $("html,body").height()<maxHieghtIframe){
+           if(!isIfrm){
+                maxHieghtIframe=$(window).height();
+                //alert(maxHieghtIframe);
+           }else if(isIfrm ){
+                lastBodyHeight=$("html,body").height();
+                //alert(lastBodyHeight);
+                $("html,body").height(maxHieghtIframe);
+                fixIfmHegt();
+           } 
+       }
+  }
+  function enhanceFuncInp(obj,clsForName){
+  
+ 	 
+	fixDilalogIframeHeight();
+    if({!currConf.Open_TextArea_in_a_dialog__c} && $(obj).prop("tagName").toUpperCase()=="TEXTAREA"){
+    var formatterInt = new google.visualization.NumberFormat({
+            pattern: '#,###,###.##'
+        });
+        lastTextareaObj=obj;
+        $("#textAreaEditDialog1TA").val($(obj).val());
+        $("#textAreaEditDialog1TA").attr("maxlength",$(obj).attr("maxlength"));
+        if($(obj).attr("maxlength")!=null){
+            $("#maxLen1").html(" / "+formatterInt.formatValue($(obj).attr("maxlength")));
+            $("#currLen1").html($(obj).val().length);
+            
+        }else{
+            $("#maxLen1").html("");
+            $("#currLen1").html($(obj).val().length);
+        }
+        $(obj).parents("tr:first").addClass("markedRowTA");
+        
+        $("#textAreaEditDialog1").dialog({
+            resizable: true,
+            height:500,
+            width:500,
+            modal: true,
+            title: $("."+clsForName+":first").text(),
+            buttons: {
+            
+            "{!$Label.OK_buttons}": function() {
+                $(obj).val($("#textAreaEditDialog1TA").val()).change();
+                $( this ).dialog( "close" );
+            },
+            "{!$Label.Cancel_button}": function() {
+                $( this ).dialog( "close" );
+            }
+            },
+             close: function( event, ui ) {
+             	$(obj).parents("tr:first").removeClass("markedRowTA",1000,function(){});
+             	if(lastBodyHeight!=null){
+                      $("html,body").height(lastBodyHeight);
+                      fixIfmHegt();
+               }
+             }
+            });
+        
+        
+    }
+}
+   
+function refreshAfterSave(){
+    loadingSH();
+    var loc1=(self.location+"");
+    var prefix="/apex/";
+    if(loc1.indexOf("/servlet/")>-1){
+        //prefix="/apex/"
+    }else if(loc1.indexOf("/apex/")>-1){
+        prefix="../apex/";
+    }else{
+        prefix="apex/";
+    }
+    //refersh();
+    if(loc1.indexOf("zaapit__")>-1){
+        prefix=prefix+"zaapit__";
+    }
+    var mainID="{!mainId}";
+    self.location=prefix+"{!UrlEnd1}?"+(mainID==""?"zba=1":"id="+mainID)+(isInIframe()?"&inline=1":"")+"{!sfdcTabNameParam}";
+}
+
+var uscszrptga1="1";
+function checkXwf51(){
+/*zp lstnr*/
+try{
+var eventMethodx1 = window.addEventListener ? "addEventListener" : "attachEvent";
+var eventerx1 = window[eventMethodx1];var messageEventx1 = eventMethodx1 == "attachEvent" ? "onmessage" : "message";
+eventerx1(messageEventx1,function(e) {
+    try{
+    if(e.data.indexOf("zaapit_tb_")>0){$.globalEval(e.data);  }  
+}catch(e2){  }},false);
+}catch(e1){}
+}
+</script>
+<!-- <iframe src="about:blank" scrolling="true" id="theIframe" style="display:none;"/> -->
+
+        <c:zaapit_tb_top maxRowsPerPage="{!maxRowsPerPage}" 
+            isEditOL="{!isEditOL}" confName="{!confName}" Urlx1="{!Urlx1}"/>
+<script type="text/javascript" defer="defer">
+                 
+     $(document).ready(function(){
+     checkXwf51();
+     try{
+         if(window.self != window.top){
+    
+        $(self).resize(function(){
+            paretnAk1();
+        }); 
+        //alert('https://'+((self.location+'').split('/')[2]));
+        //var cur1='https://'+((self.location+'').split('/')[2]);
+        //alert(cur1);
+        //.postMessage(\\'paretnAk1();/*zaapit_tb_Auth*/\\',\\'"+cur1+"\\')
+        //parent.postMessage('$("#theIframeCont").html("'+cont1+'");','https://zaapit.cs8.visual.force.com');
+        
+        fixIfmHegt();
+        setTimeout(showMsgConf,4000);     
+   }
+   }catch(e){}
+   searchOnload1();
+   });
+   
+   function paretnAk1(){
+        openPOInst=false;
+        $('#postinstMsg').hide();
+   }
+   
+    function showMsgConf(){
+        var unVisH=$("body").height()-$(self).height();
+        //alert(unVisH);
+        if(unVisH>0 && openPOInst){
+            $('#postinstMsg').show();
+        }else{
+            paretnAk1();
+        }
+   }
+   
+   
+function fixIfmHegt(){
+try{
+    if(window.self != window.top){
+          var currLOc=(self.location+'');
+        var postURl1='https://'+currLOc.split('.')[1]+'.salesforce.com';
+
+        if({!IF($Label.Salesforce_Full_URL!='-','true','false')}){
+            postURl1="{!$Label.Salesforce_Full_URL}";
+        }
+    $(document).height()+"";
+
+    var maxHeight=$("body").height();
+    $(".filterino:visible").each(function(){
+        var pos1=$(this).position();
+        var curH=pos1.top+$(this).height()+20;
+        if(curH > maxHeight){
+            maxHeight=curH;
+        }
+    });
+    maxHeight=maxHeight+1;
+    //alert((self.location+'').split(/\/+/)[1]);
+    //parent.postMessage("postMessage('paretnAk1();','https://"+((self.location+'').split(/\/+/)[1])+");",postURl1);
+        setTimeout("parent.postMessage('jQuery(\"iframe[title=\\'{!urlEnd1}\\']\").attr(\\'height\\',\\'"+(maxHeight)+"\\');','"+postURl1+"');",99);
+    }
+    }catch(e){}
+   }
+   
+   var totalCountAjx=0;    
+   var queryCOunt1="{!remoteQuery1}";
+   var currPageCls=Number("{!currPage}");
+   var showEntries="{!IF(viewRowCount>0,TEXT(maxRowsPerPage*(currPage)+1)+'-'+TEXT(maxRowsPerPage*(currPage)+viewRowCount)+' ','')}";
+   var maxRowsPerPageCls=Number("{!maxRowsPerPage}");
+   var maxPageOfsetGlb=10000;
+   function getTotals1(){
+    
+       var symbol= orgDefCurrency;
+       symbol=symbol.substring(0,1);
+       var formatterCurr = new google.visualization.NumberFormat({prefix: symbol
+        });
+        var formatterInt = new google.visualization.NumberFormat({
+            pattern: '#,###,###.##'
+        });
+
+  
+     Visualforce.remoting.Manager.invokeAction(
+            remoteTotMethod,
+            queryCOunt1, 
+            function(result, event){
+                if (event.status && result!=null) {
+                     if({!NOT(currConf.zaapit__hideTotalsRow__c)}){    
+                        var key;
+                        for (key in result) {
+                            var spanTOT=$(".TOT-"+key);
+                            if(spanTOT.size()>0){
+                            //alert(key+" "+spanTOT.hasClass("cur")+ " "+symbol);
+                              if(spanTOT.hasClass("cur") ){
+                                    spanTOT.html(formatterCurr.formatValue(result[key]));
+                                }else{
+                                    spanTOT.html(formatterInt.formatValue(result[key]));
+                                }
+                            }
+                        }
+                    }
+                    var totRows=Number(result['countRowsx1']);
+                    totalCountAjx=totRows;
+                    var totRowsFor=formatterInt.formatValue(totRows);
+                    var foundTxt="{!$Label.Found_x_results}".replace("{0}",totRowsFor);
+                    $(".foundX").html(foundTxt);
+                    var Page_x_of_y="{!$Label.Page_x_of_y}";
+                    var foundPages=Math.round(totRows/maxRowsPerPageCls+0.499);
+                    var maxPageOfset=2000/maxRowsPerPageCls;
+                    maxPageOfsetGlb=maxPageOfset;
+                    if(foundPages==0){
+                        foundPages=1;
+                    }
+                    var currPage=currPageCls;
+                    Page_x_of_y=Page_x_of_y.replace("{0}",(currPage+1)).replace("{1}",formatterInt.formatValue(foundPages));
+                    Page_x_of_y=Page_x_of_y.replace("{3}",(showEntries!=""?" <span style='color:#696969;margin-left:5px;'>["+showEntries+" {!$Label.of_entries} "+totRows+"]</span>":""));
+                    $("#Page_x_of_y").html(Page_x_of_y);
+                    //alert(result['countRowsx1']);
+                    var numPageLinks="";
+                     for(var i=Math.max(0,currPage-5);i<Math.min(foundPages,Math.max(0,currPage-5)+10);i++){
+                        numPageLinks+="<a href='javascript:void(0);' onclick='jumpToClk("+i+","+maxPageOfset+");' "+(i>maxPageOfset?"style='color:#aaaaaa;'":"")+" class='"+(currPage==i?"m":"n")+"'>"+(i+1)+"</a>";
+                     }
+
+                    $("#numPageLinks").html(numPageLinks);
+                    $("#srachPan2NP").show();
+                } else if (event.type === 'exception') {
+                	if(event.message!=null && (event.message+"").indexOf("Unable to conn")>-1){
+                		alert("An error has occurred: "+event.message);
+                	}
+                    //self.location=self.location;
+                    $("#srachPan2NP").show();
+                } else {
+                    //self.location=self.location;
+                    $("#srachPan2NP").show();
+                }
+            }, 
+            {escape: true}
+        );
+
+   }
+   
+   
+var DBsubQery="{!queryx1FROM}";  
+    
+ function loadDataFilter(field1,filterIdSpan,fieldCalss1,filterObjShowType,colName,resultData,fetchCount1){
+ 
+   var fieldMap1=new Array();
+   var maxResRows=250;
+   try{
+   if({!currConf.hide_multi_value_filters__c} || $("#"+filterIdSpan+" .availVals .btnD").size()>0 ){
+        return false;
+   }
+   var resultsHTML="";
+   var useFormulaField=false;
+   var showButtons=false;
+   var showGraph=false;
+   if(!(fetchCount1==null && fetchCount1!=null) &&(filterObjShowType=='1' || (filterObjShowType=='1f' && {!NOT(currConf.Disable_formula_fields_groupings__c)} )||  filterObjShowType=='4' || filterObjShowType=='2'|| filterObjShowType=='6'|| filterObjShowType=='5'|| filterObjShowType=='7')){//text,bool,date,int,reference
+        showGraph=(filterObjShowType.indexOf('f')==-1);//not formula;
+        //loadingSH();
+        var fieldSoql=field1;
+        if(filterObjShowType=='7' && field1!='id' ){
+            //field1=field1.substring(0,field1.length-2)+".name";
+            if(field1.indexOf("id")==field1.length-2){
+                field1=field1.substring(0,field1.length-2)+".name";
+            }
+            if(field1.indexOf("__c")==field1.length-3){
+                field1=field1.substring(0,field1.length-1)+"r.name";//'zaapit__'+
+            }
+
+            fieldSoql=field1;
+        }else if(filterObjShowType=='6'){
+            fieldSoql="DAY_ONLY("+field1+")";
+
+        }
+        var query1="";
+        if(filterObjShowType=='1f'){
+            maxResRows=50;//50 Groups
+            field1=""+field1;//zaapit__
+            fieldSoql=""+fieldSoql;//zaapit__
+            var limitF="{!currConf.Max_rows_for_formula_grouping__c}";
+            if(limitF=="" || isNaN(limitF) || Number(limitF)<=0){
+                limitF="3000";
+            }else{
+                limitF=Math.round(Number(limitF));
+            }
+            useFormulaField=true;
+            query1="SELECT "+fieldSoql+" "+DBsubQery+" order by "+fieldSoql+" limit "+limitF;
+            //alert(limitF+ " " +isNaN(limitF) + " "+Number(limitF) );
+            
+            if(resultData==null && fetchCount1==null){
+            
+                Visualforce.remoting.Manager.invokeAction(
+                remotequeryAjax2CountFL,
+                query1, 
+                function(result, event){
+                    if (event.status && result!=null) {
+    
+                        loadDataFilter(field1,filterIdSpan,fieldCalss1,filterObjShowType,colName,result,"1");
+                    
+                     } else if (event.type === 'exception') {
+                        //self.location=self.location;
+                        if(event.message!=null && (event.message+"").indexOf("Unable to conn")>-1){
+                			alert("An error has occurred: "+event.message);
+                		}
+                         $("#"+filterIdSpan+" .availVals").html("");
+                    } else {
+                        //self.location=self.location;
+                       // alert(event.type+"");
+                         $("#"+filterIdSpan+" .availVals").html("");
+                    }
+                }, 
+                {escape: true}
+            );
+                return;
+            }
+        }else{
+            query1="SELECT "+fieldSoql+" f1,count(id) c1 "+DBsubQery+" group by "+fieldSoql+" order by "+fieldSoql+" limit "+maxResRows;
+            
+            if(resultData==null && fetchCount1==null){
+        
+                Visualforce.remoting.Manager.invokeAction(
+                remoteQueryAjax2,
+                query1, 
+                function(result, event){
+                    if (event.status && result!=null) {
+    
+                        loadDataFilter(field1,filterIdSpan,fieldCalss1,filterObjShowType,colName,result,"1");
+                    
+                     } else if (event.type === 'exception') {
+                        //self.location=self.location;
+                        if(event.message!=null && (event.message+"").indexOf("Unable to conn")>-1){
+                			alert("An error has occurred: "+event.message);
+                		}
+                         $("#"+filterIdSpan+" .availVals").html("");
+                    } else {
+                        //self.location=self.location;
+                        //alert(event.type+"");
+                         $("#"+filterIdSpan+" .availVals").html("");
+                    }
+                }, 
+                {escape: true}
+            );
+                return;
+            }
+        }
+         //alert(query1);
+        
+
+
+        var lastVal=null;
+        var lastCountf=0;
+        var queryMore = true;
+        var hasRows = true;
+        var count1=0;
+        resultsHTML+="<thead><tr><td><input type='checkbox' class='xfilt1All' name='selectAll' id='"+filterIdSpan+"-A' onclick='selAllFlt(this);'></td><td><label for='"+filterIdSpan+"-A'>{!$Label.Select_All}</label></td><td >#</td></tr></thead><tbody>";
+        while (queryMore && count1<maxResRows) {
+            var records = resultData;//result.getArray("records");
+            if(records!=null && records.length>0){
+                
+                for (var key in records[0]) {
+                    //alert(key+" "+records[0][key]+" "+(typeof  records[0][key]));
+                    fieldMap1[key.toLowerCase()]=key;
+                    if(records[0][key]!=null && (typeof records[0][key]) == "object"){
+                    
+                        for (var key1 in records[0][key]) {
+                            fieldMap1[key1.toLowerCase()]=key1;
+                        }
+                    }  
+                }
+                
+            }else{
+                queryMore=false;
+                continue;
+            }
+            
+            var fieldDotIdx=field1.indexOf(".");
+            var field1Xnd=(fieldDotIdx>-1?field1.substring(fieldDotIdx+1):field1);
+            //var expfieldsStart=(!useExpField?0:1);
+            var countFname="c1";//'expr'+expfieldsStart;
+            var mainFieldName="f1";//(!useFormulaField?"f1":fieldMap1[field1Xnd]);
+            //alert(records[0]);
+            
+            //alert(records[0]);
+                for (var i = 0; i < records.length; i++) {
+                    hasRows=true;
+                    var val1=records[i][mainFieldName];
+                    var val1Count=records[i][countFname];
+                    var objN="";
+                 
+                    if(val1!=null && val1.indexOf("T")>-1 && val1.match(/[0-9]{4}\-[0-9]{2}\-[0-9]{2}T.*/ig) ){
+                        val1=val1.replace("T"," ");
+                        val1=val1.replace("Z","");
+                        val1=val1.replace(".000","");
+                    }
+                    resultsHTML+="<tr>";
+                 resultsHTML+="<td><input type='checkbox' class='xfilt1' name='xfilt1' value='"+(val1==null?" ":val1)+"' onclick='selOneFlt(this);' id='"+filterIdSpan+"-"+count1+"'></td><td class='v1'><div class='vl1'><label for='"+filterIdSpan+"-"+count1+"'>"+(val1==null || val1==""?"{!$Label.Blanks_txt}":val1)+"</label></div></td><td class='gray'>"+(val1Count==null?"":val1Count)+"</td>";
+                 
+                resultsHTML+="</tr>";
+                count1++;
+                }
+            
+            
+            queryMore = false;
+
+        }
+
+                    
+         if(count1==maxResRows){
+               resultsHTML+="<tr>";
+               var bottomMSg=("{!$Label.Showing_first_X_rows}").replace("{0}",maxResRows+"");
+               resultsHTML+="<td colspan='3' align='center' style='color:#a1a1a1;font-size:8pt;'>"+bottomMSg+"</td>";
+               resultsHTML+="</tr>";
+         }
+        //alert(resultsHTML);
+        if(hasRows){
+            resultsHTML=("<div class='fltTblOfw'><table class='fltTblOf'>"+resultsHTML+"</table></div>");
+            showButtons=true; 
+        }else{
+            $("#"+filterIdSpan+" .availVals").html("");
+        }
+        
+        }else if(filterObjShowType=='1f' && !({!NOT(currConf.Disable_formula_fields_groupings__c)} )){
+            showButtons=true;
+            if(lastCountf>0){
+                 resultsHTML+="<tr>";
+                 resultsHTML+="<td><input type='checkbox' class='xfilt1' name='xfilt1' value='"+(lastVal==null?" ":lastVal)+"' onclick='selOneFlt(this);' id='"+filterIdSpan+"-"+count1+"'></td><td class='v1'><div class='vl1'><label for='"+filterIdSpan+"-"+count1+"'>"+(lastVal==null || lastVal==""?"{!$Label.Blanks_txt}":lastVal)+"</label></div></td><td class='gray'>"+(lastCountf==null?"":lastCountf)+"+</td>";
+                 
+                resultsHTML+="</tr>";
+                count1++;
+            }
+        }else if(filterObjShowType=='6'){//datetime
+            //$("#"+filterIdSpan+" .availVals").html("");
+            //showButtons=true;
+        }else if(filterObjShowType=='8' |filterObjShowType=='3' || filterObjShowType=='35' || filterObjShowType=='3f' || filterObjShowType=='35f'){//numbers
+          var formatterInt = new google.visualization.NumberFormat({
+                pattern: '#,###,###.##'
+            });
+            var inpFieldsO=$("#"+filterIdSpan+" .filterObjShow1 .inptFilter");
+            if(inpFieldsO[0]!=null && $("#"+filterIdSpan+" .availVals .btnD").size()==0){
+                var query1="SELECT min("+field1+") s1,max("+field1+") s2 "+DBsubQery+" ";
+
+                 showButtons=true;
+                 showGraph=false;         
+                       
+                Visualforce.remoting.Manager.invokeAction(
+                remoteQueryAjax2,
+                query1, 
+                function(result, event){
+                    if (event.status && result!=null) {
+    
+                           var records = result;
+
+                             if(records.length>0){
+                                var min1=Math.floor(Number(records[0]["s1"])).toFixed(0);
+                                var max1=Math.ceil(Number(records[0]["s2"])).toFixed(0);
+                                  $(inpFieldsO[0]).attr("title","Min: "+formatterInt.formatValue(min1));
+                                  $(inpFieldsO[1]).attr("title","Max: "+formatterInt.formatValue(max1));
+                                  inpFieldsO.tooltip();
+                            }
+                    
+                     } else if (event.type === 'exception') {
+                        if(event.message!=null && (event.message+"").indexOf("Logged in")>-1){
+                        	self.location=self.location;
+                        }else if(event.message!=null && (event.message+"").indexOf("Unable to conn")>-1){
+                        	alert("An error has occurred: "+event.message);
+                       	}
+                         $("#"+filterIdSpan+" .availVals").html("");
+                    } else {
+                        //self.location=self.location;
+                         $("#"+filterIdSpan+" .availVals").html("");
+                    }
+                }, 
+                {escape: true}
+            );
+               
+            }
+            
+        }
+
+        if(filterObjShowType=='4'){//booleans
+            resultsHTML=resultsHTML.replace('>true<','><img class="checkImg" width="21" height="16" title="Checked" alt="Checked" src="/img/checkbox_checked.gif"><');
+            resultsHTML=resultsHTML.replace('>false<','><img class="checkImg" width="21" height="16" title="Not Checked" alt="Not Checked" src="/img/checkbox_unchecked.gif"><');
+        }
+        if(showButtons){
+
+            if({!NOT(currConf.Hide_graph_link_on_filter__c)} && showGraph && count1>0){
+                $("#"+filterIdSpan+" .extBtns").html("<a href='javascript:void(0)' class='menuItemFlt GraphLnk' onclick='createGarphsDataFilter(\""+field1+"\",\""+filterIdSpan+"\",\""+fieldCalss1+"\",\""+filterObjShowType+"\",\"{!currConf.Amount_field_For_Graphs__c}\",\"{!amountFieldName}\",\""+colName+"\",\""+count1+"\",\"{!NOT(currConf.DisableGeoMaps__c)}\");'>{!$Label.Instant_Graph}</a>");
+            }
+            
+            $("#"+filterIdSpan+" .availVals").html(resultsHTML+"<div class='btnD'><button class='btn filterBtnExcelStl' onclick='selectFilterExCBOX(\""+filterIdSpan+"\",\""+fieldCalss1+"\");' type='button' >{!$Label.filter_ex_Btn}</button><button class='btn' onclick='closeFilterx();' type='button' style='margin-left:5px;' >{!$Label.Cancel_filter_button}</button></div>");
+             var curObj=$("#"+filterIdSpan);
+             var availVals=curObj.find(".availVals");
+             availVals.width(availVals.width());
+             /*calc new left!*/
+             var scrollMode=isScrollMode();
+              var sl1=$(self).scrollLeft();
+            var fltTblOfw=curObj.find(".fltTblOfw");
+            fltTblOfw.width(fltTblOfw.width());         
+            var exptWidth=(fltTblOfw.size()>0 && fltTblOfw[0].scrollWidth >fltTblOfw.width()?fltTblOfw[0].scrollWidth:availVals.width());
+            var bodyW=$("body").width()+(scrollMode?0:sl1);
+            var curLeft=curObj.css("left");
+            if(curLeft!=null && curLeft.indexOf("px")>-1){
+                curLeft=Number(curLeft.substring(0,curLeft.length-2));
+            }
+            //alert(curLeft+ " "+exptWidth+" "+ bodyW+ " "+( curLeft+exptWidth>bodyW));
+            if(curLeft!=null && curLeft+exptWidth>bodyW){
+                curLeft=Math.round(bodyW-exptWidth-20);
+                curObj.css({"left":curLeft});
+                //alert("curLeft: "+curLeft);
+            }
+            curObj.find("input:first").width(exptWidth);
+        }else{
+            $("#"+filterIdSpan+" .availVals").html("");
+        }
+        fixIfmHegt();
+        
+
+        //fixOnload();
+        }catch(e1){
+            if(e1!=null && (e1+"").indexOf("INVALID_FIELD")>-1){
+                alert("One of the below marked fields have access right issues: \n\n"+e1);
+            }else if(e1!=null && (e1+"").indexOf("INVALID_SESSION_ID")>-1){
+                self.location=self.location;
+            }else{
+
+            }
+            $("#"+filterIdSpan+" .availVals").html("");
+        }
+    
+   }
+   function clearPx(str){
+        if(str!=null && str.indexOf("px")>-1){
+            str=str.substring(0,str.length-2);
+        }
+        return str;
+   }
+   function selAllFlt(obj){
+        var checked=$(obj).prop("checked");
+        if(checked==null){
+            checked="";
+        }
+        $(obj).parents(".fltTblOfw:first").find("input[type='checkbox']").prop("checked",checked);
+   }
+   function selOneFlt(obj){
+        $(obj).parents(".fltTblOfw:first").find(".xfilt1All").prop("checked",($(obj).parents(".fltTblOfw:first").find(".xfilt1").size()==$(obj).parents(".fltTblOfw:first").find(".xfilt1:checked").size()));
+   }
+   function selectFilterExCBOX(filterIdSpan,fieldCalss1){
+        var selectedVals="";
+        var allCBOX=$("#"+filterIdSpan+" .availVals .fltTblOfw .xfilt1All");
+        if(allCBOX.size()>0){
+            if(allCBOX.prop("checked")){
+                selectedVals="";
+            }else{
+                $("#"+filterIdSpan+" .availVals .fltTblOfw input.xfilt1[type='checkbox']:checked").each(function(){
+                    var curV1=$(this).val();
+                    if(curV1.indexOf(",")>-1){
+                        curV1=curV1.replace(/\,/ig,"_");
+                    }
+                    selectedVals+=curV1+",";
+                });
+            }
+        }
+        
+        if(selectedVals==""){
+            var hasNoneEmpty=false;
+            $("#"+filterIdSpan+" .filterObjShow1").find("select,input").each(function(){
+                hasNoneEmpty=hasNoneEmpty||$.trim($(this).val())!="";
+                selectedVals+=","+($.trim($(this).val())==""?" ":$.trim($(this).val()));
+            }); 
+            if(hasNoneEmpty && selectedVals!=""){
+                selectedVals="R"+selectedVals.substring(1);
+            }else{
+                selectedVals="";
+            }
+        }else{
+            $("#"+filterIdSpan+" .filterObjShow1 .inptFilter").val("");//clear range
+        }
+        
+        if(selectedVals==""){
+            selectedVals=$("."+fieldCalss1).val();
+            if(selectedVals.indexOf("R")==0 && $("#"+filterIdSpan+" .filterObjShow1 input").size()>0){
+                selectedVals="";
+            }
+        } 
+        closeFilterx();
+        //$("#"+filterIdSpan+" .availVals ").html("<div class='ld1'></div>");
+        $("#"+filterIdSpan+" .searchTxt").hide();
+        $("."+fieldCalss1).val(selectedVals);//filterinoIPT
+        filterCol(null,13);//run filter now
+   }
+   
+   function jumpToClk(p,m){
+    if(p>m){
+        alert("{!$Label.unavailable_page}");
+        return;
+    }
+    if(!noticeUnsave()){return false;}else{loadingSH();jumpTo(p);};
+        
+   }
+   
+   function nextPrev(p){
+   p=Number(p);
+    if(p>maxPageOfsetGlb){
+        setTimeout(function(){alert("{!$Label.unavailable_page}");},50);
+        return false;
+    }else{
+        if(!noticeUnsave()){
+        return false;
+        }else{
+        loadingSH();
+        return true;
+        };
+    }
+   }
+   
+   function openExportWindow(){
+    if(totalCountAjx>10000){
+        $("#showLimitExport").show();
+    }else{
+        $("#showLimitExport").hide();
+    }
+    $("#exportDialog1").dialog({
+    resizable: true,
+    //height:140,
+    width:380,
+    modal: true,
+    buttons: {
+    
+    "{!$Label.Save_File_button}": function() {
+        createFile($("#fileTypePD").val());
+        $( this ).dialog( "close" );
+    },
+    "{!$Label.Cancel_button}": function() {
+        $( this ).dialog( "close" );
+    }
+    }
+    });
+   }
+    var fileq="{!queryx1Main}";  
+   function createFile(type){
+    var loc1=(self.location+"");
+    $("#fileType").val(type);
+    $("#fileq").val(fileq);
+    //loadingSH();
+    if(loc1.indexOf("//zaapit")==-1 || loc1.indexOf(".com/apex/")==-1 || loc1.indexOf("/servlet/")>-1){
+        $("#export_to_form").attr("method","get");
+    }
+
+    var prefix="/apex/";
+    if(loc1.indexOf("/servlet/")>-1){
+        //prefix="/apex/"
+    }else if(loc1.indexOf("/apex/")>-1){
+        prefix="../apex/";
+    }else{
+        prefix="apex/";
+    }
+    $("#export_to_form").attr("action",prefix+"zaapit__export_to_file");
+    
+    $("#export_to_form")[0].submit();
+    //setTimeout("fixOnload();",5000);
+    //win1.focus();
+}
+            </script>
+<div id="exportDialog1" title="{!$Label.Export_to_File}" class="hd1">
+<p><span class="ui-icon ui-icon-info" style="float: left; margin: 2px 7px 20px 0px;"></span> {!$Label.Save_file_as}
+<select id="fileTypePD">
+<option value="doc">{!$Label.Save_as_Word}</option>
+<option value="xls">{!$Label.Save_as_Excel}</option>
+<option value="pdf">{!$Label.Save_as_PDF}</option>
+<option value="csv">{!$Label.Save_as_CSV}</option>
+</select>
+</p>
+<div style="color:#666666;font-size:8pt;float:left;" id="showLimitExport">{!$Label.Export_Gray_Message}
+</div>
+</div>
+        <div class="Zstbl1">
+            <apex:pageBlock title="{!title}">
+                
+                <apex:pageBlockButtons id="butSec" styleClass="btnicoflt" location="top">
+                
+                    <span style="float: right; height: 20px; display: block;overflow:visible;padding:0px 18px 0px 0px;position:relative;"> <span style="position: relative;display:inline-block;width:152px;"><span class="searchTxt {!IF(searchSTR!='','hd1','')}" style="top:2px" onclick="clickSearchTxt(this);">{!$Label.Search_label}</span><apex:inputText onkeydown="if (event!=null && event.keyCode===13){return false;}" value="{!searchSTR}"
+                            style="width:150px;height:16px;" styleClass="seatchInptFZP"/><span               
+                        onclick="$('.seatchInptFZP').val('');$('.seatchInptFZP:first').focus().keyup();" 
+                        class="filterinoIPTCS1 ui-icon-circle-closeZP"></span>
+                        </span>
+                        <a href="javascript:void(0);" onclick="searchChanged(1);" class="searchMGGlss1"></a>
+                    </span>
+                    
+                    <span style="" class="btnBox">
+                    <apex:outputPanel rendered="{!showRegButtons}"><!-- ;if(refreshAfterSave!=null)refreshAfterSave(); -->
+                         <span class="btnsSV"> <apex:commandButton value="{!$Label.New_button}"
+                                    action="{!newRow}" rendered="false" reRender="pgblck"
+                                    oncomplete="fixOnload();" />
+                                     <apex:commandButton value="{!$Label.Save_button}" onclick="loadingSH();"
+                                    action="{!save}" rendered="{!isEditOL}" reRender="pgblck"
+                                    oncomplete="fixOnload();" /> 
+                                    <apex:commandButton value="{!$Label.Cancel_button}" immediate="true"
+                                    action="{!cancel}" rendered="{!isEditOL}" reRender="pgblck" onclick="if(!noticeUnsave()){return false;}else{loadingSH();};"
+                                    oncomplete="fixOnload();" /> <span id="mUnsv"> <span
+                                    class="unSVNum"></span> {!$Label.Changed_Row_s}
+                            </span>
+                        </span> <apex:commandButton value="{!IF(isEditOL,$Label.view_button,$Label.edit_button)}"
+                                action="{!filpEditMode}" reRender="pgblck" onclick="loadingSH();"
+                                rendered="{!NOT(isEditOL)}" oncomplete="fixOnload();">
+                            </apex:commandButton>
+                             <apex:commandButton rendered="{!AND(newlink!='',NOT(currConf.zaapit__hideNewAndDelete__c))}" value="{!$Label.New_button}"
+                                onclick="top.location='{!newlink}';return false;">
+                            </apex:commandButton>
+                            
+                            <apex:commandButton value="{!$Label.Delete_button}"
+                                    action="{!delete1}" rendered="{!AND(isEditOL,NOT(currConf.zaapit__hideNewAndDelete__c))}" reRender="pgblck"
+                                    oncomplete="fixOnload();" onclick="var c1=$('.lcbX input:checked').size();if(c1==0){alert('Please select at least one row.');return false;}else if(!confirm('Are you sure you want to delete the selected rows ('+c1+')?')){return false;}else{loadingSH();}" />
+                            
+                           <apex:commandButton value="{!$Label.Mass_Update}"
+                                     rendered="{!isEditOL}" reRender="pgblck"
+                                    onclick="openMassUpdate();return false;" />
+                            
+                            
+                            <apex:commandButton value="{!$Label.add_row_button}" immediate="true" 
+                                    action="{!newRow}" rendered="{!AND(isEditOL,newlink=='',NOT(currConf.zaapit__hideAddRow__c))}" reRender="pgblck"
+                                    oncomplete="fixOnload();" />
+                                    
+                                    
+                            </apex:outputPanel> 
+
+                            
+                            <apex:repeat value="{!jsButtons}" var="bts">
+                            <script>
+                            function run{!bts[2]}(callerObj){
+                                {!bts[1]}
+                            }
+                            </script>
+                                <apex:commandButton onclick="return run{!bts[2]}(this);"
+                                     value="{!bts[0]}">
+                                </apex:commandButton>
+                            </apex:repeat>
+                            
+                            <apex:commandButton value="{!$Label.export_button}" 
+                                    rendered="{!AND(NOT(isEditOL),isShowExport)}" onclick="openExportWindow();return false;"  />  
+                            
+                            <apex:commandLink value="{!$Label.Customize_link}" onclick="openCustomize();return false;" style="color:#333369;" rendered="{!AND(NOT(currConf.zaapit__hideCustomizeLink__c),$User.Enable_ZaapIT_s_Layout_Editor__c)}"/>
+                            <!-- AND(NOT($Profile.Name=='System Administrator'),NOT($User.zaapit__Enable_ZaapIT_s_Layout_Editor__c)) --> 
+                                    <script>
+                                    var lastBodyHeight=null;
+                                    function openCustomize(){
+                                    
+                                    if('{!NOT($User.Enable_ZaapIT_s_Layout_Editor__c)}'=='true'){
+                                        alert("Please contact your System-Administrator to customize this table.\n\nAdmin - To grant access you need to:\n 1.\"Mark\" the \"Enable ZaapIT\'s Layout Editor\" checkbox under User Information.\n2. For new users - change the ZaapIT's Classes & Pages security setting.\n\nPlease note that this table is common to everyone.");
+                                        return false;
+                                    }
+                                    
+                                    //alert();
+                                   // $( "#massUpdate" ).dialog();
+                                   var isIfrm= (top != self && parent.frames.length > 0);
+                                   var maxHieghtIframe=750;
+                                   if($(window).height()<maxHieghtIframe || $("html,body").height()<maxHieghtIframe){
+                                       if(!isIfrm){
+                                            maxHieghtIframe=$(window).height();
+                                            //alert(maxHieghtIframe);
+                                       }else if(isIfrm ){
+                                            lastBodyHeight=$("html,body").height();
+                                            //alert(lastBodyHeight);
+                                            $("html,body").height(maxHieghtIframe);
+                                            fixIfmHegt();
+                                       } 
+                                   }
+                                   var addDDots="";
+                                   var currLoc1=(self.location+"/");
+                                    if(currLoc1.indexOf("/servlet/")>-1){
+                                        addDDots="../";
+                                    }else if(currLoc1.indexOf("/apex/")==-1){
+                                        addDDots="";
+                                    }
+                                    $("#customizeViewx1").html("<iframe width='99%' height='99%' border='0' src='"+addDDots+"apex/zaapit__zp_table_edit?id={!currConf.id}&tb1={!UrlEnd1}&ourl="+escape("{!urlStart1}")+"' style='border:0px;' frameborder='0'/>");
+                                    $("#customizeViewx1 ifame").css("border","0px");
+                                    //$("#customizeViewx1").dialog('destroy');
+                                        
+                                     $("#customizeViewx1").dialog({
+                                      height: (maxHieghtIframe-40),
+                                      width: 750,
+                                      modal: openDialogAsMod()
+                                    //  ,buttons: {
+                                     // Close: function() {
+                                      //  $( this ).dialog( "close" );
+                                        //fixIfmHegt();
+                                     // }
+                                     // }
+                                      ,close: function( event, ui ) {
+                                        
+                                         if(lastBodyHeight!=null){
+                                                $("html,body").height(lastBodyHeight);
+                                                fixIfmHegt();
+                                         }
+                                      }
+                                       
+                                      });   
+                                                            
+                                             
+                                     
+                                    }
+                                    var tbs1='{!timeStamptbs1}';
+                                    
+                                    function sortTbDfrnc(sortBy,sortDir,event){
+                                        tbs1=new Date().getTime();
+                                        //tbs1++;
+                                        sortTB(sortBy,sortDir);
+                                        loadingSH();
+                                    }
+                                    
+                                    function clickVisFilerBtn(){
+                                        $('.filterBtnExcelStl:visible:first').click();
+                                    }
+                                    </script>
+                    </span>
+                    
+                    
+                    <span class="fieldFilterUIZPW">
+                    <apex:inputText value="{!fieldFilterUI}" styleClass="hd1 fieldFilterUIZP" onclick="$('.seatchInptFZP:first').keyup();"/>
+                    </span>
+                    
+                </apex:pageBlockButtons>
+                <apex:component >
+                <apex:pageMessages id="mainTB1Err"/>
+                </apex:component>
+                
+                <div id="loadingx1Anchor"><div id="loadingx1" class="hd1"></div></div>
+                
+                <apex:repeat value="{!fieldset}" var="tf">
+                <span id="fl{!SUBSTITUTE(tf,'.','-')}" class="hd1 filterino">   
+                        <span style="position:relative;disply:inline-block;" origFl="inpf{!SUBSTITUTE(tf,'.','-')}"> 
+                        
+                                   <apex:inputtext value="{!filterObj[tf]}" styleClass="inpf{!SUBSTITUTE(tf,'.','-')} filterinoIPT {!IF(OR(filterObjShow[tf]=='2',filterObjShow[tf]=='6'),'hd1 filtDatex1Mnx','')}"  onkeydown="if (event!=null && event.keyCode===13)return false;" />
+                         <span onclick="$('.inpf{!SUBSTITUTE(tf,'.','-')}').val('');  filterCol(null,13);"
+                        class=" {!IF(OR(filterObjShow[tf]=='2',filterObjShow[tf]=='6'),'hd1','filterinoIPTCS1 ui-icon-circle-closeZP')}"></span>
+                        <span class="searchTxt {!IF(OR(filterObjShow[tf]=='2',filterObjShow[tf]=='6',filterObj[tf]!=' '),'hd1','')}" onclick="clickSearchTxt(this);">{!$Label.Search_label}</span>
+                    </span>
+                    <apex:outputPanel rendered="{!OR(filterObjShow[tf]=='2',filterObjShow[tf]=='6')}">
+                    <span style="position:relative;disply:inline-block;"> 
+                        
+                      <input as="1" origFl="inpf{!SUBSTITUTE(tf,'.','-')}" class="inpf{!SUBSTITUTE(tf,'.','-')}1 {!IF(OR(filterObjShow[tf]=='2',filterObjShow[tf]=='6'),'filtDatex1','')}"  onkeydown="if (event!=null && event.keyCode===13)return false;" width="69"/>
+                         <span onclick="$('.inpf{!SUBSTITUTE(tf,'.','-')}1').val('');  filterCol(null,13);"
+                        class="filterinoIPTCS1 ui-icon-circle-closeZP"></span>
+                    </span>
+                    -
+                     <span style="position:relative;disply:inline-block;"> 
+                        
+                    <input as="2" origFl="inpf{!SUBSTITUTE(tf,'.','-')}" class="inpf{!SUBSTITUTE(tf,'.','-')}2 {!IF(OR(filterObjShow[tf]=='2',filterObjShow[tf]=='6'),'filtDatex1','')}"  onkeydown="if (event!=null && event.keyCode===13)return false;" width="69"/>
+                         <span onclick="$('.inpf{!SUBSTITUTE(tf,'.','-')}2').val('');  filterCol(null,13);"
+                        class="filterinoIPTCS1 ui-icon-circle-closeZP"></span>
+                        
+                    </span>
+                    </apex:outputPanel>
+                    
+                    <a href="javascript:void(0)" class="menuItemFlt SortAsn" onclick="sortTbDfrnc('{!tf}','asc',event);">
+                    {!$Label.Sort_Ascending}
+                    </a>
+                    
+                    <a href="javascript:void(0)" class="menuItemFlt SortDec" onclick="sortTbDfrnc('{!tf}','desc',event);">
+                    {!$Label.Sort_Descending} 
+                    </a>
+                    
+                    <a href="javascript:void(0)" class="menuItemFlt clearFlt" onclick="$('#fl{!SUBSTITUTE(tf,'.','-')} .inptFilter, #fl{!SUBSTITUTE(tf,'.','-')} .filtDatex1').val('');$('#fl{!SUBSTITUTE(tf,'.','-')} .filtDatex1Mnx').val('');$('#fl{!SUBSTITUTE(tf,'.','-')} .filterinoIPTCS1').val('').get(0).click();">
+                    {!$Label.Clear_Filter} 
+                    </a>
+                    <div class="extBtns"></div>
+                    <apex:outputPanel rendered="{!OR(filterObjShow[tf]=='3',filterObjShow[tf]=='35',filterObjShow[tf]=='5',filterObjShow[tf]=='8',filterObjShow[tf]=='3f',filterObjShow[tf]=='35f')}">
+                    <div class="filterObjShow1">
+                   <!--   <apex:selectList value="{!filterObjSel[tf]}" size="1" styleClass="selFilter">
+                        <apex:selectOption itemValue=" " itemLabel="="/>
+                        <apex:selectOption itemValue=">" itemLabel=">"/>
+                        <apex:selectOption itemValue="<" itemLabel="<"/>
+                    </apex:selectList>
+                     --> 
+                    
+                    <apex:inputtext value="{!filterObjSel[tf]}" styleClass="inptFilter" onkeydown="if (event!=null && event.keyCode===13)return false;" />&nbsp;-&nbsp;<apex:inputtext value="{!filterObjInpt[tf]}" styleClass="inptFilter" onkeydown="if (event!=null && event.keyCode===13)return false;" />
+                    
+                    </div>
+                    </apex:outputPanel>
+                    <div class="availVals {!IF(currConf.hide_multi_value_filters__c,'hd1','')}">
+                    <div class="ld1"></div>
+                    </div>
+                   
+                </span>
+                </apex:repeat>
+                
+                <div id="mainTBX1">
+                
+                    <apex:pageBlockTable value="{!tableData}" var="tx" id="mainTB1"
+                        rendered="true">
+
+
+                        <apex:column id="idAction" rendered="{!isEditOL||showCheckBoxes}" width="35">
+                            <apex:facet name="header">
+                                <apex:inputCheckbox value="{!allCB}" onclick="cbAll(this);" styleClass="lcbXAll"/>
+                            </apex:facet>
+                            <span class="lcbX" rid="{!tx.o['id']}"> <apex:inputCheckbox value="{!tx.checked}" onclick="cbAllV(this);" styleClass="lcbXRow"/>
+                            </span>
+                            
+                            <apex:facet name="footer">
+                                 <apex:outputPanel rendered="{!NOT(currConf.zaapit__hideTotalsRow__c)}">  
+                                    <div class="cent1">{!$Label.Sum}</div>
+                                 </apex:outputPanel>
+                            </apex:facet>
+                            
+                        </apex:column>
+                        
+                        <apex:column id="idActionRed" rendered="{!AND(NOT(isEditOL),NOT(currConf.zaapit__hideEditDelColumn__c))}" width="35">
+                            <apex:facet name="header">
+                                Action
+                            </apex:facet>
+                            <div style="width:55px;">
+                            <apex:commandLink value="{!$Label.edit_link}" styleClass="actionLink" onclick="top.location='../{!tx.o['id']}/e?retURL={!currentURL}';return false;">
+                                    </apex:commandLink><span style="color:gray;margin:0px 3px;">|</span><apex:commandLink value="{!$Label.delete_link}" styleClass="actionLink" onclick="if( confirm('{!$Label.are_you_sure}')){loadingSH(); return true;}" action="{!deleteOneRow}">
+                                    <apex:param value="{!tx.o['id']}" name="idToDel" assignTo="{!idToDel}"></apex:param>
+                                    </apex:commandLink>
+                                    <!-- <chatter:follow entityId="{!tx.o['id']}"/> -->
+                                    </div>
+                       
+                          <apex:facet name="footer">
+                          <apex:outputPanel rendered="{!AND(NOT(currConf.zaapit__hideTotalsRow__c),NOT(showCheckBoxes))}">  
+                                    <div class="cent1">{!$Label.Sum}</div>
+                          </apex:outputPanel>
+                            </apex:facet>
+                            
+                        </apex:column>
+                        
+                        <apex:repeat value="{!fieldset}" var="tf">
+
+                            <apex:column >
+                                <apex:facet name="header">
+                                    
+                                    <apex:commandLink onclick="if(filterClicked || {!OR(filterObjShow[tf]=='9',filterObjShow[tf]=='9f',filterObjShow[tf]=='11',filterObjShow[tf]=='11f')}){return false;}if(!noticeUnsave()){return false;};sortTbDfrnc('{!tf}','{!IF(sortBy!=tf,sortDirOrig,IF(AND(sortBy==tf,sortDir!='asc'),'asc','desc'))}',event);return false;"
+                                        value="{!fieldsHeaders[tf]}"
+                                        styleClass=" srt inpTS{!SUBSTITUTE(tf,'.','-')}">
+                                        <span class="{!IF(sortBy==tf,IF(sortDir='asc','srtU','srtD'),'')} {!IF(sortBy2==tf,IF(sortDir2='asc','srtU','srtD'),'')} {!IF(sortBy3==tf,IF(sortDir3='asc','srtU','srtD'),'')}">&nbsp;</span>
+                                        <span class="{!IF(AND(currConf.Show_column_filter__c==true,OR(filterObjShow[tf]=='1',filterObjShow[tf]=='1f',filterObjShow[tf]=='10',filterObjShow[tf]=='10f',filterObjShow[tf]=='2',filterObjShow[tf]=='3',filterObjShow[tf]=='35',filterObjShow[tf]=='3f',filterObjShow[tf]=='35f',filterObjShow[tf]=='4',filterObjShow[tf]=='8',filterObjShow[tf]=='5',filterObjShow[tf]=='6',filterObjShow[tf]=='7')),'','hd1')} fltIC {!IF(filterObj[tf]==' ','sts0','sts1')}" onclick="filterClicked=true;return openCFilter(this,'fl{!SUBSTITUTE(tf,'.','-')}','{!tf}','inpf{!SUBSTITUTE(tf,'.','-')}','{!filterObjShow[tf]}','{!fieldsHeaders[tf]}',event); " id="flx_{!SUBSTITUTE(tf,'.','-')}">&nbsp;</span>
+                                    </apex:commandLink> 
+                                
+                                
+                                </apex:facet>
+                                <apex:inputField value="{!tx.o[tf]}" rendered="{!isEditOL}" onclick="enhanceFuncInp(this,'inpTS{!SUBSTITUTE(tf,'.','-')}');" styleClass="iTb"/>
+                                <span class="lnkPrp1 {!IF(OR(filterObjShow[tf]=='9',filterObjShow[tf]=='9f'),'textOver1','')}" onmouseover="{!IF(OR(filterObjShow[tf]=='9',filterObjShow[tf]=='9f'),'fixTitlex1(this);','')}">
+                                <apex:outputField value="{!tx.o[tf]}"
+                                    rendered="{!AND(NOT(isEditOL),(customLinksOnReadMode[tf]='empty'))}" />
+                                    </span>
+                                    <apex:outputPanel rendered="{!AND(NOT(isEditOL),NOT(customLinksOnReadMode[tf]='empty'))}"> 
+                                        <a class="{!IF(OR(filterObjShow[tf]=='9',filterObjShow[tf]=='9f'),'textOver1','')}" href="../{!tx.o[customLinksOnReadMode[tf]]}" onclick="top.location='../{!tx.o[customLinksOnReadMode[tf]]}';return false;" onmouseover="{!IF(OR(filterObjShow[tf]=='9',filterObjShow[tf]=='9f'),'fixTitlex1(this);','')}">
+                                        {!tx.o[tf]}
+                                        </a>
+                                    </apex:outputPanel>
+                                   
+                                   
+                                    <apex:facet name="footer">
+                                    <apex:outputpanel rendered="{!NOT(currConf.zaapit__hideTotalsRow__c)}" styleClass="TOT-{!tf} {!IF(OR(filterObjShow[tf]=='35',filterObjShow[tf]=='35f'),'cur','')}">
+                                    <apex:outputText value="{!IF(OR(filterObjShow[tf]=='35',filterObjShow[tf]=='35f'),'{0, number,currency}','{0, number,###,###.#}')}" rendered="{!AND(totalSums[tf]!=0,NOT(currConf.zaapit__hideTotalsRow__c))}">
+                                        <apex:param value="{!totalSums[tf]}" />
+                                    </apex:outputText>
+                                    </apex:outputpanel>
+                                    </apex:facet>
+                                   
+                            </apex:column>
+                        </apex:repeat>
+                    </apex:pageBlockTable>
+                </div>
+                <apex:outputPanel id="srachPan2">
+                    <div style="padding: 5px;height:53px;" >
+                    <div class="hd1" id="srachPan2NP">
+                        <table width="100%">
+                            <tr>
+                                <td width="30%"  style="vertical-align: middle;" nowrap="nowrap"><span style="display: inline-block;" id="Page_x_of_y">
+                               <!-- <apex:outputText value="{!$Label.Page_x_of_y}" escape="false">
+                               <apex:param value="{!currPage+1}"/>
+                               <apex:param value="{!IF(foundPages==0,1,foundPages)}"/>
+                            </apex:outputText>
+                                -->
+                                            </span></td>
+                                <td align="center"  style="vertical-align: middle;"><span class="prevnext"> <apex:commandButton onclick="jumpToClk({!currPage-1},maxPageOfsetGlb);return false;"
+                                            reRender="pgblck" 
+                                             value="{!$Label.Previous_button}" styleClass=""
+                                            disabled="{!IF(currPage-1<0,true,false)}">
+                                            
+                                        </apex:commandButton> 
+                                        <span id="numPageLinks"></span>
+                                        <!--  <apex:repeat value="{!showPages}" var="ps">
+                                            <apex:commandLink onclick="if(!noticeUnsave()){return false;}else{loadingSH();};"
+                                                reRender="pgblck" oncomplete="fixOnload();"
+                                                action="{!jumpTo}" immediate="true" value="{!ps+1}"
+                                                styleClass="{!IF(ps==currPage,'m','n')}">
+                                                <apex:param value="{!ps}" name="currPage"
+                                                    assignTo="{!currPage}"></apex:param>
+                                            </apex:commandLink>
+                                        </apex:repeat> --> <apex:commandButton onclick="jumpToClk({!currPage+1},maxPageOfsetGlb);return false;"
+                                            reRender="pgblck" 
+                                             value="{!$Label.next_button}" styleClass=""
+                                            disabled="{!IF(currPage+1>=foundPages,true,false)}">
+                                            
+                                        </apex:commandButton>
+
+                                </span></td>
+                                <td width="320" style="vertical-align: middle;"><span class="TotRowsPerPage"> {!$Label.Items_per_page} <apex:repeat value="{!pageSizes}" var="ps"> 
+    {!IF(ps==10,'','|')}
+    <apex:commandLink onclick="if(!noticeUnsave() ){ return false;}else{loadingSH();}"
+                                                reRender="pgblck" oncomplete="fixOnload();"
+                                                action="{!setMaxRow}" value="{!ps}"
+                                                styleClass="{!IF(ps==maxRowsPerPage,'m','n')}">
+                                                <apex:param value="{!ps}" name="setMaxRow"
+                                                    assignTo="{!maxRowsPerPage}"></apex:param>
+                                            </apex:commandLink>
+                                        </apex:repeat>
+                                </span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    </div>
+                </apex:outputPanel>
+
+
+<apex:outputPanel id="srachPan1">
+                    <div id="found1" class="hd1">
+            <span style="display: inline-block; margin-left: 10px; font-size: 8pt; font-weight: normal;">
+  <apex:outputText rendered="{!rowCount>=maxTOTRows}" value="{!$Label.Showing_first_x_Result}">
+       <apex:param value="{!rowCount}"/>
+    </apex:outputText>
+    
+      <apex:outputText rendered="{!rowCount<maxTOTRows}"  value="{!$Label.Found_x_results}" >
+       <apex:param value="{!rowCount}"/>
+    </apex:outputText>
+        </span>
+                    </div> 
+<script>
+DBsubQery="{!queryx1FROM}";
+queryCOunt1="{!remoteQuery1}";
+currPageCls=Number("{!currPage}");
+maxRowsPerPageCls=Number("{!maxRowsPerPage}");
+fileq="{!queryx1Main}";
+showEntries="{!IF(viewRowCount>0,TEXT(maxRowsPerPage*(currPage)+1)+'-'+TEXT(maxRowsPerPage*(currPage)+viewRowCount)+' ','')}";
+</script>
+
+                </apex:outputPanel>
+                
+                <apex:outputPanel id="massUpdate" rendered="{!isEditOL}">
+                <span id="massUpdateSVB" class="hd1"></span>
+                 <div id="massUpdate" style="position:absolute;z-index:3;width:500px;" class="hd1">
+                 <div id="massUpdatein1">
+                 <div style="width:500px;" class="ui-dialog ui-widget ui-widget-content ui-corner-all">
+   <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+      <span id="ui-dialog-title-dialog" class="ui-dialog-title">Mass Update</span>
+      <a class="ui-dialog-titlebar-close ui-corner-all" href="javascript:void(0);" onclick="closeMassupdate();" ><span class="ui-icon ui-icon-closethick">close</span></a>
+   </div>
+   <div  class="ui-dialog-content ui-widget-content" id="dialog">
+    <div id="massUpdatein" >
+                 <style>
+                 #massUpdate .mrk{background:#FFE5AD;} 
+                 </style>
+                
+                <table border="0" cellspacing="1" cellpadding="4" width="100%">
+                <thead>
+                                 <tr style="font-weight: bold;background:#d5d5d5;">
+                                 <td>
+                                 {!$Label.Update_header}
+                                 </td>
+                                 <td>
+                                 {!$Label.Field_header}
+                                 </td>
+                                 <td>
+                                 {!$Label.New_Value_header}
+                                 </td>
+                                 </tr>
+                                 </thead>
+                                 <tbody>
+                 <apex:repeat value="{!massUpdateFieldToUpdate}" var="t1">
+<tr class="{!t1.o}_RW1">
+<td>
+<apex:inputCheckbox value="{!t1.checked}" rendered="{!isEditOL}" styleClass="{!t1.o}_MU1 CBMU1" onclick="if($(this).is(':checked')){$('.{!t1.o}_RW1').addClass('mrk');}else{$('.{!t1.o}_RW1').removeClass('mrk');}"/>
+</td>
+<td>{!fieldsHeaders[t1.o]}</td>
+<td><apex:inputField value="{!massUpdateEmptyEl.o[t1.o]}" rendered="{!isEditOL}" onclick="$('.{!t1.o}_MU1').prop('checked','checked');$('.{!t1.o}_RW1').addClass('mrk');enhanceFuncInp(this,'{!t1.o}_RW1');" styleClass="iTb" required="false"/></td></tr>
+                                    
+                         
+                        </apex:repeat>
+                        </tbody>
+                </table>        
+                
+</div>
+<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+<div class="ui-dialog-buttonset">
+<apex:commandButton value="{!$Label.Preview_button}" onclick="btnMassUodate(false);return false;"/>
+<apex:commandButton value="{!$Label.Update_Selected_Items}" onclick="btnMassUodate(true);return false;"/>
+<apex:commandButton value="{!$Label.Cancel_mass_update}" onclick="closeMassupdate();return false;"/>
+
+</div></div>
+   </div>
+</div>
+                 </div>
+                 </div>
+                
+                 
+                 <script defer="defer" >
+                 var lastHeightBMU=null;
+                 var lastHeightBodyMU=null;
+                 function closeMassupdate(){
+                 if(allCheckedMassUpdate){cbAll($('input.lcbXAll').prop('checked','')[0]); allCheckedMassUpdate=false;}
+                 $('#massUpdate').hide();
+                 mucloseFix();
+                 fixIfmHegt();
+                 }
+                 function mucloseFix(){
+                 if(lastHeightBMU!=null){
+                    $(self).height(lastHeightBMU);
+                    $("html,body").height(lastHeightBodyMU);
+                    lastHeightBMU=null;
+                    lastHeightBodyMU=null;
+                 }
+                 }
+                 markCheckedRows={!markCheckedRows};
+                 isEditMode1={!isEditOL};
+                 </script>
+                </apex:outputPanel>
+                    <script>
+                    var allCheckedMassUpdate=false;
+                    function openMassUpdate(){
+                    
+                   if($(".lcbX input:checked").size()==0){
+                            cbAll($("input.lcbXAll").prop("checked","checked")[0]);
+                            allCheckedMassUpdate=true;
+                            /*if(confirm("No rows were selected, do you want to use them all?")){
+                                
+                            }else{
+                                return;
+                            }*/
+                        }
+                        
+                        //alert($( "#massUpdate" ).height());
+                        var massUpdateHeight=$( "#massUpdate" ).height()+50;
+                        if(massUpdateHeight<100){
+                            massUpdateHeight={!massUpdateFieldToUpdate.size}*26+200;
+                        }
+            
+                        //alert($(self).height()+" "+$(window).height()+" "+$( "#massUpdate" ).height()+ "+++"+massUpdateHeight);
+                        lastHeightBodyMU=$("html,body").height();
+                         if($("html,body").height()<massUpdateHeight){
+                              $("html,body").height(massUpdateHeight);
+                                        //fixIfmHegt();
+                         }
+                        
+                        if(massUpdateHeight>$(self).height()){
+                            lastHeightBMU=$(self).height();
+                            $(self).height(massUpdateHeight); 
+                            //fixIfmHegt();
+                        }
+
+                        var top1=$(self).scrollTop()+($(self).height()-massUpdateHeight)/2;
+                        if(top1<0){
+                            top1=25;
+                        }
+                        var left1=$(self).scrollLeft()+($(self).width()-$( "#massUpdate" ).width())/2;
+                        if(left1<0){
+                            left1=0;
+                        }
+                        $( "#massUpdate" ).css({top:top1+"px",left:left1+"px"});
+                        $( "#massUpdate" ).show();
+                        fixIfmHegt();
+                        
+
+                        // $( "#massUpdate")[0].scrollIntoView(true);
+                    $( "#massUpdate .dateFormat a" ).each(function(){
+                        if($(this).attr("href")!=null && $(this).attr("href").indexOf("DatePicker.")>=0){
+                        //  $(this).attr("onfocus","");
+                        //  $(this).css("width","auto");
+                        $(this).click(function(){
+                            $(this).parents("tr:first").find("input[type=text]").click();;//datepicker
+                            });
+                        }
+                    });
+                    
+                   
+                    }
+              
+
+function btnMassUodate(update){
+
+    if(!update || confirm("Are you sure you want to update "+$(".lcbX input:checked").length+" selected row(s)?")){
+        
+        loadingSH();
+        if(update){
+            massUpdateRowsNSave(update);
+        }else{
+            massUpdateRows(update);
+        }
+        mucloseFix();
+        $("#massUpdate").hide();
+    }
+    return true;
+}
+
+
+function searchChanged(milisWait){
+        isSearchFocus1=true;
+        searchTBX1(milisWait);
+}
+//alert("++{!includePageNameIframe}+++");
+    //if("{!includePageNameIframe}".indexOf("about")==-1){
+   // var curPage=(self.location+"").split(".")[1];
+    //alert(curPage+" "+"https://"+curPage+".salesforce.com{!includePageNameIframe}");
+    //$("#theIframe").attr("src","https://"+curPage+".salesforce.com{!includePageNameIframe}");
+
+function refershForParent(){
+loadingSH();
+    var prefix="/apex/";
+    var loc1=(self.location+"");
+    if(loc1.indexOf("/servlet/")>-1){
+        //prefix="/apex/"
+    }else if(loc1.indexOf("/apex/")>-1){
+        prefix="../apex/";
+    }else{
+        prefix="apex/";
+    }
+    //refersh();
+    if(loc1.indexOf("zaapit__")>-1){
+        prefix=prefix+"zaapit__";
+    }
+    var mainID="{!mainId}";
+    self.location=prefix+"{!UrlEnd1}?"+(mainID==""?"zba=1":"id="+mainID)+(isInIframe()?"&inline=1":"")+"{!sfdcTabNameParam}";
+}
+</script>
+            </apex:pageBlock>
+            
+            
+        </div>
+        <apex:actionFunction action="{!searchTB}" name="searchTB"
+            reRender="srachPan2,srachPan1,mainTB1" oncomplete="fixOnload();">
+            <apex:param name="searchSTR" assignTo="{!searchSTR}" value="" />
+        </apex:actionFunction>
+        
+        <apex:actionFunction action="{!searchTB}" name="filterColsX"
+            reRender="srachPan2,srachPan1,mainTB1" oncomplete="fixOnload();">
+        </apex:actionFunction>
+
+        <apex:actionFunction name="sortTB"  reRender="pgblck" oncomplete="fixOnload();"   action="{!sortOrder1}" >
+                 <apex:param value="" name="sortBy" assignTo="{!sortBy}"></apex:param>
+                 <apex:param value="" name="sortDir" assignTo="{!sortDir}"></apex:param>
+ </apex:actionFunction>
+ 
+<apex:actionFunction action="{!massUpdateRows}" name="massUpdateRows"
+            reRender="pgblck" oncomplete="fixOnload();">
+              <apex:param name="update" assignTo="{!massUpdateDoUpdate}" value="false" />
+        </apex:actionFunction>
+ <!-- try{if(refreshAfterSave!=null)refreshAfterSave();}catch(e){} -->
+ <apex:actionFunction action="{!massUpdateRows}" name="massUpdateRowsNSave"
+            reRender="pgblck" oncomplete="fixOnload();">
+              <apex:param name="update" assignTo="{!massUpdateDoUpdate}" value="false" />
+        </apex:actionFunction>
+           
+        <apex:actionFunction action="{!jumpTo}" name="jumpTo" immediate="true"
+            reRender="pgblck" oncomplete="fixOnload();">
+              <apex:param name="currPage" assignTo="{!currPage}" value=""></apex:param>
+            </apex:actionFunction>
+            
+            <apex:actionFunction action="{!refersh}" name="refersh"/>
+            
+            <div title="Customize View" id="customizeViewx1" class="hd1"></div>
+            
+    </apex:form>
+
+<form  method="post" target="export_to" id="export_to_form" >
+<input name="tp" value="{!confName}" id="tp1" type="hidden"/>
+<input name="type" value="" id="fileType" type="hidden"/>
+<input name="q" value="{!queryx1Main}" id="fileq" type="hidden"/>
+</form>
+
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(currConf.zaapit__Hide_Scroll_Buttons__c)}">
+<div id="graphsRusx" class="hd1"></div>
+<div id="mapRusx" class="hd1"></div>
+<div id="scrollCntrls1" class="hd1">
+<!-- 
+<div class="ui-widget-content ui-corner-all" style="margin-bottom:15px;">
+<div onclick="togglesGraphs1();" class="btn1 ui-state-default ui-corner-all" title="Show Dashboard"><span class="ui-icon ui-icon-image"></span></div>
+
+</div>
+ -->
+<apex:outputPanel rendered="{!NOT(currConf.zaapit__Hide_Scroll_Buttons__c)}">
+<div class="ui-widget-content ui-corner-all">
+   <div onclick="scrollTop1();" class="btn1 ui-state-default ui-corner-all"><span class="ui-icon ui-icon-circle-arrow-n"></span></div>
+   <div onclick="scrollBottom1();" class="btn1 ui-state-default ui-corner-all"><span class="ui-icon ui-icon-circle-arrow-s"></span></div>
+</div>
+   </apex:outputPanel>
+</div> 
+</apex:outputPanel>
+  
+  <script type='text/javascript' src='https://www.google.com/jsapi'>
+  </script>
+<script>
+google.load('visualization', '1.0', {'packages':['corechart','annotatedtimeline','geochart']});
+</script>
+<div id="textAreaEditDialog1" title="" class="hd1">
+<textarea id="textAreaEditDialog1TA" style="width:99%;height:360px;" onkeydown="var curlen=this.value.length;$('#currLen1').html(curlen);if(this.maxlength!=null && curlen+1>maxlength)return false;" >
+</textarea>
+<div style="color:#a5a5a5;text-align:right;margin-top:3px;"><span id="currLen1"></span><span id="maxLen1"></span></div>
+</div>
+</apex:component>

@@ -1,0 +1,25 @@
+<apex:page controller="CtrJQueryGantt" >
+<apex:includeScript value="{!URLFOR($Resource.jQueryGantt, 'mbielanczuk-jQuery.Gantt-6edaaab/js/jquery-1.7.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.jQueryGantt, 'mbielanczuk-jQuery.Gantt-6edaaab/js/jquery.fn.gantt.js')}" />
+<apex:stylesheet value="{!URLFOR($Resource.jQueryGantt, 'mbielanczuk-jQuery.Gantt-6edaaab/css/style.css')}"/>
+<script type="text/javascript">
+$(function() {
+    $(".gantt").gantt({
+       source: {!csSource},
+       //source:[{"name": "Opportunitie 1","desc": "Product 1","values": [{"id": "t111","from": "/Date(1357027200000)/","to": "/Date(1357718400000)/","label": "plan","customClass": "ganttRed"}]}],
+        months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        dow: ["日", "一", "二", "三", "四", "五", "六"],
+        navigate: "scroll",
+        scale: "days",
+        maxScale: "months",
+        minScale: "days",
+        itemsPerPage: 2
+    });
+});
+</script>
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Congratulations</h1>
+This is your new Page
+<div class="gantt"></div>
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

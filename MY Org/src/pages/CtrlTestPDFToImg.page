@@ -1,0 +1,73 @@
+<apex:page Controller="CtrlTestPDFToImg" docType="html-5.0">
+
+<apex:includeScript value="{!URLFOR($Resource.PDFJs)}" />
+<apex:includeScript value="{!URLFOR($Resource.PDFWorkerJs)}" />
+
+<script type="text/javascript">
+	var pdfResult = '{!pdfbase64}';
+	var blob = b64toBlob(pdfResult, 'application/pdf');
+	var blobUrl = URL.createObjectURL(blob);
+	var pdfData = window.atob(pdfResult);
+	var url = 'https://cdn.mozilla.net/pdfjs/helloworld.pdf';
+	function b64toBlob(b64Data, contentType, sliceSize) {
+	    contentType = contentType || '';
+	    sliceSize = sliceSize || 512;
+	
+	    var byteCharacters = window.atob(b64Data);
+	    var byteArrays = [];
+	
+	    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+	        var slice = byteCharacters.slice(offset, offset + sliceSize);
+	
+	        var byteNumbers = new Array(slice.length);
+	        for (var i = 0; i < slice.length; i++) {
+	            byteNumbers[i] = slice.charCodeAt(i);
+	        }
+	
+	        var byteArray = new Uint8Array(byteNumbers);
+	
+	        byteArrays.push(byteArray);
+	    }
+	
+	    var blob = new Blob(byteArrays, {type: contentType});
+	    return blob;
+	}
+	function gotoPDF(){
+		window.open(
+		  blobUrl,
+		  '_blank' 
+		);
+	}
+	function gotoImg(){
+		PDFJS.disableWorker = true;
+		PDFJS.getDocument(blobUrl).then(function getPdfHelloWorld(pdf) {//{data: pdfData}
+			console.log(pdf);
+           	pdf.getPage(1).then(function getPageHelloWorld(page) {
+           		var scale = 1.5;
+	             var viewport = page.getViewport(scale);
+
+	             var canvas = document.getElementById('the-canvas');
+	             var context = canvas.getContext('2d');
+	             canvas.height = viewport.height;
+	             canvas.width = viewport.width;
+	
+	             var task = page.render({canvasContext: context, viewport: viewport})
+	             task.promise.then(function(){
+	               console.log(canvas.toDataURL('image/jpeg'));
+	             });
+           	});
+		}, function(error){
+	           console.log(error);
+	         });
+	}
+</script>
+<div>
+	Name:  {!name}/{!conType}
+	<br/>
+	<a href="#" onclick="gotoPDF();">-->PDF</a>
+	<br/>
+	<a href="#" onclick="gotoImg();">-->Image</a>
+	<br/>
+	<canvas id="the-canvas" style="border:1px solid black"></canvas>
+</div>
+</apex:page>

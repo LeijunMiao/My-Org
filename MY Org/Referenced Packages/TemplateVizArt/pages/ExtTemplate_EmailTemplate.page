@@ -1,0 +1,37 @@
+<apex:page id="thePage" standardController="TemplateVizArt__Template__c"
+    extensions="TemplateVizArt.ExtEmailTemplate" showHeader="false" sideBar="false">
+    <apex:pageBlock id="theBlocK" mode="maindetail">
+        <apex:pageBlockSection title="{!$Label.templatevizart__Attachment_Task_Setup}">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template__c.fields.TemplateVizArt__Attachment_Id_Field__c.label}" />
+                <apex:outputText value="{!AttachmentIdFieldLabel}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template__c.fields.TemplateVizArt__Task_Id_Field__c.label}" />
+                <apex:outputText value="{!TaskNameFieldLabel}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template__c.fields.TemplateVizArt__Attachment_Name_Field__c.label}" />
+                <apex:outputText value="{!AttachmentNameFieldLabel}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template__c.fields.TemplateVizArt__Task_Related_To_Field__c.label}" />
+                <apex:outputText value="{!TaskRelatedToFieldLabel}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template__c.fields.TemplateVizArt__Name_Field__c.label}" />
+                <apex:outputText value="{!RootNameFieldLabel}" />
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="{!$Label.templatevizart__EmailSetup}">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.TemplateVizArt__Template__c.fields.TemplateVizArt__Email_Template__c.label}"
+                    for="emailTemplateName" />
+                <apex:outputLink value="/{!TemplateVizArt__Template__c.TemplateVizArt__Email_Template__c}"
+                    id="emailTemplateName" target="_blank">{!EmailTemplateName}</apex:outputLink>
+            </apex:pageBlockSectionItem>
+            <apex:outputField value="{!TemplateVizArt__Template__c.TemplateVizArt__Email_Attachment_Name__c}" />
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+</apex:page>
